@@ -5,201 +5,95 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="mobile-web-app-capable" content="yes">
-<title>Quiz Cinéma Français — Mariage</title>
+<title>Quiz Cinéma — Mariage S&S</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
-
-:root {
-  --gold:    #C9A96E;
-  --gold-lt: #E8D5B0;
-  --ivory:   #FAF6EF;
-  --ivory-2: #F0EAE0;
-  --ink:     #1A1410;
-  --muted:   #8A7A6A;
-  --card:    #FFFFFF;
-  --border:  #E0D8CC;
-  --correct: #4A7C59;
-  --correct-lt:#EEF7F2;
-  --wrong:   #8B3A3A;
-  --wrong-lt:#FBF0F0;
-  --a:       #2563A8;
-  --a-lt:    #EEF4FC;
-  --a-bd:    #AACCE8;
-  --b:       #8B3A3A;
-  --b-lt:    #FBF0F0;
-  --b-bd:    #E8AAAA;
+:root{
+  --gold:#C9A96E;--gold-lt:#E8D5B0;--ivory:#FAF6EF;--ivory-2:#F0EAE0;
+  --ink:#1A1410;--muted:#8A7A6A;--border:#E0D8CC;
+  --correct:#4A7C59;--correct-lt:#EEF7F2;
+  --wrong:#8B3A3A;--wrong-lt:#FBF0F0;
+  --a:#2563A8;--a-lt:#EEF4FC;--a-bd:#AACCE8;
+  --b:#8B3A3A;--b-lt:#FBF0F0;--b-bd:#E8AAAA;
 }
-
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;min-height:100vh;background:var(--ivory);color:var(--ink);font-family:'DM Sans',sans-serif;}
-
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse at 10% 10%,rgba(201,169,110,.12) 0%,transparent 50%),
-    radial-gradient(ellipse at 90% 90%,rgba(201,169,110,.09) 0%,transparent 50%);
-}
-
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 10% 10%,rgba(201,169,110,.12) 0%,transparent 50%),
+             radial-gradient(ellipse at 90% 90%,rgba(201,169,110,.09) 0%,transparent 50%);}
 .app{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;}
 
-/* ══ ACCUEIL ══ */
-#screenHome{
-  flex:1;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:2rem 1.5rem;text-align:center;min-height:100vh;
-}
+/* ACCUEIL */
+#screenHome{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;text-align:center;min-height:100vh;}
 .clap{font-size:4rem;margin-bottom:.8rem;animation:float 3s ease-in-out infinite;}
 @keyframes float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(2deg)}}
-
 .home-title{font-family:'Playfair Display',serif;font-size:clamp(3.5rem,11vw,6rem);font-weight:700;line-height:1;color:var(--ink);margin-bottom:.4rem;}
 .home-title em{font-style:italic;color:var(--gold);}
-.home-wedding{
-  font-family:'Playfair Display',serif;font-style:italic;
-  font-size:clamp(2rem,6vw,3.2rem);color:var(--gold);
-  margin-bottom:.7rem;letter-spacing:.04em;font-weight:700;
-}
+.home-wedding{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(2rem,6vw,3.2rem);color:var(--gold);margin-bottom:.7rem;letter-spacing:.04em;font-weight:700;}
 .home-sub{font-size:1rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;}
 .home-flag{font-size:1.1rem;letter-spacing:.2em;margin-bottom:2rem;opacity:.7;}
-
 .divider{display:flex;align-items:center;gap:.8rem;margin:0 auto 1.8rem;max-width:300px;width:100%;}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--gold-lt);}
 .divider span{color:var(--gold);}
-
 .teams-home{display:grid;grid-template-columns:1fr 1fr;gap:1rem;width:100%;max-width:480px;margin-bottom:1.4rem;}
 .tf{display:flex;flex-direction:column;gap:.4rem;}
 .tf label{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;}
-.lbl-a{color:var(--a);}
-.lbl-b{color:var(--b);}
-.tf input{
-  background:white;border:1.5px solid var(--border);border-radius:8px;
-  padding:.65rem 1rem;font-family:'DM Sans',sans-serif;font-size:.95rem;color:var(--ink);
-  outline:none;transition:border-color .2s;
-}
+.lbl-a{color:var(--a);}.lbl-b{color:var(--b);}
+.tf input{background:white;border:1.5px solid var(--border);border-radius:8px;padding:.65rem 1rem;font-family:'DM Sans',sans-serif;font-size:.95rem;color:var(--ink);outline:none;transition:border-color .2s;}
 .tf input:focus{border-color:var(--gold);}
-
-.rules-box{
-  background:white;border:1px solid var(--border);border-radius:12px;
-  padding:.9rem 1.3rem;font-size:.82rem;color:var(--muted);line-height:1.9;
-  max-width:420px;text-align:left;margin-bottom:1.8rem;
-}
+.rules-box{background:white;border:1px solid var(--border);border-radius:12px;padding:.9rem 1.3rem;font-size:.82rem;color:var(--muted);line-height:1.9;max-width:420px;text-align:left;margin-bottom:1.8rem;}
 .rules-box strong{color:var(--ink);}
+.btn-launch{padding:1rem 3rem;background:var(--gold);color:white;border:none;border-radius:12px;font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(201,169,110,.35);transition:transform .15s,box-shadow .15s;margin-bottom:.8rem;}
+.btn-launch:hover{transform:scale(1.04);}
+.btn-fullscreen{padding:.55rem 1.4rem;background:transparent;color:var(--muted);border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.82rem;cursor:pointer;transition:border-color .2s,color .2s;}
+.btn-fullscreen:hover{border-color:var(--gold);color:var(--gold);}
 
-.btn-launch{
-  padding:1rem 3rem;background:var(--gold);color:white;
-  border:none;border-radius:12px;
-  font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;
-  cursor:pointer;box-shadow:0 4px 20px rgba(201,169,110,.35);
-  transition:transform .15s,box-shadow .15s;
-}
-.btn-launch:hover{transform:scale(1.04);box-shadow:0 6px 28px rgba(201,169,110,.5);}
-
-/* ══ JEU ══ */
-#screenGame{display:none;flex-direction:column;min-height:100vh;padding:1.2rem 1.2rem 1rem;gap:.75rem;}
-
-/* Scores */
+/* JEU */
+#screenGame{display:none;flex-direction:column;min-height:100vh;padding:1rem 1rem .8rem;gap:.6rem;}
 .scoreboard{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:.5rem;}
-.score-block{
-  display:flex;flex-direction:column;align-items:center;
-  padding:.6rem .8rem;border-radius:12px;
-  border:2px solid var(--border);background:white;
-  transition:border-color .3s,background .3s,transform .2s;
-}
+.score-block{display:flex;flex-direction:column;align-items:center;padding:.6rem .8rem;border-radius:12px;border:2px solid var(--border);background:white;transition:border-color .3s,background .3s;}
 .score-block.active-a{border-color:var(--a);background:var(--a-lt);}
 .score-block.active-b{border-color:var(--b);background:var(--b-lt);}
 .score-name{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.1rem;}
-.score-name.a{color:var(--a);}
-.score-name.b{color:var(--b);}
+.score-name.a{color:var(--a);}.score-name.b{color:var(--b);}
 .score-pts{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;line-height:1;}
-.score-pts.a{color:var(--a);}
-.score-pts.b{color:var(--b);}
-
-/* Chrono */
+.score-pts.a{color:var(--a);}.score-pts.b{color:var(--b);}
+@keyframes scorePop{0%{transform:scale(1)}30%{transform:scale(1.5)}60%{transform:scale(.9)}100%{transform:scale(1)}}
+.score-pop{animation:scorePop .5s cubic-bezier(.34,1.56,.64,1);}
 .chrono-wrap{display:flex;flex-direction:column;align-items:center;gap:.3rem;}
 .chrono-ring{position:relative;width:70px;height:70px;}
 .chrono-ring svg{transform:rotate(-90deg);width:70px;height:70px;}
 .c-track{fill:none;stroke:var(--gold-lt);stroke-width:5;}
 .c-arc{fill:none;stroke:var(--gold);stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset .9s linear,stroke .3s;}
 .c-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--ink);}
-.c-num.urgent{color:var(--wrong);}
-.c-arc.urgent{stroke:var(--wrong);}
+.c-num.urgent{color:var(--wrong);}.c-arc.urgent{stroke:var(--wrong);}
 .turn-badge{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .8rem;border-radius:2rem;border:1.5px solid transparent;}
 .turn-badge.a{color:var(--a);background:var(--a-lt);border-color:var(--a-bd);}
 .turn-badge.b{color:var(--b);background:var(--b-lt);border-color:var(--b-bd);}
-
-/* Progress */
 .prog-wrap{display:flex;align-items:center;gap:.8rem;}
 .prog-bar{flex:1;height:4px;background:var(--gold-lt);border-radius:2px;overflow:hidden;}
 .prog-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s;}
 .prog-lbl{font-size:.75rem;color:var(--muted);white-space:nowrap;}
-
-/* Carte réplique */
-.q-card{
-  background:white;border:1px solid var(--border);border-radius:16px;
-  padding:1.5rem 1.6rem 1.2rem;
-  box-shadow:0 2px 16px rgba(26,20,16,.06);animation:cardIn .35s ease;
-}
+.q-card{background:white;border:1px solid var(--border);border-radius:16px;padding:1.4rem 1.5rem 1.1rem;box-shadow:0 2px 16px rgba(26,20,16,.06);animation:cardIn .35s ease;}
 @keyframes cardIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.q-meta{display:flex;align-items:center;gap:.7rem;margin-bottom:.5rem;}
+.q-meta{display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;flex-wrap:wrap;}
 .q-num{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);}
 .q-year{font-size:.7rem;color:var(--muted);font-style:italic;}
-.replique{
-  font-family:'Playfair Display',serif;font-style:italic;
-  font-size:clamp(1.05rem,2.6vw,1.4rem);line-height:1.6;color:var(--ink);
-  border-left:3px solid var(--gold);padding-left:1rem;
-}
-
-/* ══ OPTIONS CLIQUABLES ══ */
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;}
-
-.opt{
-  background:white;border:2px solid var(--border);border-radius:12px;
-  padding:.85rem 1rem;display:flex;align-items:center;gap:.65rem;
-  font-size:.9rem;color:var(--ink);
-  cursor:pointer; /* cliquable ! */
-  transition:border-color .2s,background .2s,transform .12s,box-shadow .15s;
-  animation:optIn .3s ease both;
-  user-select:none;
-}
-.opt:nth-child(1){animation-delay:.04s}
-.opt:nth-child(2){animation-delay:.09s}
-.opt:nth-child(3){animation-delay:.13s}
-.opt:nth-child(4){animation-delay:.18s}
+.bonus-badge{background:var(--gold);color:white;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .5rem;border-radius:2rem;}
+.tiebreak-badge{background:var(--wrong);color:white;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .5rem;border-radius:2rem;}
+.replique{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.05rem,2.6vw,1.4rem);line-height:1.6;color:var(--ink);border-left:3px solid var(--gold);padding-left:1rem;}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;}
+.opt{background:white;border:2px solid var(--border);border-radius:12px;padding:.8rem .9rem;display:flex;align-items:center;gap:.6rem;font-size:.88rem;color:var(--ink);cursor:pointer;transition:border-color .2s,background .2s,transform .1s;animation:optIn .3s ease both;user-select:none;}
+.opt:nth-child(1){animation-delay:.04s}.opt:nth-child(2){animation-delay:.08s}.opt:nth-child(3){animation-delay:.12s}.opt:nth-child(4){animation-delay:.16s}
 @keyframes optIn{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}}
-
-/* Hover sur les options */
-.opt:not(.correct):not(.wrong):not(.timeout):not(.disabled):hover{
-  border-color:var(--gold);
-  background:#FFFBF4;
-  transform:translateX(3px);
-  box-shadow:0 2px 12px rgba(201,169,110,.2);
-}
-
-.opt-l{
-  width:28px;height:28px;border-radius:50%;
-  background:var(--ivory-2);border:1.5px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.74rem;font-weight:600;color:var(--muted);flex-shrink:0;
-  transition:background .2s,border-color .2s,color .2s;
-}
-
-/* Correct = bonne réponse */
+.opt:not(.correct):not(.wrong):not(.timeout):not(.disabled):hover{border-color:var(--gold);background:#FFFBF4;transform:translateX(3px);}
+.opt-l{width:26px;height:26px;border-radius:50%;background:var(--ivory-2);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:600;color:var(--muted);flex-shrink:0;transition:background .2s,border-color .2s,color .2s;}
 .opt.correct{border-color:var(--correct);background:var(--correct-lt);}
 .opt.correct .opt-l{background:var(--correct);border-color:var(--correct);color:white;}
-.opt.correct{animation:pulse-ok .45s ease;}
-@keyframes pulse-ok{0%{transform:scale(1)}40%{transform:scale(1.03)}100%{transform:scale(1)}}
-
-/* Mauvaise réponse */
 .opt.wrong{border-color:var(--wrong);background:var(--wrong-lt);opacity:.65;}
 .opt.wrong .opt-l{background:var(--wrong);border-color:var(--wrong);color:white;}
-
-/* Timeout (non cliqué) */
 .opt.timeout{border-color:var(--border);background:var(--ivory-2);opacity:.5;}
-
-/* Désactivé après un clic */
 .opt.disabled{cursor:default;pointer-events:none;}
-
-/* Feedback */
 .feedback{padding:.7rem .9rem;border-radius:8px;font-size:.84rem;line-height:1.5;display:none;}
 .feedback.show{display:block;animation:fadeIn .3s ease;}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -207,17 +101,20 @@ body::before{
 .feedback.ko{background:var(--wrong-lt);color:var(--wrong);border:1px solid #E8C8C8;}
 .feedback.to{background:var(--ivory-2);color:var(--muted);border:1px solid var(--border);}
 
-/* Panneau DJ simplifié */
-.dj-panel{
-  background:white;border:1px solid var(--border);border-radius:12px;
-  padding:.65rem .9rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;
-}
+/* JOKERS */
+.jokers-panel{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;background:white;border:1px solid var(--border);border-radius:12px;padding:.55rem .8rem;}
+.joker-ttl{font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-right:.1rem;}
+.btn-joker{padding:.38rem .7rem;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:600;cursor:pointer;transition:transform .1s,opacity .2s;display:flex;align-items:center;gap:.25rem;}
+.btn-joker:disabled{opacity:.28;cursor:default;pointer-events:none;}
+.btn-joker:hover:not(:disabled){transform:scale(1.06);}
+.btn-hint{background:#FFF8E8;color:#A07020;border:1.5px solid #E8C87A;}
+.btn-call{background:var(--a-lt);color:var(--a);border:1.5px solid var(--a-bd);}
+.joker-cnt{font-size:.65rem;font-weight:700;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.1);}
+
+/* DJ PANEL */
+.dj-panel{background:white;border:1px solid var(--border);border-radius:12px;padding:.6rem .8rem;display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;}
 .dj-lbl{font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-right:.1rem;}
-.btn-dj{
-  padding:.42rem .8rem;border:none;border-radius:8px;
-  font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:600;
-  cursor:pointer;transition:transform .1s,opacity .15s;
-}
+.btn-dj{padding:.4rem .75rem;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;transition:transform .1s,opacity .15s;}
 .btn-dj:hover:not(:disabled){transform:scale(1.05);}
 .btn-dj:disabled{opacity:.3;cursor:default;}
 .btn-rma{background:var(--a-lt);color:var(--a);border:1.5px solid var(--a-bd);}
@@ -226,202 +123,57 @@ body::before{
 .btn-nextq{background:var(--ink);color:white;margin-left:auto;}
 .btn-nextq.final{background:var(--gold);}
 
-/* Overlay révélation */
-.reveal-overlay{
-  position:fixed;inset:0;z-index:100;
-  background:rgba(26,20,16,.55);
-  display:none;align-items:center;justify-content:center;
-  cursor:pointer;animation:fadeIn .25s ease;
-}
-.reveal-overlay.show{display:flex;}
-.reveal-box{
-  background:white;border:2px solid var(--correct);border-radius:20px;
-  padding:2.5rem 3rem;text-align:center;max-width:560px;width:92%;
-  box-shadow:0 8px 40px rgba(0,0,0,.12);
-  animation:popIn .35s cubic-bezier(.34,1.56,.64,1);cursor:default;
-}
+/* OVERLAYS */
+.overlay{position:fixed;inset:0;z-index:100;background:rgba(26,20,16,.55);display:none;align-items:center;justify-content:center;animation:fadeIn .2s ease;}
+.overlay.show{display:flex;}
+.overlay-box{background:white;border-radius:18px;padding:2rem 2.2rem;text-align:center;max-width:480px;width:90%;box-shadow:0 8px 40px rgba(0,0,0,.14);animation:popIn .3s cubic-bezier(.34,1.56,.64,1);}
 @keyframes popIn{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:scale(1)}}
-.rev-lbl{font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--correct);margin-bottom:.5rem;}
-.rev-film{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(1.8rem,5vw,3rem);line-height:1.1;color:var(--ink);margin-bottom:.3rem;}
-.rev-year{font-size:.85rem;color:var(--muted);font-style:italic;}
-.rev-tap{margin-top:1.1rem;font-size:.65rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;}
+.ov-icon{font-size:2.2rem;margin-bottom:.5rem;}
+.ov-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--ink);margin-bottom:.5rem;}
+.ov-content{font-size:.95rem;color:var(--gold);font-weight:600;margin-bottom:1.3rem;line-height:1.5;}
+.ov-film{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(1.6rem,4vw,2.6rem);line-height:1.1;color:var(--ink);margin-bottom:.3rem;}
+.ov-year{font-size:.85rem;color:var(--muted);font-style:italic;}
+.ov-lbl{font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.5rem;}
+.ov-tap{margin-top:1rem;font-size:.65rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;}
+.ov-msg{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:1.4rem;line-height:1.4;}
+.ov-btns{display:flex;gap:.7rem;justify-content:center;}
+.btn-ov-no{padding:.65rem 1.6rem;border-radius:10px;background:var(--ivory-2);color:var(--muted);border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;}
+.btn-ov-yes{padding:.65rem 1.6rem;border-radius:10px;background:var(--wrong);color:white;border:none;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;}
+.btn-ov-close{padding:.65rem 1.8rem;background:var(--gold);color:white;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;}
 
-/* ══ RÉSULTAT ══ */
-#screenResult{
-  display:none;flex-direction:column;align-items:center;justify-content:center;
-  min-height:100vh;padding:2rem 1.5rem;text-align:center;
-}
+/* RÉSULTAT */
+#screenResult{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem 1.5rem;text-align:center;}
 .res-crown{font-size:4rem;margin-bottom:.5rem;}
 .res-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,7vw,3.5rem);font-weight:700;color:var(--ink);margin-bottom:.3rem;}
 .res-title em{color:var(--gold);font-style:italic;}
 .res-sub{font-size:.88rem;color:var(--muted);margin-bottom:1.8rem;line-height:1.6;max-width:420px;}
-
 .res-scores{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.8rem;width:100%;max-width:460px;}
 .r-team{background:white;border:2px solid var(--border);border-radius:14px;padding:1.2rem;display:flex;flex-direction:column;align-items:center;gap:.3rem;}
-.r-team.a{border-color:var(--a);}
-.r-team.b{border-color:var(--b);}
+.r-team.a{border-color:var(--a);}.r-team.b{border-color:var(--b);}
 .r-team.winner{transform:scale(1.05);box-shadow:0 4px 24px rgba(201,169,110,.25);border-color:var(--gold);}
 .r-name{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;}
-.r-name.a{color:var(--a);}
-.r-name.b{color:var(--b);}
+.r-name.a{color:var(--a);}.r-name.b{color:var(--b);}
 .r-pts{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700;line-height:1;}
-.r-pts.a{color:var(--a);}
-.r-pts.b{color:var(--b);}
-.r-pts.winner-gold{color:var(--gold);}
+.r-pts.a{color:var(--a);}.r-pts.b{color:var(--b);}.r-pts.win{color:var(--gold);}
 .r-sub{font-size:.72rem;color:var(--muted);}
-
 .res-btns{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem;}
 .btn-res{padding:.82rem 1.8rem;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;border:none;transition:transform .1s;}
 .btn-res:hover{transform:scale(1.04);}
 .btn-res-home{background:var(--ivory-2);color:var(--ink);border:1.5px solid var(--border);}
 .btn-res-replay{background:var(--gold);color:white;}
-
 .recap-wrap{width:100%;max-width:680px;text-align:left;}
 .recap-ttl{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:.8rem;}
 .ri{display:flex;gap:.6rem;align-items:flex-start;padding:.5rem 0;border-bottom:1px solid var(--gold-lt);font-size:.78rem;}
 .ri-dot{width:8px;height:8px;border-radius:50%;margin-top:4px;flex-shrink:0;}
-.ri-dot.ok{background:var(--correct);}
-.ri-dot.ko{background:var(--wrong);}
-.ri-dot.to{background:var(--muted);}
+.ri-dot.ok{background:var(--correct);}.ri-dot.ko{background:var(--wrong);}.ri-dot.to{background:var(--muted);}
 .ri-who{font-size:.68rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.1rem;}
-.ri-who.a{color:var(--a);}
-.ri-who.b{color:var(--b);}
+.ri-who.a{color:var(--a);}.ri-who.b{color:var(--b);}
 .ri-film{color:var(--muted);font-style:italic;}
-.ri-yr{color:#BBB;font-size:.7rem;}
 
-@media(max-width:520px){
-  .opts{grid-template-columns:1fr;}
-  .r-pts{font-size:2.8rem;}
-}
+/* CONFETTI */
+#confettiCanvas{position:fixed;inset:0;z-index:300;pointer-events:none;}
 
-/* Overlay confirmation */
-.confirm-overlay{
-  position:fixed;inset:0;z-index:200;
-  background:rgba(26,20,16,.6);
-  display:none;align-items:center;justify-content:center;
-  animation:fadeIn .2s ease;
-}
-.confirm-overlay.show{display:flex;}
-.confirm-box{
-  background:white;border:1px solid var(--border);
-  border-radius:16px;padding:2rem 2rem 1.5rem;
-  text-align:center;max-width:320px;width:88%;
-  box-shadow:0 8px 32px rgba(0,0,0,.15);
-  animation:popIn .3s cubic-bezier(.34,1.56,.64,1);
-}
-.confirm-msg{
-  font-family:'Playfair Display',serif;
-  font-size:1.1rem;font-weight:700;
-  color:var(--ink);margin-bottom:1.5rem;line-height:1.4;
-}
-.confirm-btns{display:flex;gap:.8rem;justify-content:center;}
-.btn-confirm-no{
-  padding:.7rem 1.8rem;border-radius:10px;
-  background:var(--ivory-2);color:var(--muted);
-  border:1.5px solid var(--border);
-  font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;
-  cursor:pointer;transition:transform .1s;
-}
-.btn-confirm-yes{
-  padding:.7rem 1.8rem;border-radius:10px;
-  background:var(--wrong);color:white;
-  border:none;
-  font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;
-  cursor:pointer;transition:transform .1s;
-}
-.btn-confirm-no:hover,.btn-confirm-yes:hover{transform:scale(1.04);}
-
-/* Plein écran */
-.btn-fullscreen{
-  margin-top:.8rem;
-  padding:.55rem 1.4rem;
-  background:transparent;
-  color:var(--muted);
-  border:1.5px solid var(--border);
-  border-radius:8px;
-  font-family:'DM Sans',sans-serif;
-  font-size:.82rem;font-weight:500;
-  cursor:pointer;letter-spacing:.05em;
-  transition:border-color .2s,color .2s;
-}
-.btn-fullscreen:hover{border-color:var(--gold);color:var(--gold);}
-
-/* ── JOKERS ── */
-.jokers-panel{
-  display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;
-  background:white;border:1px solid var(--border);border-radius:12px;
-  padding:.6rem .9rem;
-}
-.joker-ttl{font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-right:.2rem;}
-.btn-joker{
-  padding:.38rem .75rem;border:none;border-radius:8px;
-  font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:600;
-  cursor:pointer;transition:transform .1s,opacity .2s;
-  display:flex;align-items:center;gap:.3rem;
-}
-.btn-joker:disabled{opacity:.28;cursor:default;pointer-events:none;}
-.btn-joker:hover:not(:disabled){transform:scale(1.06);}
-.btn-hint-a{background:#FFF8E8;color:#A07020;border:1.5px solid #E8C87A;}
-.btn-hint-b{background:#FFF8E8;color:#A07020;border:1.5px solid #E8C87A;}
-.btn-call-a{background:var(--a-lt);color:var(--a);border:1.5px solid var(--a-bd);}
-.btn-call-b{background:var(--b-lt);color:var(--b);border:1.5px solid var(--b-bd);}
-.joker-count{font-size:.65rem;font-weight:700;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.08);}
-
-/* ── BONUS badge ── */
-.bonus-badge{
-  display:inline-block;
-  background:var(--gold);color:white;
-  font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  padding:.18rem .6rem;border-radius:2rem;margin-left:.5rem;
-  vertical-align:middle;
-}
-.tiebreak-badge{
-  display:inline-block;
-  background:#8B3A3A;color:white;
-  font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  padding:.18rem .6rem;border-radius:2rem;margin-left:.5rem;
-  vertical-align:middle;
-}
-
-/* ── OVERLAY indice / appel ── */
-.hint-overlay{
-  position:fixed;inset:0;z-index:150;
-  background:rgba(26,20,16,.55);
-  display:none;align-items:center;justify-content:center;
-  animation:fadeIn .2s ease;
-}
-.hint-overlay.show{display:flex;}
-.hint-box{
-  background:white;border:2px solid var(--gold);
-  border-radius:16px;padding:1.8rem 2rem;
-  text-align:center;max-width:400px;width:88%;
-  box-shadow:0 8px 32px rgba(0,0,0,.12);
-  animation:popIn .3s cubic-bezier(.34,1.56,.64,1);
-}
-.hint-icon{font-size:2rem;margin-bottom:.5rem;}
-.hint-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:.5rem;}
-.hint-content{font-size:1rem;color:var(--gold);font-weight:600;margin-bottom:1.2rem;line-height:1.5;}
-.btn-hint-close{
-  padding:.65rem 1.8rem;background:var(--gold);color:white;
-  border:none;border-radius:8px;
-  font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;
-  cursor:pointer;
-}
-
-/* ── ANIMATION SCORE ── */
-@keyframes scorePop{
-  0%  {transform:scale(1)}
-  30% {transform:scale(1.45)}
-  60% {transform:scale(0.92)}
-  100%{transform:scale(1)}
-}
-.score-pop { animation: scorePop .5s cubic-bezier(.34,1.56,.64,1); }
-
-/* ── CONFETTIS ── */
-.confetti-canvas{
-  position:fixed;inset:0;z-index:300;
-  pointer-events:none;
-}
+@media(max-width:520px){.opts{grid-template-columns:1fr;}.r-pts{font-size:2.8rem;}}
 </style>
 </head>
 <body>
@@ -435,100 +187,70 @@ body::before{
   <div class="home-sub">Répliques cultes · 1970–2000</div>
   <div class="home-flag">🇫🇷 · · · 🇫🇷</div>
   <div class="divider"><span>✦</span></div>
-
   <div class="teams-home">
-    <div class="tf">
-      <label class="lbl-a">⬤ Équipe A</label>
-      <input id="nameA" type="text" value="Équipe A" maxlength="18">
-    </div>
-    <div class="tf">
-      <label class="lbl-b">⬤ Équipe B</label>
-      <input id="nameB" type="text" value="Équipe B" maxlength="18">
-    </div>
+    <div class="tf"><label class="lbl-a">⬤ Équipe A</label><input id="nameA" type="text" value="Équipe A" maxlength="18"></div>
+    <div class="tf"><label class="lbl-b">⬤ Équipe B</label><input id="nameB" type="text" value="Équipe B" maxlength="18"></div>
   </div>
-
   <div class="rules-box">
-    🎙 <strong>Le DJ clique sur la réponse donnée par l'équipe</strong><br>
-    🎬 <strong>40 répliques</strong> du cinéma français — 20 par équipe<br>
-    ⏱ <strong>15 secondes</strong> par réplique · pas de pénalité si temps écoulé<br>
-    ✅ Le point est attribué <strong>automatiquement</strong> à l'équipe dont c'est le tour
+    🎙 <strong>Le DJ clique sur la réponse de l'équipe</strong><br>
+    🎬 <strong>40 répliques</strong> — 20 par équipe + questions bonus<br>
+    ⏱ <strong>15 secondes</strong> · pas de pénalité si temps écoulé<br>
+    🃏 <strong>3 indices</strong> + <strong>2 appels</strong> par équipe<br>
+    ✅ Points attribués <strong>automatiquement</strong>
   </div>
-
   <button class="btn-launch" onclick="startGame()">▶ Lancer le quiz !</button>
   <button class="btn-fullscreen" id="btnFS" onclick="toggleFullscreen()">⛶ Plein écran</button>
 </div>
 
 <!-- JEU -->
 <div id="screenGame">
-
   <div class="scoreboard">
     <div class="score-block" id="sbA">
       <div class="score-name a" id="snA">Équipe A</div>
       <div class="score-pts a" id="spA">0</div>
     </div>
-
     <div class="chrono-wrap">
       <div class="chrono-ring">
         <svg viewBox="0 0 70 70">
           <circle class="c-track" cx="35" cy="35" r="30"/>
-          <circle class="c-arc" id="cArc" cx="35" cy="35" r="30"
-            stroke-dasharray="188.5" stroke-dashoffset="0"/>
+          <circle class="c-arc" id="cArc" cx="35" cy="35" r="30" stroke-dasharray="188.5" stroke-dashoffset="0"/>
         </svg>
         <div class="c-num" id="cNum">15</div>
       </div>
       <div class="turn-badge a" id="turnBadge">Tour A</div>
     </div>
-
     <div class="score-block" id="sbB">
       <div class="score-name b" id="snB">Équipe B</div>
       <div class="score-pts b" id="spB">0</div>
     </div>
   </div>
-
   <div class="prog-wrap">
     <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
     <span class="prog-lbl" id="progLbl">1 / 40</span>
   </div>
-
   <div class="q-card" id="qCard">
     <div class="q-meta">
       <span class="q-num" id="qNum">Question 1</span>
       <span class="q-year" id="qYear">Film de 1980</span>
+      <span id="qBadge"></span>
     </div>
     <div class="replique" id="qText"></div>
   </div>
-
-  <!-- Options cliquables par le DJ -->
   <div class="opts" id="optsGrid"></div>
-
   <div class="feedback" id="feedback"></div>
-
-  <!-- Jokers -->
   <div class="jokers-panel">
-    <span class="joker-ttl">🃏 Jokers</span>
-    <button class="btn-joker btn-hint-a" id="hintA" onclick="useHint(0)">💡 Indice <span class="joker-count" id="hintCntA">3</span></button>
-    <button class="btn-joker btn-hint-b" id="hintB" onclick="useHint(1)">💡 Indice <span class="joker-count" id="hintCntB">3</span></button>
-    <button class="btn-joker btn-call-a" id="callA" onclick="useCall(0)">📞 Appel <span class="joker-count" id="callCntA">2</span></button>
-    <button class="btn-joker btn-call-b" id="callB" onclick="useCall(1)">📞 Appel <span class="joker-count" id="callCntB">2</span></button>
+    <span class="joker-ttl">🃏</span>
+    <button class="btn-joker btn-hint" id="hintA" onclick="useHint(0)">💡 <span id="djnA">A</span> <span class="joker-cnt" id="hCntA">3</span></button>
+    <button class="btn-joker btn-hint" id="hintB" onclick="useHint(1)">💡 <span id="djnB">B</span> <span class="joker-cnt" id="hCntB">3</span></button>
+    <button class="btn-joker btn-call" id="callA" onclick="useCall(0)">📞 <span id="djnA2">A</span> <span class="joker-cnt" id="cCntA">2</span></button>
+    <button class="btn-joker btn-call" id="callB" onclick="useCall(1)">📞 <span id="djnB2">B</span> <span class="joker-cnt" id="cCntB">2</span></button>
   </div>
-
   <div class="dj-panel">
     <span class="dj-lbl">🎙 DJ</span>
-    <button class="btn-dj btn-rma" onclick="removePoint(0)">−1 <span id="djRmA">A</span></button>
-    <button class="btn-dj btn-rmb" onclick="removePoint(1)">−1 <span id="djRmB">B</span></button>
-    <button class="btn-dj btn-home-sm" onclick="confirmGoHome()">🏠</button>
-    <button class="btn-dj btn-nextq" id="btnNext" onclick="nextQuestion()" disabled>Suivant →</button>
-  </div>
-
-</div>
-
-<!-- OVERLAY RÉPONSE -->
-<div class="reveal-overlay" id="revOverlay" onclick="closeReveal()">
-  <div class="reveal-box" onclick="event.stopPropagation()">
-    <div class="rev-lbl" id="revLbl">✓ Bonne réponse</div>
-    <div class="rev-film" id="revFilm">—</div>
-    <div class="rev-year" id="revYear">—</div>
-    <div class="rev-tap">Tap pour continuer</div>
+    <button class="btn-dj btn-rma" onclick="askRemove(0)">−1 <span id="rmA">A</span></button>
+    <button class="btn-dj btn-rmb" onclick="askRemove(1)">−1 <span id="rmB">B</span></button>
+    <button class="btn-dj btn-home-sm" onclick="askHome()">🏠</button>
+    <button class="btn-dj btn-nextq" id="btnNext" onclick="nextQ()" disabled>Suivant →</button>
   </div>
 </div>
 
@@ -536,934 +258,614 @@ body::before{
 <div id="screenResult">
   <div class="res-crown" id="resCrown">🏆</div>
   <div class="res-title" id="resTitle">Résultats</div>
-  <div class="res-sub"   id="resSub"></div>
-
+  <div class="res-sub" id="resSub"></div>
   <div class="res-scores">
-    <div class="r-team a" id="rtA">
-      <div class="r-name a" id="rnA">Équipe A</div>
-      <div class="r-pts a"  id="rpA">0</div>
-      <div class="r-sub">points / 20</div>
-    </div>
-    <div class="r-team b" id="rtB">
-      <div class="r-name b" id="rnB">Équipe B</div>
-      <div class="r-pts b"  id="rpB">0</div>
-      <div class="r-sub">points / 20</div>
-    </div>
+    <div class="r-team a" id="rtA"><div class="r-name a" id="rnA">A</div><div class="r-pts a" id="rpA">0</div><div class="r-sub">pts / 20</div></div>
+    <div class="r-team b" id="rtB"><div class="r-name b" id="rnB">B</div><div class="r-pts b" id="rpB">0</div><div class="r-sub">pts / 20</div></div>
   </div>
-
   <div class="res-btns">
-    <button class="btn-res btn-res-replay" onclick="goHome()">🏠 Retour au menu</button>
+    <button class="btn-res btn-res-home" onclick="goHome()">🏠 Retour accueil</button>
     <button class="btn-res btn-res-replay" onclick="startGame()">🔄 Rejouer</button>
   </div>
-
-  <div class="recap-wrap">
-    <div class="recap-ttl">Récapitulatif</div>
-    <div id="recapList"></div>
-  </div>
+  <div class="recap-wrap"><div class="recap-ttl">Récapitulatif</div><div id="recapList"></div></div>
 </div>
 
-
+<!-- OVERLAY RÉPONSE -->
+<div class="overlay" id="ovReveal" onclick="closeReveal()">
+  <div class="overlay-box" onclick="event.stopPropagation()">
+    <div class="ov-lbl" id="ovRevLbl" style="color:var(--correct)">✓ Bonne réponse</div>
+    <div class="ov-film" id="ovRevFilm">—</div>
+    <div class="ov-year" id="ovRevYear">—</div>
+    <div class="ov-tap">Tap pour continuer</div>
+  </div>
+</div>
 
 <!-- OVERLAY INDICE / APPEL -->
-<div class="hint-overlay" id="hintOverlay" onclick="closeHint()">
-  <div class="hint-box" onclick="event.stopPropagation()">
-    <div class="hint-icon" id="hintIcon">💡</div>
-    <div class="hint-title" id="hintTitle">Indice</div>
-    <div class="hint-content" id="hintContent"></div>
-    <button class="btn-hint-close" onclick="closeHint()">Merci !</button>
+<div class="overlay" id="ovHint" onclick="closeHint()">
+  <div class="overlay-box" onclick="event.stopPropagation()">
+    <div class="ov-icon" id="ovHintIcon">💡</div>
+    <div class="ov-title" id="ovHintTitle">Indice</div>
+    <div class="ov-content" id="ovHintContent"></div>
+    <button class="btn-ov-close" onclick="closeHint()">Merci !</button>
   </div>
 </div>
 
-<!-- CANVAS CONFETTIS -->
-<canvas class="confetti-canvas" id="confettiCanvas"></canvas>
-
 <!-- OVERLAY CONFIRMATION -->
-<div class="confirm-overlay" id="confirmOverlay">
-  <div class="confirm-box">
-    <div class="confirm-msg" id="confirmMsg"></div>
-    <div class="confirm-btns">
-      <button class="btn-confirm-no"  onclick="closeConfirm()">Non</button>
-      <button class="btn-confirm-yes" onclick="confirmYes()">Oui</button>
+<div class="overlay" id="ovConfirm">
+  <div class="overlay-box">
+    <div class="ov-msg" id="ovConfirmMsg"></div>
+    <div class="ov-btns">
+      <button class="btn-ov-no" onclick="closeConfirm()">Non</button>
+      <button class="btn-ov-yes" onclick="confirmYes()">Oui</button>
     </div>
   </div>
 </div>
-</div>
+
+<!-- CONFETTI -->
+<canvas id="confettiCanvas"></canvas>
+
+</div><!-- .app -->
+
 <script>
-const Q=[
-  {r:"« Vous avez dit bizarre ? Comme c'est bizarre. »",film:"Drôle de drame",year:1937,wrong:["Hôtel du Nord","La Bête humaine","Quai des brumes"]},
-  {r:"« La vengeance est un plat qui se mange froid. »",film:"Les Tontons flingueurs",year:1963,wrong:["Les Barbouzes","Ne nous fâchons pas","Mélodie en sous-sol"]},
-  {r:"« On n'est pas des sauvages ! On est des incivilisés, nuance. »",film:"Les Visiteurs",year:1993,wrong:["Les Visiteurs 2","Gazon maudit","Le Bonheur est dans le pré"]},
-  {r:"« Jusqu'ici tout va bien… c'est pas la chute qui compte, c'est l'atterrissage. »",film:"La Haine",year:1995,wrong:["Ma 6-T va crack-er","Douce France","Raï"]},
-  {r:"« Je ne suis pas coupable, je suis responsable. »",film:"La Haine",year:1995,wrong:["L'Appartement","Dobermann","Le Péril jeune"]},
-  {r:"« Vous avez mis le doigt sur quelque chose d'essentiel : le con. »",film:"Le Dîner de cons",year:1998,wrong:["Cuisine et Dépendances","Pédale douce","La Vérité si je mens !"]},
-  {r:"« Vous êtes con, monsieur Pignon, mais c'est pas votre faute. »",film:"Le Dîner de cons",year:1998,wrong:["Les Randonneurs","Pédale douce","Gazon maudit"]},
-  {r:"« Envoie les violons ! »",film:"Le Père Noël est une ordure",year:1982,wrong:["Les Bronzés font du ski","Papy fait de la résistance","La Chèvre"]},
-  {r:"« C'est cela, oui. »",film:"Le Père Noël est une ordure",year:1982,wrong:["Les Bronzés","Papy fait de la résistance","Trois hommes et un couffin"]},
-  {r:"« Quand on aime quelqu'un, on lui donne la moitié de son sandwich. »",film:"Les Trois Frères",year:1995,wrong:["Les Visiteurs 2","Didier","Le Bonheur est dans le pré"]},
-  {r:"« T'as d'la chance d'avoir un frère. Moi j'ai une sœur mais c'est pareil. »",film:"Didier",year:1997,wrong:["Les Trois Frères","Le Bonheur est dans le pré","La Vérité si je mens !"]},
-  {r:"« Vous êtes venu sur un vélo et vous repartez sur un taxi… normal. »",film:"L'Aile ou la Cuisse",year:1976,wrong:["La Zizanie","Le Grand Restaurant","L'Avare"]},
-  {r:"« Un patron c'est comme un suppositoire : chaud devant, chaud derrière, et ça fait ch… tout le monde. »",film:"L'Héritier",year:1973,wrong:["Le Magnifique","L'Emmerdeur","Tendre Poulet"]},
-  {r:"« T'as pas cent balles ? »",film:"L'As des as",year:1982,wrong:["Joyeuses Pâques","Le Marginal","Edith et Marcel"]},
-  {r:"« On a tous des raisons d'être fous. C'est pour ça qu'on boit. »",film:"Les Valseuses",year:1974,wrong:["Buffet froid","Série noire","La Dérobade"]},
-  {r:"« La liberté, ça s'apprend. Ça s'apprend comme tout. »",film:"Le Vieux Fusil",year:1975,wrong:["L'Horloger de Saint-Paul","Section spéciale","Le Juge et l'Assassin"]},
-  {r:"« Je veux qu'on m'aime ou qu'on me foute la paix ! »",film:"La Gifle",year:1974,wrong:["Le Mouton enragé","La Chambre verte","Parlez-moi d'amour"]},
-  {r:"« Je préfère être malheureux en première classe que heureux en seconde. »",film:"Subway",year:1985,wrong:["Le Grand Bleu","Nikita","Diva"]},
-  {r:"« Au fond, je pense que c'est la mer qui m'a fait. »",film:"Le Grand Bleu",year:1988,wrong:["Subway","La Gloire de mon père","Manon des Sources"]},
-  {r:"« Le monde est à nous… Pour l'instant il est à eux, mais bientôt il sera à nous. »",film:"37°2 le matin",year:1986,wrong:["Tchao Pantin","L'Effrontée","Subway"]},
-  {r:"« Je savais pas qu'on pouvait autant regretter quelqu'un qu'on a jamais eu. »",film:"La Boum",year:1980,wrong:["La Boum 2","L'Effrontée","Diabolo Menthe"]},
-  {r:"« Vous savez ce qu'il a dit le pape ? Il a dit qu'un type comme vous, ça n'existe pas. »",film:"Les Compères",year:1983,wrong:["La Chèvre","Les Fugitifs","Le Jumeau"]},
-  {r:"« Préparez vos mouchoirs, hein… »",film:"La Chèvre",year:1981,wrong:["Les Compères","Les Fugitifs","L'Emmerdeur"]},
-  {r:"« Je suis pas une femme facile. Je suis une femme libre. »",film:"Nikita",year:1990,wrong:["Diva","37°2 le matin","Subway"]},
-  {r:"« C'est quand même formidable, le cinéma — même les gens tristes ont l'air heureux. »",film:"Diva",year:1981,wrong:["Subway","Le Dernier Métro","La Lune dans le caniveau"]},
-  {r:"« La vérité, c'est qu'on n'est jamais prêt pour rien. »",film:"Tenue de soirée",year:1986,wrong:["Tchao Pantin","Buffet froid","Trop belle pour toi"]},
-  {r:"« Je n'arrive pas à croire qu'on m'ait mis avec un pareil crétin. »",film:"Les Fugitifs",year:1986,wrong:["Les Compères","La Chèvre","Le Jumeau"]},
-  {r:"« Je me suis fait tout petit pour que tu sois grand. »",film:"La Gloire de mon père",year:1990,wrong:["Le Château de ma mère","Manon des Sources","Jean de Florette"]},
-  {r:"« Les gens qui font attention à leur santé, ils meurent quand même. Mais en bonne santé. »",film:"Les Visiteurs",year:1993,wrong:["Gazon maudit","Le Dîner de cons","Cuisine et Dépendances"]},
-  {r:"« Le foot, c'est simple : t'as le ballon, tu le gardes. T'as pas le ballon, tu le prends. »",film:"Les Randonneurs",year:1997,wrong:["Le Bonheur est dans le pré","Gazon maudit","Pédale douce"]},
-  {r:"« L'amour, c'est donner à quelqu'un le pouvoir de te détruire… et lui faire confiance pour qu'il ne le fasse pas. »",film:"L'Appartement",year:1996,wrong:["Le Hussard sur le toit","Ridicule","Ceux qui m'aiment prendront le train"]},
-  {r:"« On vit dans un monde de fous. Le problème, c'est qu'ils sont majoritaires. »",film:"Ridicule",year:1996,wrong:["Le Hussard sur le toit","Beaumarchais","Ceux qui m'aiment prendront le train"]},
-  {r:"« C'est la France profonde, ici. Très profonde. »",film:"Le Bonheur est dans le pré",year:1995,wrong:["Les Randonneurs","Pédale douce","Gazon maudit"]},
-  {r:"« Je suis une bête de scène et une bête tout court. »",film:"Gazon maudit",year:1995,wrong:["Pédale douce","La Vérité si je mens !","Les Randonneurs"]},
-  {r:"« Je suis pas raciste mais… »",film:"La Vérité si je mens !",year:1997,wrong:["Métisse","Douce France","Le Bonheur est dans le pré"]},
-  {r:"« T'as vu comment il court le Bidochon ? »",film:"Les Sous-doués",year:1980,wrong:["Les Bronzés","La Boum","L'Année des méduses"]},
-  {r:"« La politique, c'est l'art de se servir des hommes en faisant semblant de les servir. »",film:"Le Juge et l'Assassin",year:1976,wrong:["Section spéciale","La Question","Le Vieux Fusil"]},
-  {r:"« On a deux vies. La deuxième commence quand on réalise qu'on n'en a qu'une. »",film:"Le Hussard sur le toit",year:1995,wrong:["Germinal","Ridicule","L'Appartement"]},
-  {r:"« Moi, si je devais résumer ma vie aujourd'hui, je dirais que c'est d'abord des rencontres… »",film:"Les Visiteurs 2",year:1998,wrong:["Le Bonheur est dans le pré","Pédale douce","La Vérité si je mens !"]},
-  {r:"« Y'a pas de sot métier, y'a que de sottes gens. »",film:"Papy fait de la résistance",year:1983,wrong:["Le Père Noël est une ordure","Les Bronzés font du ski","Trois hommes et un couffin"]},
+// ════════ DATA ════════
+const Q = [
+  {r:"« Vous avez dit bizarre ? Comme c'est bizarre. »",film:"Drôle de drame",year:1937,hint:"Acteur : Louis Jouvet",wrong:["Hôtel du Nord","La Bête humaine","Quai des brumes"]},
+  {r:"« La vengeance est un plat qui se mange froid. »",film:"Les Tontons flingueurs",year:1963,hint:"Acteur : Lino Ventura",wrong:["Les Barbouzes","Ne nous fâchons pas","Mélodie en sous-sol"]},
+  {r:"« On n'est pas des sauvages ! On est des incivilisés, nuance. »",film:"Les Visiteurs",year:1993,hint:"Acteur : Jean Reno",wrong:["Les Visiteurs 2","Gazon maudit","Le Bonheur est dans le pré"]},
+  {r:"« Jusqu'ici tout va bien… c'est pas la chute qui compte, c'est l'atterrissage. »",film:"La Haine",year:1995,hint:"Acteur : Vincent Cassel",wrong:["Ma 6-T va crack-er","Douce France","Raï"]},
+  {r:"« Je ne suis pas coupable, je suis responsable. »",film:"La Haine",year:1995,hint:"Réal : Mathieu Kassovitz",wrong:["L'Appartement","Dobermann","Le Péril jeune"]},
+  {r:"« Vous avez mis le doigt sur quelque chose d'essentiel : le con. »",film:"Le Dîner de cons",year:1998,hint:"Acteur : Jacques Villeret",wrong:["Cuisine et Dépendances","Pédale douce","La Vérité si je mens !"]},
+  {r:"« Vous êtes con, monsieur Pignon, mais c'est pas votre faute. »",film:"Le Dîner de cons",year:1998,hint:"Acteur : Thierry Lhermitte",wrong:["Les Randonneurs","Pédale douce","Gazon maudit"]},
+  {r:"« Envoie les violons ! »",film:"Le Père Noël est une ordure",year:1982,hint:"Actrice : Josiane Balasko",wrong:["Les Bronzés font du ski","Papy fait de la résistance","La Chèvre"]},
+  {r:"« C'est cela, oui. »",film:"Le Père Noël est une ordure",year:1982,hint:"Actrice : Anémone",wrong:["Les Bronzés","Papy fait de la résistance","Trois hommes et un couffin"]},
+  {r:"« Quand on aime quelqu'un, on lui donne la moitié de son sandwich. »",film:"Les Trois Frères",year:1995,hint:"Acteur : Didier Bourdon",wrong:["Les Visiteurs 2","Didier","Le Bonheur est dans le pré"]},
+  {r:"« T'as d'la chance d'avoir un frère. Moi j'ai une sœur mais c'est pareil. »",film:"Didier",year:1997,hint:"Réal : Alain Chabat",wrong:["Les Trois Frères","Le Bonheur est dans le pré","La Vérité si je mens !"]},
+  {r:"« Vous êtes venu sur un vélo et vous repartez sur un taxi… normal. »",film:"L'Aile ou la Cuisse",year:1976,hint:"Acteur : Louis de Funès",wrong:["La Zizanie","Le Grand Restaurant","L'Avare"]},
+  {r:"« Un patron c'est comme un suppositoire : chaud devant, chaud derrière, et ça fait ch… tout le monde. »",film:"L'Héritier",year:1973,hint:"Acteur : Jean-Paul Belmondo",wrong:["Le Magnifique","L'Emmerdeur","Tendre Poulet"]},
+  {r:"« T'as pas cent balles ? »",film:"L'As des as",year:1982,hint:"Acteur : Jean-Paul Belmondo",wrong:["Joyeuses Pâques","Le Marginal","Edith et Marcel"]},
+  {r:"« On a tous des raisons d'être fous. C'est pour ça qu'on boit. »",film:"Les Valseuses",year:1974,hint:"Acteur : Gérard Depardieu",wrong:["Buffet froid","Série noire","La Dérobade"]},
+  {r:"« La liberté, ça s'apprend. Ça s'apprend comme tout. »",film:"Le Vieux Fusil",year:1975,hint:"Acteur : Philippe Noiret",wrong:["L'Horloger de Saint-Paul","Section spéciale","Le Juge et l'Assassin"]},
+  {r:"« Je veux qu'on m'aime ou qu'on me foute la paix ! »",film:"La Gifle",year:1974,hint:"Actrice : Isabelle Adjani",wrong:["Le Mouton enragé","La Chambre verte","Parlez-moi d'amour"]},
+  {r:"« Je préfère être malheureux en première classe que heureux en seconde. »",film:"Subway",year:1985,hint:"Acteur : Christophe Lambert",wrong:["Le Grand Bleu","Nikita","Diva"]},
+  {r:"« Au fond, je pense que c'est la mer qui m'a fait. »",film:"Le Grand Bleu",year:1988,hint:"Acteur : Jean-Marc Barr",wrong:["Subway","La Gloire de mon père","Manon des Sources"]},
+  {r:"« Le monde est à nous… Pour l'instant il est à eux, mais bientôt il sera à nous. »",film:"37°2 le matin",year:1986,hint:"Actrice : Béatrice Dalle",wrong:["Tchao Pantin","L'Effrontée","Subway"]},
+  {r:"« Je savais pas qu'on pouvait autant regretter quelqu'un qu'on a jamais eu. »",film:"La Boum",year:1980,hint:"Actrice : Sophie Marceau",wrong:["La Boum 2","L'Effrontée","Diabolo Menthe"]},
+  {r:"« Vous savez ce qu'il a dit le pape ? Il a dit qu'un type comme vous, ça n'existe pas. »",film:"Les Compères",year:1983,hint:"Acteur : Pierre Richard",wrong:["La Chèvre","Les Fugitifs","Le Jumeau"]},
+  {r:"« Préparez vos mouchoirs, hein… »",film:"La Chèvre",year:1981,hint:"Acteur : Gérard Depardieu",wrong:["Les Compères","Les Fugitifs","L'Emmerdeur"]},
+  {r:"« Je suis pas une femme facile. Je suis une femme libre. »",film:"Nikita",year:1990,hint:"Actrice : Anne Parillaud",wrong:["Diva","37°2 le matin","Subway"]},
+  {r:"« C'est quand même formidable, le cinéma — même les gens tristes ont l'air heureux. »",film:"Diva",year:1981,hint:"Acteur : Richard Bohringer",wrong:["Subway","Le Dernier Métro","La Lune dans le caniveau"]},
+  {r:"« La vérité, c'est qu'on n'est jamais prêt pour rien. »",film:"Tenue de soirée",year:1986,hint:"Acteur : Gérard Depardieu",wrong:["Tchao Pantin","Buffet froid","Trop belle pour toi"]},
+  {r:"« Je n'arrive pas à croire qu'on m'ait mis avec un pareil crétin. »",film:"Les Fugitifs",year:1986,hint:"Acteur : Pierre Richard",wrong:["Les Compères","La Chèvre","Le Jumeau"]},
+  {r:"« Je me suis fait tout petit pour que tu sois grand. »",film:"La Gloire de mon père",year:1990,hint:"Réal : Yves Robert",wrong:["Le Château de ma mère","Manon des Sources","Jean de Florette"]},
+  {r:"« Les gens qui font attention à leur santé, ils meurent quand même. Mais en bonne santé. »",film:"Les Visiteurs",year:1993,hint:"Acteur : Christian Clavier",wrong:["Gazon maudit","Le Dîner de cons","Cuisine et Dépendances"]},
+  {r:"« Le foot, c'est simple : t'as le ballon, tu le gardes. T'as pas le ballon, tu le prends. »",film:"Les Randonneurs",year:1997,hint:"Acteur : Franck Dubosc",wrong:["Le Bonheur est dans le pré","Gazon maudit","Pédale douce"]},
+  {r:"« L'amour, c'est donner à quelqu'un le pouvoir de te détruire… et lui faire confiance pour qu'il ne le fasse pas. »",film:"L'Appartement",year:1996,hint:"Actrice : Monica Bellucci",wrong:["Le Hussard sur le toit","Ridicule","Ceux qui m'aiment prendront le train"]},
+  {r:"« On vit dans un monde de fous. Le problème, c'est qu'ils sont majoritaires. »",film:"Ridicule",year:1996,hint:"Acteur : Charles Berling",wrong:["Le Hussard sur le toit","Beaumarchais","Ceux qui m'aiment prendront le train"]},
+  {r:"« C'est la France profonde, ici. Très profonde. »",film:"Le Bonheur est dans le pré",year:1995,hint:"Acteur : Michel Serrault",wrong:["Les Randonneurs","Pédale douce","Gazon maudit"]},
+  {r:"« Je suis une bête de scène et une bête tout court. »",film:"Gazon maudit",year:1995,hint:"Actrice : Victoria Abril",wrong:["Pédale douce","La Vérité si je mens !","Les Randonneurs"]},
+  {r:"« Je suis pas raciste mais… »",film:"La Vérité si je mens !",year:1997,hint:"Acteur : José Garcia",wrong:["Métisse","Douce France","Le Bonheur est dans le pré"]},
+  {r:"« T'as vu comment il court le Bidochon ? »",film:"Les Sous-doués",year:1980,hint:"Réal : Claude Zidi",wrong:["Les Bronzés","La Boum","L'Année des méduses"]},
+  {r:"« La politique, c'est l'art de se servir des hommes en faisant semblant de les servir. »",film:"Le Juge et l'Assassin",year:1976,hint:"Acteur : Michel Galabru",wrong:["Section spéciale","La Question","Le Vieux Fusil"]},
+  {r:"« On a deux vies. La deuxième commence quand on réalise qu'on n'en a qu'une. »",film:"Le Hussard sur le toit",year:1995,hint:"Acteur : Olivier Martinez",wrong:["Germinal","Ridicule","L'Appartement"]},
+  {r:"« Moi, si je devais résumer ma vie aujourd'hui, je dirais que c'est d'abord des rencontres… »",film:"Les Visiteurs 2",year:1998,hint:"Acteur : Christian Clavier",wrong:["Le Bonheur est dans le pré","Pédale douce","La Vérité si je mens !"]},
+  {r:"« Y'a pas de sot métier, y'a que de sottes gens. »",film:"Papy fait de la résistance",year:1983,hint:"Acteur : Michel Galabru",wrong:["Le Père Noël est une ordure","Les Bronzés font du ski","Trois hommes et un couffin"]},
 ];
 
-
-// ════════════════════════════════
-//  QUESTIONS BONUS (2 pts chacune)
-//  1 par équipe, milieu du quiz
-// ════════════════════════════════
 const BONUS = [
-  // Équipe A (question 10 — cur===9)
-  { r:"« Allez, on se fait la valise ! »", film:"Le Grand Bain", year:2018,
-    hint:"Acteur : Mathieu Amalric", wrong:["Intouchables","Les Invisibles","Rodin"] },
-  // Équipe B (question 10 côté B — cur===10)
-  { r:"« T'as vu ma face ? »", film:"La Vérité si je mens ! 2", year:2004,
-    hint:"Acteur : José Garcia", wrong:["Le Corniaud","Le Dîner de cons","Taxi"] },
+  {r:"« On n'a pas les mêmes valeurs ! »",film:"Le Grand Bain",year:2018,hint:"Acteur : Mathieu Amalric",wrong:["Intouchables","Les Invisibles","Rodin"],pts:2},
+  {r:"« Arrête de faire le mariole ! »",film:"La Vérité si je mens ! 2",year:2004,hint:"Acteur : José Garcia",wrong:["Le Corniaud","Le Dîner de cons","Taxi"],pts:2},
 ];
 
-// ════════════════════════════════
-//  QUESTIONS D'ÉGALITÉ (3 dispo)
-// ════════════════════════════════
 const TIEBREAK = [
-  { r:"« C'est pas parce qu'on a rien à dire qu'il faut fermer sa gueule. »",
-    film:"Les Valseuses", year:1974,
-    hint:"Acteur : Gérard Depardieu", wrong:["Buffet froid","Tenue de soirée","Tchao Pantin"] },
-  { r:"« La politesse, c'est le début de la violence. »",
-    film:"Buffet froid", year:1979,
-    hint:"Acteur : Gérard Depardieu", wrong:["Les Valseuses","Tenue de soirée","Série noire"] },
-  { r:"« Je suis un homme libre, moi ! Enfin, presque. »",
-    film:"Les Fugitifs", year:1986,
-    hint:"Acteur : Pierre Richard", wrong:["La Chèvre","Les Compères","Le Jouet"] },
+  {r:"« C'est pas parce qu'on a rien à dire qu'il faut fermer sa gueule. »",film:"Les Valseuses",year:1974,hint:"Acteur : Gérard Depardieu",wrong:["Buffet froid","Tenue de soirée","Tchao Pantin"]},
+  {r:"« La politesse, c'est le début de la violence. »",film:"Buffet froid",year:1979,hint:"Acteur : Gérard Depardieu",wrong:["Les Valseuses","Tenue de soirée","Série noire"]},
+  {r:"« Je suis un homme libre, moi ! Enfin, presque. »",film:"Les Fugitifs",year:1986,hint:"Acteur : Pierre Richard",wrong:["La Chèvre","Les Compères","Le Jouet"]},
 ];
 
-// ════════════════════════════════
-//  INDICES par question (index = order dans Q[])
-//  On stocke acteur + réalisateur
-// ════════════════════════════════
-const HINTS = [
-  "Acteur : Michel Jouvet · Réal : Marcel Carné",   // 0 Drôle de drame
-  "Acteur : Lino Ventura · Réal : Georges Lautner",  // 1 Tontons
-  "Acteur : Jean Reno · Réal : Jean-Marie Poiré",    // 2 Visiteurs
-  "Acteur : Vincent Cassel · Réal : Mathieu Kassovitz", // 3 La Haine
-  "Acteur : Hubert Koundé · Réal : Mathieu Kassovitz",  // 4 La Haine
-  "Acteur : Jacques Villeret · Réal : Francis Veber",    // 5 Dîner de cons
-  "Acteur : Thierry Lhermitte · Réal : Francis Veber",   // 6 Dîner de cons
-  "Acteur : Josiane Balasko · Réal : Jean-Marie Poiré",  // 7 Père Noël
-  "Acteur : Anémone · Réal : Jean-Marie Poiré",          // 8 Père Noël
-  "Acteur : Didier Bourdon · Réal : Les Inconnus",       // 9 Trois Frères
-  "Acteur : Alain Chabat · Réal : Alain Chabat",         // 10 Didier
-  "Acteur : Louis de Funès · Réal : Claude Zidi",        // 11 Aile ou Cuisse
-  "Acteur : Jean-Paul Belmondo · Réal : Philippe Labro", // 12 L'Héritier
-  "Acteur : Jean-Paul Belmondo · Réal : Gérard Oury",   // 13 As des as
-  "Acteur : Gérard Depardieu · Réal : Bertrand Blier",   // 14 Valseuses
-  "Acteur : Philippe Noiret · Réal : Robert Enrico",     // 15 Vieux Fusil
-  "Acteur : Isabelle Adjani · Réal : Claude Pinoteau",   // 16 La Gifle
-  "Acteur : Christophe Lambert · Réal : Luc Besson",     // 17 Subway
-  "Acteur : Jean-Marc Barr · Réal : Luc Besson",         // 18 Grand Bleu
-  "Acteur : Béatrice Dalle · Réal : Jean-Jacques Beineix",// 19 37°2
-  "Acteur : Sophie Marceau · Réal : Claude Pinoteau",    // 20 La Boum
-  "Acteur : Pierre Richard · Réal : Francis Veber",      // 21 Les Compères
-  "Acteur : Gérard Depardieu · Réal : Francis Veber",    // 22 La Chèvre
-  "Acteur : Anne Parillaud · Réal : Luc Besson",         // 23 Nikita
-  "Acteur : Richard Bohringer · Réal : Jean-Jacques Beineix", // 24 Diva
-  "Acteur : Gérard Depardieu · Réal : Bertrand Blier",   // 25 Tenue de soirée
-  "Acteur : Pierre Richard · Réal : Francis Veber",      // 26 Les Fugitifs
-  "Acteur : Yves Robert · Réal : Yves Robert",           // 27 Gloire de mon père
-  "Acteur : Christian Clavier · Réal : Jean-Marie Poiré",// 28 Visiteurs
-  "Acteur : Franck Dubosc · Réal : Philippe Harel",      // 29 Randonneurs
-  "Acteur : Monica Bellucci · Réal : Gilles Mimouni",    // 30 L'Appartement
-  "Acteur : Charles Berling · Réal : Patrice Leconte",   // 31 Ridicule
-  "Acteur : Michel Serrault · Réal : Étienne Chatiliez", // 32 Bonheur dans le pré
-  "Acteur : Victoria Abril · Réal : Josiane Balasko",    // 33 Gazon maudit
-  "Acteur : José Garcia · Réal : Thomas Gilou",          // 34 Vérité si je mens
-  "Acteur : Michel Galabru · Réal : Claude Zidi",        // 35 Sous-doués
-  "Acteur : Michel Galabru · Réal : Bertrand Tavernier", // 36 Juge et l'Assassin
-  "Acteur : Olivier Martinez · Réal : Jean-Paul Rappeneau",// 37 Hussard
-  "Acteur : Christian Clavier · Réal : Jean-Marie Poiré",// 38 Visiteurs 2
-  "Acteur : Michel Galabru · Réal : Jean-Marie Poiré",   // 39 Papy
-];
+// ════════ STATE ════════
+const TIMER = 15;
+const CIRC = 2 * Math.PI * 30;
+let nameA = 'Équipe A', nameB = 'Équipe B';
+let order = [], cur = 0, scores = [0,0], answers = [];
+let tInt = null, tLeft = 0, optOrder = [], answered = false;
+let jokers = {hints:[3,3], calls:[2,2]};
+let bonusUsed = [false,false];
+let tbMode = false, tbIdx = 0;
+let confirmCb = null;
 
-// ── JOKER state ──
-let jokers = { hints:[3,3], calls:[2,2] };
-let bonusUsed = [false, false];
-let tiebreakMode = false;
-let tiebreakIdx = 0;
-let tiebreakScores = [0,0];
+// ════════ UTILS ════════
+function shuffle(a) {
+  for (let i = a.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function curTeam() { return cur % 2 === 0 ? 0 : 1; }
+function teamName(t) { return t === 0 ? nameA : nameB; }
 
-const TIMER=15;
-const CIRC=2*Math.PI*30; // r=30 → ~188.5
-let nameA='Équipe A',nameB='Équipe B';
-let order=[],cur=0,scores=[0,0],answers=[];
-let tInt=null,tLeft=0,optOrder=[],answered=false;
-
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function team(){return cur%2===0?0:1;}
-
-function goHome(){
+// ════════ NAVIGATION ════════
+function goHome() {
   stopTimer();
-  document.getElementById('screenGame').style.display='none';
-  document.getElementById('screenResult').style.display='none';
-  document.getElementById('screenHome').style.display='flex';
+  document.getElementById('screenGame').style.display = 'none';
+  document.getElementById('screenResult').style.display = 'none';
+  document.getElementById('screenHome').style.display = 'flex';
 }
 
-// ── JOKERS ──
-function updateJokerUI(){
-  [0,1].forEach(t=>{
-    const hs=jokers.hints[t], cs=jokers.calls[t];
-    const name=t===0?'A':'B';
-    const hBtn=document.getElementById('hint'+name);
-    const cBtn=document.getElementById('call'+name);
-    const hCnt=document.getElementById('hintCnt'+name);
-    const cCnt=document.getElementById('callCnt'+name);
-    if(hBtn){ hBtn.disabled=hs<=0; if(hCnt) hCnt.textContent=hs; }
-    if(cBtn){ cBtn.disabled=cs<=0; if(cCnt) cCnt.textContent=cs; }
-  });
-}
-
-function useHint(t){
-  if(jokers.hints[t]<=0) return;
-  const q = tiebreakMode ? TIEBREAK[tiebreakIdx] : Q[order[cur]];
-  const hint = tiebreakMode ? q.hint : (HINTS[order[cur]] || '—');
-  jokers.hints[t]--;
+function startGame() {
+  nameA = document.getElementById('nameA').value.trim() || 'Équipe A';
+  nameB = document.getElementById('nameB').value.trim() || 'Équipe B';
+  order = shuffle([...Array(Q.length).keys()]);
+  cur = 0; scores = [0,0]; answers = [];
+  jokers = {hints:[3,3], calls:[2,2]};
+  bonusUsed = [false,false];
+  tbMode = false; tbIdx = 0;
+  // Update name labels
+  ['djnA','djnA2','rmA'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=nameA; });
+  ['djnB','djnB2','rmB'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=nameB; });
   updateJokerUI();
-  showHintOverlay('💡','Indice pour '+( t===0?nameA:nameB), hint);
-}
-
-function useCall(t){
-  if(jokers.calls[t]<=0) return;
-  jokers.calls[t]--;
-  updateJokerUI();
-  showHintOverlay('📞','Appel au plus jeune !','L'équipe '+( t===0?nameA:nameB)+' appelle un ami pour avoir de l'aide. Donnez-leur 30 secondes ! ⏳');
-}
-
-function showHintOverlay(icon, title, content){
-  document.getElementById('hintIcon').textContent=icon;
-  document.getElementById('hintTitle').textContent=title;
-  document.getElementById('hintContent').textContent=content;
-  document.getElementById('hintOverlay').classList.add('show');
-}
-function closeHint(){ document.getElementById('hintOverlay').classList.remove('show'); }
-
-// ── SCORE ANIMATION ──
-function animScore(t){
-  const el=document.getElementById(t===0?'spA':'spB');
-  el.classList.remove('score-pop');
-  void el.offsetWidth;
-  el.classList.add('score-pop');
-  setTimeout(()=>el.classList.remove('score-pop'),500);
-}
-
-// ── TIEBREAK ──
-function renderTiebreak(){
-  if(tiebreakIdx>=TIEBREAK.length){
-    showResult();
-    return;
-  }
-  const q=TIEBREAK[tiebreakIdx];
-  const t=team();
-
-  document.getElementById('spA').textContent=scores[0];
-  document.getElementById('spB').textContent=scores[1];
-  document.getElementById('snA').textContent=nameA;
-  document.getElementById('snB').textContent=nameB;
-  document.getElementById('sbA').className='score-block'+(t===0?' active-a':'');
-  document.getElementById('sbB').className='score-block'+(t===1?' active-b':'');
-  const tb=document.getElementById('turnBadge');
-  tb.textContent=`Tour de ${t===0?nameA:nameB}`;
-  tb.className='turn-badge '+(t===0?'a':'b');
-  document.getElementById('progFill').style.width='100%';
-  document.getElementById('progLbl').textContent='⚔️ Égalité !';
-  document.getElementById('qNum').innerHTML='Question de départage <span class="tiebreak-badge">⚔️ ÉGALITÉ</span>';
-  document.getElementById('qYear').textContent=`Film de ${q.year}`;
-  document.getElementById('qText').textContent=q.r;
-
-  const card=document.getElementById('qCard');
-  card.style.animation='none';void card.offsetWidth;card.style.animation='';
-  soundClap();
-
-  const optOrder2=shuffle([q.film,...q.wrong]);
-  const grid=document.getElementById('optsGrid');
-  grid.innerHTML='';
-  ['A','B','C','D'].forEach((l,i)=>{
-    const d=document.createElement('div');
-    d.className='opt'; d.id='opt'+i;
-    d.innerHTML=`<span class="opt-l">${l}</span><span>${optOrder2[i]}</span>`;
-    d.addEventListener('click',()=>chooseTiebreak(i,optOrder2[i],q.film,optOrder2));
-    grid.appendChild(d);
-  });
-
-  document.getElementById('feedback').className='feedback';
-  const bn=document.getElementById('btnNext');
-  bn.disabled=true;
-  bn.className='btn-dj btn-nextq';
-  bn.textContent='Suivant →';
-
-  startTimer();
-}
-
-function chooseTiebreak(idx,chosen,correct,opts){
-  if(answered)return;
-  answered=true;
-  stopTimer();
-  const t=team();
-  const isRight=chosen===correct;
-
-  opts.forEach((o,i)=>{
-    const el=document.getElementById('opt'+i);
-    if(!el)return;
-    el.classList.add('disabled');
-    if(o===correct) el.classList.add('correct');
-    else if(i===idx && !isRight) el.classList.add('wrong');
-    else el.classList.add('timeout');
-  });
-
-  if(isRight){
-    scores[t]++;
-    document.getElementById(t===0?'spA':'spB').textContent=scores[t];
-    animScore(t);
-    soundCorrect();
-  } else {
-    soundWrong();
-  }
-
-  const fb=document.getElementById('feedback');
-  const tName=t===0?nameA:nameB;
-  fb.textContent=isRight?`✓ +1 point pour ${tName} !`:`✗ C'était « ${correct} ».`;
-  fb.className='feedback show '+(isRight?'ok':'ko');
-
-  document.getElementById('revLbl').textContent=isRight?'✓ Bonne réponse !':'✗ La bonne réponse était…';
-  document.getElementById('revLbl').style.color=isRight?'var(--correct)':'var(--wrong)';
-  document.getElementById('revFilm').textContent=correct;
-  document.getElementById('revYear').textContent=TIEBREAK[tiebreakIdx].year;
-  document.getElementById('revOverlay').classList.add('show');
-
-  tiebreakIdx++;
-  document.getElementById('btnNext').disabled=false;
-}
-
-// ── CONFETTIS ──
-function launchConfetti(){
-  const canvas=document.getElementById('confettiCanvas');
-  if(!canvas)return;
-  const ctx=canvas.getContext('2d');
-  canvas.width=window.innerWidth;
-  canvas.height=window.innerHeight;
-
-  const colors=['#C9A96E','#E8D5B0','#2563A8','#8B3A3A','#4A7C59','#F5C518','#E84040','#50C878'];
-  const pieces=[];
-  for(let i=0;i<180;i++){
-    pieces.push({
-      x:Math.random()*canvas.width,
-      y:-20-Math.random()*200,
-      w:8+Math.random()*10,
-      h:4+Math.random()*6,
-      color:colors[Math.floor(Math.random()*colors.length)],
-      angle:Math.random()*Math.PI*2,
-      spin:(.5-Math.random())*.15,
-      vx:(.5-Math.random())*3,
-      vy:2+Math.random()*4,
-      alpha:1
-    });
-  }
-
-  let frame=0;
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    pieces.forEach(p=>{
-      p.x+=p.vx; p.y+=p.vy; p.angle+=p.spin;
-      if(frame>120) p.alpha=Math.max(0,p.alpha-.012);
-      ctx.save();
-      ctx.globalAlpha=p.alpha;
-      ctx.translate(p.x,p.y);
-      ctx.rotate(p.angle);
-      ctx.fillStyle=p.color;
-      ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
-      ctx.restore();
-    });
-    frame++;
-    if(frame<220) requestAnimationFrame(draw);
-    else ctx.clearRect(0,0,canvas.width,canvas.height);
-  }
-  draw();
-}
-
-// ══════════════════════════════
-//  SONS — Web Audio API
-// ══════════════════════════════
-let AC = null;
-function getAC(){
-  if(!AC){
-    try{ AC = new (window.AudioContext || window.webkitAudioContext)(); }
-    catch(e){ AC = null; }
-  }
-  return AC;
-}
-function unlockAudio(){
-  const ac=getAC();
-  if(ac && ac.state==='suspended') ac.resume();
-}
-document.addEventListener('touchstart', unlockAudio, {once:true});
-document.addEventListener('click', unlockAudio, {once:true});
-
-function beep(freq,dur,vol=0.3,type='sine',when=null){
-  const ac=getAC();if(!ac)return;
-  if(when===null)when=ac.currentTime;
-  const o=ac.createOscillator(),g=ac.createGain();
-  o.connect(g);g.connect(ac.destination);
-  o.type=type;o.frequency.setValueAtTime(freq,when);
-  g.gain.setValueAtTime(vol,when);
-  g.gain.exponentialRampToValueAtTime(0.001,when+dur);
-  o.start(when);o.stop(when+dur+0.01);
-}
-
-function soundClap(){
-  unlockAudio();
-  const ac=getAC();if(!ac)return;
-  const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.05),ac.sampleRate);
-  const data=buf.getChannelData(0);
-  for(let i=0;i<data.length;i++) data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,2);
-  const src=ac.createBufferSource(),g=ac.createGain();
-  g.gain.setValueAtTime(0.55,ac.currentTime);
-  src.buffer=buf;src.connect(g);g.connect(ac.destination);src.start();
-  beep(900,0.04,0.18,'square',ac.currentTime);
-}
-
-function soundTick(t){
-  unlockAudio();
-  const ac=getAC();if(!ac)return;
-  beep(t<=2?1100:750, 0.07, t<=2?0.4:0.22, 'square', ac.currentTime);
-}
-
-function soundCorrect(){
-  unlockAudio();
-  const ac=getAC();if(!ac)return;
-  const now=ac.currentTime;
-  // Fanfare montante puissante
-  const notes=[392,523,659,784,1047,1319];
-  const vols =[0.5,0.5,0.55,0.6,0.7,0.8];
-  notes.forEach((f,i)=>beep(f,0.22,vols[i],'sine',now+i*0.08));
-  // Harmonique basse pour plus de corps
-  beep(196,0.4,0.35,'sine',now);
-  beep(261,0.35,0.3,'sine',now+0.05);
-  // Applaudissements nourris
-  for(let r=0;r<12;r++){
-    const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.08),ac.sampleRate);
-    const d=buf.getChannelData(0);
-    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,1.2);
-    const src=ac.createBufferSource(),g=ac.createGain();
-    g.gain.setValueAtTime(0.38,ac.currentTime);
-    src.buffer=buf;src.connect(g);g.connect(ac.destination);
-    src.start(ac.currentTime+r*0.055+0.1);
-  }
-}
-
-function soundWrong(){
-  unlockAudio();
-  const ac=getAC();if(!ac)return;
-  const now=ac.currentTime;
-  // Buzzer game show — triple descente puissante
-  beep(180,0.18,0.7,'sawtooth',now);
-  beep(140,0.18,0.65,'sawtooth',now+0.17);
-  beep(110,0.30,0.6,'sawtooth',now+0.33);
-  // Bruit blanc court pour impact
-  const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.12),ac.sampleRate);
-  const d=buf.getChannelData(0);
-  for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,0.8);
-  const src=ac.createBufferSource(),g=ac.createGain();
-  g.gain.setValueAtTime(0.45,now);
-  src.buffer=buf;src.connect(g);g.connect(ac.destination);src.start(now);
-}
-
-function soundVictory(){
-  unlockAudio();
-  const ac=getAC();if(!ac)return;
-  const now=ac.currentTime;
-  // Fanfare de victoire — plus forte et festive
-  const mel=[523,523,523,415,622,523,415,622,523,784,1047];
-  const dur=[.12,.12,.12,.09,.35,.12,.09,.35,.12,.2,.6];
-  const vol=[.5,.5,.55,.45,.65,.55,.45,.65,.55,.7,.85];
-  let t=now;
-  mel.forEach((f,i)=>{beep(f,dur[i],vol[i],'sine',t);t+=dur[i]+0.02;});
-  // Basse pour le punch
-  beep(130,0.8,0.4,'sine',now);
-  beep(196,0.6,0.35,'sine',now+0.3);
-  // Applaudissements finale
-  for(let r=0;r<18;r++){
-    const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.07),ac.sampleRate);
-    const d=buf.getChannelData(0);
-    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,1.1);
-    const src=ac.createBufferSource(),g=ac.createGain();
-    g.gain.setValueAtTime(0.42,ac.currentTime);
-    src.buffer=buf;src.connect(g);g.connect(ac.destination);
-    src.start(ac.currentTime+r*0.06+0.2);
-  }
-}
-
-
-// ── PLEIN ÉCRAN ──
-function toggleFullscreen(){
-  const el=document.documentElement;
-  if(!document.fullscreenElement && !document.webkitFullscreenElement){
-    const req=el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen;
-    if(req) req.call(el);
-    document.getElementById('btnFS').textContent='✕ Quitter plein écran';
-  } else {
-    const ex=document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen||document.msExitFullscreen;
-    if(ex) ex.call(document);
-    document.getElementById('btnFS').textContent='⛶ Plein écran';
-  }
-}
-
-// Plein écran automatique au lancement du quiz
-function requestFullscreenAuto(){
-  const el=document.documentElement;
-  const req=el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen;
-  if(req && !document.fullscreenElement && !document.webkitFullscreenElement){
-    req.call(el).catch(()=>{});
-  }
-}
-
-// Mise à jour du bouton si plein écran fermé via Echap
-document.addEventListener('fullscreenchange',()=>{
-  const btn=document.getElementById('btnFS');
-  if(btn) btn.textContent=document.fullscreenElement?'✕ Quitter plein écran':'⛶ Plein écran';
-});
-document.addEventListener('webkitfullscreenchange',()=>{
-  const btn=document.getElementById('btnFS');
-  if(btn) btn.textContent=document.webkitFullscreenElement?'✕ Quitter plein écran':'⛶ Plein écran';
-});
-
-document.getElementById('screenHome').style.display='flex';
-
-function startGame(){
-  nameA=document.getElementById('nameA').value.trim()||'Équipe A';
-  nameB=document.getElementById('nameB').value.trim()||'Équipe B';
-  order=shuffle([...Array(Q.length).keys()]);
-  cur=0;scores=[0,0];answers=[];
-  jokers={hints:[3,3],calls:[2,2]};
-  bonusUsed=[false,false];
-  tiebreakMode=false;tiebreakIdx=0;tiebreakScores=[0,0];
-  updateJokerUI();
-  requestFullscreenAuto();
-  document.getElementById('screenHome').style.display='none';
-  document.getElementById('screenResult').style.display='none';
-  document.getElementById('screenGame').style.display='flex';
-  ['djRmA'].forEach(id=>document.getElementById(id).textContent=nameA);
-  ['djRmB'].forEach(id=>document.getElementById(id).textContent=nameB);
+  document.getElementById('screenHome').style.display = 'none';
+  document.getElementById('screenResult').style.display = 'none';
+  document.getElementById('screenGame').style.display = 'flex';
+  requestFSAuto();
   renderQ();
 }
 
-function renderQ(){
+// ════════ RENDER QUESTION ════════
+function renderQ() {
   stopTimer();
-  answered=false;
+  answered = false;
 
-  // Tiebreak mode
-  if(tiebreakMode){
-    renderTiebreak();
-    return;
-  }
+  if (tbMode) { renderTB(); return; }
 
-  // Bonus question? Insert at question 19 for A (cur===18) and 20 for B (cur===19)
-  const isBonus = (cur===18 && !bonusUsed[0]) || (cur===19 && !bonusUsed[1]);
-  const bonusTeam = cur===18 ? 0 : 1;
-
-  let q, isBonusQ=false;
-  if(isBonus){
-    q=BONUS[bonusTeam];
-    isBonusQ=true;
-    bonusUsed[bonusTeam]=true;
+  // Check bonus (insert at q19 for team A, q20 for team B)
+  const t = curTeam();
+  let q, pts = 1, isBonus = false;
+  if (cur === 18 && !bonusUsed[0]) {
+    q = BONUS[0]; bonusUsed[0] = true; isBonus = true; pts = 2;
+  } else if (cur === 19 && !bonusUsed[1]) {
+    q = BONUS[1]; bonusUsed[1] = true; isBonus = true; pts = 2;
   } else {
-    q=Q[order[cur]];
+    q = Q[order[cur]];
   }
 
-  const total=Q.length;
-  const t=team();
+  const total = Q.length;
 
-  // Scores & état actif
-  document.getElementById('spA').textContent=scores[0];
-  document.getElementById('spB').textContent=scores[1];
-  document.getElementById('snA').textContent=nameA;
-  document.getElementById('snB').textContent=nameB;
-  document.getElementById('sbA').className='score-block'+(t===0?' active-a':'');
-  document.getElementById('sbB').className='score-block'+(t===1?' active-b':'');
+  // Scoreboard
+  document.getElementById('spA').textContent = scores[0];
+  document.getElementById('spB').textContent = scores[1];
+  document.getElementById('snA').textContent = nameA;
+  document.getElementById('snB').textContent = nameB;
+  document.getElementById('sbA').className = 'score-block' + (t===0 ? ' active-a' : '');
+  document.getElementById('sbB').className = 'score-block' + (t===1 ? ' active-b' : '');
+  const tb = document.getElementById('turnBadge');
+  tb.textContent = 'Tour de ' + teamName(t);
+  tb.className = 'turn-badge ' + (t===0 ? 'a' : 'b');
 
-  const tb=document.getElementById('turnBadge');
-  tb.textContent=`Tour de ${t===0?nameA:nameB}`;
-  tb.className='turn-badge '+(t===0?'a':'b');
+  // Progress
+  document.getElementById('progFill').style.width = (cur/total*100) + '%';
+  document.getElementById('progLbl').textContent = (cur+1) + ' / ' + total;
 
-  document.getElementById('progFill').style.width=`${(cur/total)*100}%`;
-  document.getElementById('progLbl').textContent=`${cur+1} / ${total}`;
-  document.getElementById('qNum').innerHTML=`Question ${cur+1}`+(isBonusQ?'<span class="bonus-badge">⭐ BONUS ×2</span>':'');
-  document.getElementById('qYear').textContent=`Film de ${q.year}`;
-  document.getElementById('qText').textContent=q.r;
+  // Question
+  document.getElementById('qNum').textContent = 'Question ' + (cur+1);
+  document.getElementById('qYear').textContent = 'Film de ' + q.year;
+  const badge = document.getElementById('qBadge');
+  badge.innerHTML = isBonus ? '<span class="bonus-badge">⭐ BONUS ×2</span>' : '';
 
-  // Animer carte
-  const card=document.getElementById('qCard');
-  card.style.animation='none';void card.offsetWidth;card.style.animation='';
-  soundClap();
+  document.getElementById('qText').textContent = q.r;
 
-  // Construire options cliquables
-  optOrder=shuffle([q.film,...q.wrong]);
-  const grid=document.getElementById('optsGrid');
-  grid.innerHTML='';
-  ['A','B','C','D'].forEach((l,i)=>{
-    const d=document.createElement('div');
-    d.className='opt';
-    d.id='opt'+i;
-    d.innerHTML=`<span class="opt-l">${l}</span><span>${optOrder[i]}</span>`;
-    d.addEventListener('click',()=>chooseOpt(i,optOrder[i],q.film,isBonusQ?2:1));
+  // Animate card
+  const card = document.getElementById('qCard');
+  card.style.animation = 'none'; void card.offsetWidth; card.style.animation = '';
+
+  // Options
+  optOrder = shuffle([q.film, ...q.wrong]);
+  const grid = document.getElementById('optsGrid');
+  grid.innerHTML = '';
+  ['A','B','C','D'].forEach((l,i) => {
+    const d = document.createElement('div');
+    d.className = 'opt'; d.id = 'opt'+i;
+    d.innerHTML = '<span class="opt-l">'+l+'</span><span>'+optOrder[i]+'</span>';
+    const film = q.film;
+    d.addEventListener('click', () => pickOpt(i, optOrder[i], film, pts, q.year));
     grid.appendChild(d);
   });
 
-  document.getElementById('feedback').className='feedback';
-  document.getElementById('feedback').textContent='';
-  const bn=document.getElementById('btnNext');
-  bn.disabled=true;
-  bn.className=cur===total-1?'btn-dj btn-nextq final':'btn-dj btn-nextq';
-  bn.textContent=cur===total-1?'Résultats 🏆':'Suivant →';
-
+  document.getElementById('feedback').className = 'feedback';
   updateJokerUI();
+  const bn = document.getElementById('btnNext');
+  bn.disabled = true;
+  bn.className = cur === total-1 ? 'btn-dj btn-nextq final' : 'btn-dj btn-nextq';
+  bn.textContent = cur === total-1 ? 'Résultats 🏆' : 'Suivant →';
+
+  soundClap();
   startTimer();
 }
 
-// ── CHRONO ──
-function startTimer(){
-  tLeft=TIMER;updateChrono(tLeft);
-  tInt=setInterval(()=>{
-    tLeft--;updateChrono(tLeft);
-    if(tLeft<=0){clearInterval(tInt);handleTimeout();}
-  },1000);
-}
-function stopTimer(){clearInterval(tInt);tInt=null;}
-function updateChrono(t){
-  const arc=document.getElementById('cArc'),num=document.getElementById('cNum');
-  arc.style.strokeDashoffset=CIRC*(1-t/TIMER);
-  num.textContent=t;
-  const u=t<=5;
-  num.className='c-num'+(u?' urgent':'');
-  arc.className='c-arc'+(u?' urgent':'');
-  if(u) soundTick(t);
+// ════════ TIEBREAK ════════
+function renderTB() {
+  if (tbIdx >= TIEBREAK.length) { showResult(); return; }
+  const q = TIEBREAK[tbIdx];
+  const t = curTeam();
+
+  document.getElementById('spA').textContent = scores[0];
+  document.getElementById('spB').textContent = scores[1];
+  document.getElementById('snA').textContent = nameA;
+  document.getElementById('snB').textContent = nameB;
+  document.getElementById('sbA').className = 'score-block' + (t===0 ? ' active-a' : '');
+  document.getElementById('sbB').className = 'score-block' + (t===1 ? ' active-b' : '');
+  const tb = document.getElementById('turnBadge');
+  tb.textContent = 'Tour de ' + teamName(t);
+  tb.className = 'turn-badge ' + (t===0 ? 'a' : 'b');
+  document.getElementById('progFill').style.width = '100%';
+  document.getElementById('progLbl').textContent = '⚔️ Égalité';
+  document.getElementById('qNum').textContent = 'Départage ' + (tbIdx+1);
+  document.getElementById('qYear').textContent = 'Film de ' + q.year;
+  document.getElementById('qBadge').innerHTML = '<span class="tiebreak-badge">⚔️ ÉGALITÉ</span>';
+  document.getElementById('qText').textContent = q.r;
+
+  const card = document.getElementById('qCard');
+  card.style.animation = 'none'; void card.offsetWidth; card.style.animation = '';
+
+  optOrder = shuffle([q.film, ...q.wrong]);
+  const grid = document.getElementById('optsGrid');
+  grid.innerHTML = '';
+  ['A','B','C','D'].forEach((l,i) => {
+    const d = document.createElement('div');
+    d.className = 'opt'; d.id = 'opt'+i;
+    d.innerHTML = '<span class="opt-l">'+l+'</span><span>'+optOrder[i]+'</span>';
+    const film = q.film, year = q.year;
+    d.addEventListener('click', () => pickOpt(i, optOrder[i], film, 1, year));
+    grid.appendChild(d);
+  });
+
+  document.getElementById('feedback').className = 'feedback';
+  const bn = document.getElementById('btnNext');
+  bn.disabled = true;
+  bn.className = 'btn-dj btn-nextq';
+  bn.textContent = 'Suivant →';
+
+  soundClap();
+  startTimer();
 }
 
-// ── TEMPS ÉCOULÉ : pas de pénalité ──
-function handleTimeout(){
-  if(answered)return;
-  const q=Q[order[cur]];
-  const fb=document.getElementById('feedback');
-  fb.textContent='⏱ Temps écoulé ! Cliquez quand même sur la réponse donnée…';
-  fb.className='feedback show to';
-  document.getElementById('btnNext').disabled=false;
-  answers.push({team:team(),replique:q.r,film:q.film,year:q.year,result:'timeout'});
-}
-
-// ── CLIC SUR UNE OPTION ──
-function chooseOpt(idx,chosen,correct,pts=1){
-  if(answered)return;
-  answered=true;
+// ════════ PICK OPTION ════════
+function pickOpt(idx, chosen, correct, pts, year) {
+  if (answered) return;
+  answered = true;
   stopTimer();
 
-  const t=team();
-  const isRight=chosen===correct;
+  const t = curTeam();
+  const isRight = chosen === correct;
 
-  optOrder.forEach((o,i)=>{
-    const el=document.getElementById('opt'+i);
-    if(!el)return;
+  optOrder.forEach((o,i) => {
+    const el = document.getElementById('opt'+i);
+    if (!el) return;
     el.classList.add('disabled');
-    if(o===correct) el.classList.add('correct');
-    else if(i===idx && !isRight) el.classList.add('wrong');
+    if (o === correct) el.classList.add('correct');
+    else if (i === idx && !isRight) el.classList.add('wrong');
     else el.classList.add('timeout');
   });
 
-  if(isRight){
-    scores[t]+=pts;
-    document.getElementById(t===0?'spA':'spB').textContent=scores[t];
+  if (isRight) {
+    scores[t] += pts;
+    const spEl = document.getElementById(t===0 ? 'spA' : 'spB');
+    spEl.textContent = scores[t];
     animScore(t);
     soundCorrect();
-    const sb=document.getElementById(t===0?'sbA':'sbB');
-    sb.style.transform='scale(1.1)';setTimeout(()=>sb.style.transform='',220);
   } else {
     soundWrong();
   }
 
-  const fb=document.getElementById('feedback');
-  const tName=t===0?nameA:nameB;
-  if(isRight){
-    fb.textContent=`✓ Bonne réponse ! +${pts} point${pts>1?'s':''} pour ${tName} 🎉`;
-    fb.className='feedback show ok';
+  const fb = document.getElementById('feedback');
+  if (isRight) {
+    fb.textContent = '✓ Bonne réponse ! +' + pts + ' point' + (pts>1?'s':'') + ' pour ' + teamName(t) + ' 🎉';
+    fb.className = 'feedback show ok';
   } else {
-    fb.textContent=`✗ C'était « ${correct} » (${Q[order[cur]].year}).`;
-    fb.className='feedback show ko';
+    fb.textContent = "✗ C'était « " + correct + " » (" + year + ").";
+    fb.className = 'feedback show ko';
   }
 
-  document.getElementById('revLbl').textContent=isRight?'✓ Bonne réponse !':'✗ La bonne réponse était…';
-  document.getElementById('revLbl').style.color=isRight?'var(--correct)':'var(--wrong)';
-  document.getElementById('revOverlay').style.borderColor=isRight?'var(--correct)':'var(--wrong)';
-  document.getElementById('revFilm').textContent=correct;
-  document.getElementById('revYear').textContent=Q[order[cur]].year;
-  document.getElementById('revOverlay').classList.add('show');
+  // Reveal overlay
+  const ovLbl = document.getElementById('ovRevLbl');
+  ovLbl.textContent = isRight ? '✓ Bonne réponse !' : '✗ La bonne réponse était…';
+  ovLbl.style.color = isRight ? 'var(--correct)' : 'var(--wrong)';
+  document.getElementById('ovRevFilm').textContent = correct;
+  document.getElementById('ovRevYear').textContent = year;
+  document.getElementById('ovReveal').classList.add('show');
 
-  answers.push({team:t,replique:Q[order[cur]].r,film:correct,year:Q[order[cur]].year,result:isRight?'ok':'ko'});
-  document.getElementById('btnNext').disabled=false;
+  answers.push({team:t, film:correct, year, result:isRight?'ok':'ko', pts});
+  document.getElementById('btnNext').disabled = false;
 }
 
-function closeReveal(){document.getElementById('revOverlay').classList.remove('show');}
+function closeReveal() { document.getElementById('ovReveal').classList.remove('show'); }
 
-function removePoint(t){
-  const name=t===0?nameA:nameB;
-  showConfirm(
-    `Retirer 1 point à ${name} ?`,
-    ()=>{ if(scores[t]>0){scores[t]--;document.getElementById(t===0?'spA':'spB').textContent=scores[t];} }
-  );
-}
-
-function confirmGoHome(){
-  showConfirm('Quitter la partie en cours ?', ()=>goHome());
-}
-
-function showConfirm(msg, onYes){
-  document.getElementById('confirmMsg').textContent=msg;
-  document.getElementById('confirmOnYes', onYes);
-  window._confirmCb=onYes;
-  document.getElementById('confirmOverlay').classList.add('show');
-}
-function confirmYes(){ window._confirmCb && window._confirmCb(); closeConfirm(); }
-function closeConfirm(){ document.getElementById('confirmOverlay').classList.remove('show'); }
-
-function nextQuestion(){
+// ════════ NEXT QUESTION ════════
+function nextQ() {
   closeReveal();
-  if(tiebreakMode){ renderQ(); return; }
+  if (tbMode) {
+    tbIdx++;
+    answered = false;
+    // If one team is now ahead or no more tiebreaks, show result
+    if (scores[0] !== scores[1] || tbIdx >= TIEBREAK.length) { showResult(); return; }
+    renderTB();
+    return;
+  }
   cur++;
-  if(cur>=Q.length){
-    // Check tiebreak needed
-    if(scores[0]===scores[1] && tiebreakIdx<TIEBREAK.length){
-      tiebreakMode=true;
-      answered=false;
-      renderQ();
-    } else {
-      showResult();
-    }
+  if (cur >= Q.length) {
+    if (scores[0] === scores[1]) { tbMode = true; answered = false; renderTB(); }
+    else showResult();
   } else {
     renderQ();
   }
 }
 
-function showResult(){
-  stopTimer();
-  document.getElementById('screenGame').style.display='none';
-  const sr=document.getElementById('screenResult');sr.style.display='flex';
+// ════════ TIMER ════════
+function startTimer() {
+  tLeft = TIMER; updateChrono(tLeft);
+  tInt = setInterval(() => {
+    tLeft--;
+    updateChrono(tLeft);
+    if (tLeft <= 0) { clearInterval(tInt); handleTimeout(); }
+  }, 1000);
+}
+function stopTimer() { clearInterval(tInt); tInt = null; }
+function updateChrono(t) {
+  const arc = document.getElementById('cArc'), num = document.getElementById('cNum');
+  arc.style.strokeDashoffset = CIRC * (1 - t/TIMER);
+  num.textContent = t;
+  const u = t <= 5;
+  num.className = 'c-num' + (u ? ' urgent' : '');
+  arc.className = 'c-arc' + (u ? ' urgent' : '');
+  if (u) soundTick(t);
+}
+function handleTimeout() {
+  if (answered) return;
+  const fb = document.getElementById('feedback');
+  fb.textContent = '⏱ Temps écoulé ! Cliquez quand même sur la réponse donnée…';
+  fb.className = 'feedback show to';
+  document.getElementById('btnNext').disabled = false;
+}
 
-  document.getElementById('rnA').textContent=nameA;
-  document.getElementById('rnB').textContent=nameB;
-  document.getElementById('rpA').textContent=scores[0];
-  document.getElementById('rpB').textContent=scores[1];
-
-  const rA=document.getElementById('rtA'),rB=document.getElementById('rtB');
-  rA.className='r-team a';rB.className='r-team b';
-  document.getElementById('rpA').className='r-pts a';
-  document.getElementById('rpB').className='r-pts b';
-
-  let crown,title,sub;
-  if(scores[0]>scores[1]){
-    rA.classList.add('winner');document.getElementById('rpA').className='r-pts winner-gold';
-    crown='🏆';title=`Victoire de ${nameA} !`;
-    sub=`${nameA} remporte le quiz avec ${scores[0]} point${scores[0]>1?'s':''} contre ${scores[1]}. 🎬🥂`;
-  } else if(scores[1]>scores[0]){
-    rB.classList.add('winner');document.getElementById('rpB').className='r-pts winner-gold';
-    crown='🏆';title=`Victoire de ${nameB} !`;
-    sub=`${nameB} remporte le quiz avec ${scores[1]} point${scores[1]>1?'s':''} contre ${scores[0]}. 🎬🥂`;
-  } else {
-    crown='🤝';title='Égalité parfaite !';
-    sub=`${scores[0]} points chacun — match nul digne des Tontons flingueurs ! 🍾`;
-  }
-  document.getElementById('resCrown').textContent=crown;
-  if(scores[0]!==scores[1]){ soundVictory(); launchConfetti(); }
-  document.getElementById('resTitle').textContent=title;
-  document.getElementById('resSub').textContent=sub;
-
-  // Auto-retour accueil après 8 secondes
-  setTimeout(()=>goHome(), 8000);
-
-  const list=document.getElementById('recapList');list.innerHTML='';
-  answers.forEach(a=>{
-    const tn=a.team===0?nameA:nameB,tc=a.team===0?'a':'b';
-    const dc=a.result==='ok'?'ok':a.result==='timeout'?'to':'ko';
-    const icon=a.result==='ok'?'✓':a.result==='timeout'?'⏱':'✗';
-    const d=document.createElement('div');d.className='ri';
-    d.innerHTML=`<span class="ri-dot ${dc}"></span><div><div class="ri-who ${tc}">${tn} — ${icon}</div><div>${a.replique}</div><div class="ri-film">${a.film} <span class="ri-yr">(${a.year})</span></div></div>`;
-    list.appendChild(d);
+// ════════ JOKERS ════════
+function updateJokerUI() {
+  [0,1].forEach(t => {
+    const name = t===0 ? 'A' : 'B';
+    const hBtn = document.getElementById('hint'+name);
+    const cBtn = document.getElementById('call'+name);
+    const hCnt = document.getElementById('hCnt'+name);
+    const cCnt = document.getElementById('cCnt'+name);
+    if (hBtn) hBtn.disabled = jokers.hints[t] <= 0;
+    if (cBtn) cBtn.disabled = jokers.calls[t] <= 0;
+    if (hCnt) hCnt.textContent = jokers.hints[t];
+    if (cCnt) cCnt.textContent = jokers.calls[t];
   });
 }
+function useHint(t) {
+  if (jokers.hints[t] <= 0) return;
+  const q = tbMode ? TIEBREAK[tbIdx] : (bonusUsed[t] && cur===(t===0?18:19) ? BONUS[t] : Q[order[cur]]);
+  jokers.hints[t]--;
+  updateJokerUI();
+  showHint('💡', 'Indice pour ' + teamName(t), q.hint || '—');
+}
+function useCall(t) {
+  if (jokers.calls[t] <= 0) return;
+  jokers.calls[t]--;
+  updateJokerUI();
+  showHint('📞', 'Appel au plus jeune !', teamName(t) + ' appelle un ami ! Donnez-leur 30 secondes… ⏳');
+}
+function showHint(icon, title, content) {
+  document.getElementById('ovHintIcon').textContent = icon;
+  document.getElementById('ovHintTitle').textContent = title;
+  document.getElementById('ovHintContent').textContent = content;
+  document.getElementById('ovHint').classList.add('show');
+}
+function closeHint() { document.getElementById('ovHint').classList.remove('show'); }
 
+// ════════ CONFIRM ════════
+function askRemove(t) {
+  showConfirm('Retirer 1 point à ' + teamName(t) + ' ?', () => {
+    if (scores[t] > 0) {
+      scores[t]--;
+      document.getElementById(t===0 ? 'spA' : 'spB').textContent = scores[t];
+    }
+  });
+}
+function askHome() {
+  showConfirm('Quitter la partie en cours ?', () => goHome());
+}
+function showConfirm(msg, cb) {
+  confirmCb = cb;
+  document.getElementById('ovConfirmMsg').textContent = msg;
+  document.getElementById('ovConfirm').classList.add('show');
+}
+function confirmYes() { if (confirmCb) confirmCb(); closeConfirm(); }
+function closeConfirm() { document.getElementById('ovConfirm').classList.remove('show'); confirmCb = null; }
 
+// ════════ SCORE ANIMATION ════════
+function animScore(t) {
+  const el = document.getElementById(t===0 ? 'spA' : 'spB');
+  el.classList.remove('score-pop');
+  void el.offsetWidth;
+  el.classList.add('score-pop');
+  setTimeout(() => el.classList.remove('score-pop'), 500);
+}
 
-function getAC(){
-  if(!AC){
-    try{ AC = new (window.AudioContext || window.webkitAudioContext)(); }
-    catch(e){ AC = null; }
+// ════════ CONFETTI ════════
+function launchConfetti() {
+  const canvas = document.getElementById('confettiCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const colors = ['#C9A96E','#E8D5B0','#2563A8','#8B3A3A','#4A7C59','#F5C518','#E84040','#50C878'];
+  const pieces = [];
+  for (let i = 0; i < 200; i++) {
+    pieces.push({
+      x: Math.random() * canvas.width, y: -20 - Math.random() * 200,
+      w: 8+Math.random()*10, h: 4+Math.random()*6,
+      color: colors[Math.floor(Math.random()*colors.length)],
+      angle: Math.random()*Math.PI*2, spin: (.5-Math.random())*.15,
+      vx: (.5-Math.random())*3, vy: 2+Math.random()*4, alpha: 1
+    });
   }
+  let frame = 0;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    pieces.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.angle += p.spin;
+      if (frame > 120) p.alpha = Math.max(0, p.alpha - .012);
+      ctx.save(); ctx.globalAlpha = p.alpha;
+      ctx.translate(p.x, p.y); ctx.rotate(p.angle);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+      ctx.restore();
+    });
+    frame++;
+    if (frame < 220) requestAnimationFrame(draw);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  draw();
+}
+
+// ════════ RÉSULTAT ════════
+function showResult() {
+  stopTimer();
+  document.getElementById('screenGame').style.display = 'none';
+  const sr = document.getElementById('screenResult');
+  sr.style.display = 'flex';
+  document.getElementById('rnA').textContent = nameA;
+  document.getElementById('rnB').textContent = nameB;
+  document.getElementById('rpA').textContent = scores[0];
+  document.getElementById('rpB').textContent = scores[1];
+  const rtA = document.getElementById('rtA'), rtB = document.getElementById('rtB');
+  rtA.className = 'r-team a'; rtB.className = 'r-team b';
+  document.getElementById('rpA').className = 'r-pts a';
+  document.getElementById('rpB').className = 'r-pts b';
+  let crown, title, sub;
+  if (scores[0] > scores[1]) {
+    rtA.classList.add('winner');
+    document.getElementById('rpA').className = 'r-pts win';
+    crown = '🏆'; title = 'Victoire de ' + nameA + ' !';
+    sub = nameA + ' remporte le quiz avec ' + scores[0] + ' points contre ' + scores[1] + '. 🎬🥂';
+    soundVictory(); launchConfetti();
+  } else if (scores[1] > scores[0]) {
+    rtB.classList.add('winner');
+    document.getElementById('rpB').className = 'r-pts win';
+    crown = '🏆'; title = 'Victoire de ' + nameB + ' !';
+    sub = nameB + ' remporte le quiz avec ' + scores[1] + ' points contre ' + scores[0] + '. 🎬🥂';
+    soundVictory(); launchConfetti();
+  } else {
+    crown = '🤝'; title = 'Égalité parfaite !';
+    sub = scores[0] + ' points chacun — match nul digne des Tontons flingueurs ! 🍾';
+  }
+  document.getElementById('resCrown').textContent = crown;
+  document.getElementById('resTitle').textContent = title;
+  document.getElementById('resSub').textContent = sub;
+  const list = document.getElementById('recapList');
+  list.innerHTML = '';
+  answers.forEach(a => {
+    const tc = a.team===0 ? 'a' : 'b';
+    const icon = a.result==='ok' ? '✓' : a.result==='timeout' ? '⏱' : '✗';
+    const d = document.createElement('div'); d.className = 'ri';
+    d.innerHTML = '<span class="ri-dot '+a.result+'"></span><div><div class="ri-who '+tc+'">'+teamName(a.team)+' — '+icon+'</div><div>'+a.film+'</div><div class="ri-film">('+a.year+')</div></div>';
+    list.appendChild(d);
+  });
+  setTimeout(() => goHome(), 15000);
+}
+
+// ════════ SONS ════════
+let AC = null;
+function getAC() {
+  if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {} }
   return AC;
 }
-function unlockAudio(){
-  const ac=getAC();
-  if(ac && ac.state==='suspended') ac.resume();
-}
+function unlockAudio() { const ac = getAC(); if (ac && ac.state === 'suspended') ac.resume(); }
 document.addEventListener('touchstart', unlockAudio, {once:true});
 document.addEventListener('click', unlockAudio, {once:true});
 
-function beep(freq,dur,vol=0.3,type='sine',when=null){
-  const ac=getAC();if(!ac)return;
-  if(when===null)when=ac.currentTime;
-  const o=ac.createOscillator(),g=ac.createGain();
-  o.connect(g);g.connect(ac.destination);
-  o.type=type;o.frequency.setValueAtTime(freq,when);
-  g.gain.setValueAtTime(vol,when);
-  g.gain.exponentialRampToValueAtTime(0.001,when+dur);
-  o.start(when);o.stop(when+dur+0.01);
+function beep(freq, dur, vol, type, when) {
+  const ac = getAC(); if (!ac) return;
+  vol = vol || 0.3; type = type || 'sine'; when = when != null ? when : ac.currentTime;
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.connect(g); g.connect(ac.destination);
+  o.type = type; o.frequency.setValueAtTime(freq, when);
+  g.gain.setValueAtTime(vol, when);
+  g.gain.exponentialRampToValueAtTime(0.001, when + dur);
+  o.start(when); o.stop(when + dur + 0.01);
 }
-
-function soundClap(){
-  unlockAudio();
-  const ac=getAC();if(!ac)return;
-  const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.05),ac.sampleRate);
-  const data=buf.getChannelData(0);
-  for(let i=0;i<data.length;i++) data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,2);
-  const src=ac.createBufferSource(),g=ac.createGain();
-  g.gain.setValueAtTime(0.55,ac.currentTime);
-  src.buffer=buf;src.connect(g);g.connect(ac.destination);src.start();
-  beep(900,0.04,0.18,'square',ac.currentTime);
+function noise(dur, vol, when, ac) {
+  const buf = ac.createBuffer(1, Math.floor(ac.sampleRate * dur), ac.sampleRate);
+  const d = buf.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = (Math.random()*2-1) * Math.pow(1-i/d.length, 1.2);
+  const src = ac.createBufferSource(), g = ac.createGain();
+  g.gain.setValueAtTime(vol, when); src.buffer = buf;
+  src.connect(g); g.connect(ac.destination); src.start(when);
 }
-
-function soundTick(t){
-  unlockAudio();
-  const ac=getAC();if(!ac)return;
-  beep(t<=2?1100:750, 0.07, t<=2?0.4:0.22, 'square', ac.currentTime);
+function soundClap() {
+  unlockAudio(); const ac = getAC(); if (!ac) return;
+  const now = ac.currentTime;
+  noise(0.05, 0.5, now, ac);
+  beep(900, 0.04, 0.18, 'square', now);
 }
-
-function soundCorrect(){
+function soundTick(t) {
   unlockAudio();
-  const ac=getAC();if(!ac)return;
-  const now=ac.currentTime;
-  // Fanfare montante puissante
-  const notes=[392,523,659,784,1047,1319];
-  const vols =[0.5,0.5,0.55,0.6,0.7,0.8];
-  notes.forEach((f,i)=>beep(f,0.22,vols[i],'sine',now+i*0.08));
-  // Harmonique basse pour plus de corps
-  beep(196,0.4,0.35,'sine',now);
-  beep(261,0.35,0.3,'sine',now+0.05);
-  // Applaudissements nourris
-  for(let r=0;r<12;r++){
-    const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.08),ac.sampleRate);
-    const d=buf.getChannelData(0);
-    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,1.2);
-    const src=ac.createBufferSource(),g=ac.createGain();
-    g.gain.setValueAtTime(0.38,ac.currentTime);
-    src.buffer=buf;src.connect(g);g.connect(ac.destination);
-    src.start(ac.currentTime+r*0.055+0.1);
-  }
+  beep(t <= 2 ? 1100 : 750, 0.07, t <= 2 ? 0.4 : 0.22, 'square');
 }
-
-function soundWrong(){
-  unlockAudio();
-  const ac=getAC();if(!ac)return;
-  const now=ac.currentTime;
-  // Buzzer game show — triple descente puissante
-  beep(180,0.18,0.7,'sawtooth',now);
-  beep(140,0.18,0.65,'sawtooth',now+0.17);
-  beep(110,0.30,0.6,'sawtooth',now+0.33);
-  // Bruit blanc court pour impact
-  const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.12),ac.sampleRate);
-  const d=buf.getChannelData(0);
-  for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,0.8);
-  const src=ac.createBufferSource(),g=ac.createGain();
-  g.gain.setValueAtTime(0.45,now);
-  src.buffer=buf;src.connect(g);g.connect(ac.destination);src.start(now);
+function soundCorrect() {
+  unlockAudio(); const ac = getAC(); if (!ac) return;
+  const now = ac.currentTime;
+  [392,523,659,784,1047,1319].forEach((f,i) => beep(f, 0.22, 0.3+i*0.08, 'sine', now+i*0.08));
+  beep(196, 0.4, 0.35, 'sine', now);
+  for (let r = 0; r < 12; r++) noise(0.07, 0.32, now + 0.1 + r*0.055, ac);
 }
-
-function soundVictory(){
-  unlockAudio();
-  const ac=getAC();if(!ac)return;
-  const now=ac.currentTime;
-  // Fanfare de victoire — plus forte et festive
+function soundWrong() {
+  unlockAudio(); const ac = getAC(); if (!ac) return;
+  const now = ac.currentTime;
+  beep(180, 0.18, 0.7, 'sawtooth', now);
+  beep(140, 0.18, 0.65, 'sawtooth', now+0.17);
+  beep(110, 0.30, 0.6, 'sawtooth', now+0.33);
+  noise(0.12, 0.4, now, ac);
+}
+function soundVictory() {
+  unlockAudio(); const ac = getAC(); if (!ac) return;
+  const now = ac.currentTime;
   const mel=[523,523,523,415,622,523,415,622,523,784,1047];
   const dur=[.12,.12,.12,.09,.35,.12,.09,.35,.12,.2,.6];
   const vol=[.5,.5,.55,.45,.65,.55,.45,.65,.55,.7,.85];
-  let t=now;
-  mel.forEach((f,i)=>{beep(f,dur[i],vol[i],'sine',t);t+=dur[i]+0.02;});
-  // Basse pour le punch
-  beep(130,0.8,0.4,'sine',now);
-  beep(196,0.6,0.35,'sine',now+0.3);
-  // Applaudissements finale
-  for(let r=0;r<18;r++){
-    const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.07),ac.sampleRate);
-    const d=buf.getChannelData(0);
-    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,1.1);
-    const src=ac.createBufferSource(),g=ac.createGain();
-    g.gain.setValueAtTime(0.42,ac.currentTime);
-    src.buffer=buf;src.connect(g);g.connect(ac.destination);
-    src.start(ac.currentTime+r*0.06+0.2);
-  }
+  let t = now;
+  mel.forEach((f,i) => { beep(f, dur[i], vol[i], 'sine', t); t += dur[i]+0.02; });
+  beep(130, 0.8, 0.4, 'sine', now);
+  for (let r = 0; r < 18; r++) noise(0.07, 0.38, now + 0.2 + r*0.06, ac);
 }
 
-
-// ── PLEIN ÉCRAN ──
-function toggleFullscreen(){
-  const el=document.documentElement;
-  if(!document.fullscreenElement && !document.webkitFullscreenElement){
-    const req=el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen;
-    if(req) req.call(el);
-    document.getElementById('btnFS').textContent='✕ Quitter plein écran';
+// ════════ FULLSCREEN ════════
+function toggleFullscreen() {
+  const el = document.documentElement;
+  if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+    const req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen;
+    if (req) req.call(el);
+    document.getElementById('btnFS').textContent = '✕ Quitter plein écran';
   } else {
-    const ex=document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen||document.msExitFullscreen;
-    if(ex) ex.call(document);
-    document.getElementById('btnFS').textContent='⛶ Plein écran';
+    const ex = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen;
+    if (ex) ex.call(document);
+    document.getElementById('btnFS').textContent = '⛶ Plein écran';
   }
 }
-
-// Plein écran automatique au lancement du quiz
-function requestFullscreenAuto(){
-  const el=document.documentElement;
-  const req=el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen;
-  if(req && !document.fullscreenElement && !document.webkitFullscreenElement){
-    req.call(el).catch(()=>{});
-  }
+function requestFSAuto() {
+  const el = document.documentElement;
+  const req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen;
+  if (req && !document.fullscreenElement && !document.webkitFullscreenElement) req.call(el).catch(()=>{});
 }
-
-// Mise à jour du bouton si plein écran fermé via Echap
-document.addEventListener('fullscreenchange',()=>{
-  const btn=document.getElementById('btnFS');
-  if(btn) btn.textContent=document.fullscreenElement?'✕ Quitter plein écran':'⛶ Plein écran';
-});
-document.addEventListener('webkitfullscreenchange',()=>{
-  const btn=document.getElementById('btnFS');
-  if(btn) btn.textContent=document.webkitFullscreenElement?'✕ Quitter plein écran':'⛶ Plein écran';
+['fullscreenchange','webkitfullscreenchange'].forEach(ev => {
+  document.addEventListener(ev, () => {
+    const btn = document.getElementById('btnFS');
+    if (btn) btn.textContent = (document.fullscreenElement||document.webkitFullscreenElement) ? '✕ Quitter plein écran' : '⛶ Plein écran';
+  });
 });
 
-document.getElementById('screenHome').style.display='flex';
+// ════════ INIT ════════
+document.getElementById('screenHome').style.display = 'flex';
 </script>
 </body>
 </html>
