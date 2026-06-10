@@ -668,7 +668,6 @@ function chooseOpt(idx,chosen,correct){
   const t=team();
   const isRight=chosen===correct;
 
-  // Colorier toutes les options
   optOrder.forEach((o,i)=>{
     const el=document.getElementById('opt'+i);
     if(!el)return;
@@ -678,27 +677,26 @@ function chooseOpt(idx,chosen,correct){
     else el.classList.add('timeout');
   });
 
-  // Point automatique si bonne réponse
   if(isRight){
     scores[t]++;
     document.getElementById(t===0?'spA':'spB').textContent=scores[t];
     soundCorrect();
     const sb=document.getElementById(t===0?'sbA':'sbB');
     sb.style.transform='scale(1.1)';setTimeout(()=>sb.style.transform='',220);
-  
-  // Feedback
+  } else {
+    soundWrong();
+  }
+
   const fb=document.getElementById('feedback');
   const tName=t===0?nameA:nameB;
   if(isRight){
     fb.textContent=`✓ Bonne réponse ! +1 point pour ${tName} 🎉`;
     fb.className='feedback show ok';
   } else {
-    soundWrong();
-    fb.textContent=`✗ C'était « ${correct } » (${Q[order[cur]].year}).`;
+    fb.textContent=`✗ C'était « ${correct} » (${Q[order[cur]].year}).`;
     fb.className='feedback show ko';
   }
 
-  // Overlay révélation
   document.getElementById('revLbl').textContent=isRight?'✓ Bonne réponse !':'✗ La bonne réponse était…';
   document.getElementById('revLbl').style.color=isRight?'var(--correct)':'var(--wrong)';
   document.getElementById('revOverlay').style.borderColor=isRight?'var(--correct)':'var(--wrong)';
