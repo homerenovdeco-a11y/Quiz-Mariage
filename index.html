@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
 <title>Quiz Cinéma Français — Mariage</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
@@ -290,6 +293,135 @@ body::before{
   .opts{grid-template-columns:1fr;}
   .r-pts{font-size:2.8rem;}
 }
+
+/* Overlay confirmation */
+.confirm-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(26,20,16,.6);
+  display:none;align-items:center;justify-content:center;
+  animation:fadeIn .2s ease;
+}
+.confirm-overlay.show{display:flex;}
+.confirm-box{
+  background:white;border:1px solid var(--border);
+  border-radius:16px;padding:2rem 2rem 1.5rem;
+  text-align:center;max-width:320px;width:88%;
+  box-shadow:0 8px 32px rgba(0,0,0,.15);
+  animation:popIn .3s cubic-bezier(.34,1.56,.64,1);
+}
+.confirm-msg{
+  font-family:'Playfair Display',serif;
+  font-size:1.1rem;font-weight:700;
+  color:var(--ink);margin-bottom:1.5rem;line-height:1.4;
+}
+.confirm-btns{display:flex;gap:.8rem;justify-content:center;}
+.btn-confirm-no{
+  padding:.7rem 1.8rem;border-radius:10px;
+  background:var(--ivory-2);color:var(--muted);
+  border:1.5px solid var(--border);
+  font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;
+  cursor:pointer;transition:transform .1s;
+}
+.btn-confirm-yes{
+  padding:.7rem 1.8rem;border-radius:10px;
+  background:var(--wrong);color:white;
+  border:none;
+  font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;
+  cursor:pointer;transition:transform .1s;
+}
+.btn-confirm-no:hover,.btn-confirm-yes:hover{transform:scale(1.04);}
+
+/* Plein écran */
+.btn-fullscreen{
+  margin-top:.8rem;
+  padding:.55rem 1.4rem;
+  background:transparent;
+  color:var(--muted);
+  border:1.5px solid var(--border);
+  border-radius:8px;
+  font-family:'DM Sans',sans-serif;
+  font-size:.82rem;font-weight:500;
+  cursor:pointer;letter-spacing:.05em;
+  transition:border-color .2s,color .2s;
+}
+.btn-fullscreen:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ── JOKERS ── */
+.jokers-panel{
+  display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;
+  background:white;border:1px solid var(--border);border-radius:12px;
+  padding:.6rem .9rem;
+}
+.joker-ttl{font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-right:.2rem;}
+.btn-joker{
+  padding:.38rem .75rem;border:none;border-radius:8px;
+  font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:600;
+  cursor:pointer;transition:transform .1s,opacity .2s;
+  display:flex;align-items:center;gap:.3rem;
+}
+.btn-joker:disabled{opacity:.28;cursor:default;pointer-events:none;}
+.btn-joker:hover:not(:disabled){transform:scale(1.06);}
+.btn-hint-a{background:#FFF8E8;color:#A07020;border:1.5px solid #E8C87A;}
+.btn-hint-b{background:#FFF8E8;color:#A07020;border:1.5px solid #E8C87A;}
+.btn-call-a{background:var(--a-lt);color:var(--a);border:1.5px solid var(--a-bd);}
+.btn-call-b{background:var(--b-lt);color:var(--b);border:1.5px solid var(--b-bd);}
+.joker-count{font-size:.65rem;font-weight:700;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.08);}
+
+/* ── BONUS badge ── */
+.bonus-badge{
+  display:inline-block;
+  background:var(--gold);color:white;
+  font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:.18rem .6rem;border-radius:2rem;margin-left:.5rem;
+  vertical-align:middle;
+}
+.tiebreak-badge{
+  display:inline-block;
+  background:#8B3A3A;color:white;
+  font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:.18rem .6rem;border-radius:2rem;margin-left:.5rem;
+  vertical-align:middle;
+}
+
+/* ── OVERLAY indice / appel ── */
+.hint-overlay{
+  position:fixed;inset:0;z-index:150;
+  background:rgba(26,20,16,.55);
+  display:none;align-items:center;justify-content:center;
+  animation:fadeIn .2s ease;
+}
+.hint-overlay.show{display:flex;}
+.hint-box{
+  background:white;border:2px solid var(--gold);
+  border-radius:16px;padding:1.8rem 2rem;
+  text-align:center;max-width:400px;width:88%;
+  box-shadow:0 8px 32px rgba(0,0,0,.12);
+  animation:popIn .3s cubic-bezier(.34,1.56,.64,1);
+}
+.hint-icon{font-size:2rem;margin-bottom:.5rem;}
+.hint-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:.5rem;}
+.hint-content{font-size:1rem;color:var(--gold);font-weight:600;margin-bottom:1.2rem;line-height:1.5;}
+.btn-hint-close{
+  padding:.65rem 1.8rem;background:var(--gold);color:white;
+  border:none;border-radius:8px;
+  font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;
+  cursor:pointer;
+}
+
+/* ── ANIMATION SCORE ── */
+@keyframes scorePop{
+  0%  {transform:scale(1)}
+  30% {transform:scale(1.45)}
+  60% {transform:scale(0.92)}
+  100%{transform:scale(1)}
+}
+.score-pop { animation: scorePop .5s cubic-bezier(.34,1.56,.64,1); }
+
+/* ── CONFETTIS ── */
+.confetti-canvas{
+  position:fixed;inset:0;z-index:300;
+  pointer-events:none;
+}
 </style>
 </head>
 <body>
@@ -323,6 +455,7 @@ body::before{
   </div>
 
   <button class="btn-launch" onclick="startGame()">▶ Lancer le quiz !</button>
+  <button class="btn-fullscreen" id="btnFS" onclick="toggleFullscreen()">⛶ Plein écran</button>
 </div>
 
 <!-- JEU -->
@@ -370,11 +503,20 @@ body::before{
 
   <div class="feedback" id="feedback"></div>
 
+  <!-- Jokers -->
+  <div class="jokers-panel">
+    <span class="joker-ttl">🃏 Jokers</span>
+    <button class="btn-joker btn-hint-a" id="hintA" onclick="useHint(0)">💡 Indice <span class="joker-count" id="hintCntA">3</span></button>
+    <button class="btn-joker btn-hint-b" id="hintB" onclick="useHint(1)">💡 Indice <span class="joker-count" id="hintCntB">3</span></button>
+    <button class="btn-joker btn-call-a" id="callA" onclick="useCall(0)">📞 Appel <span class="joker-count" id="callCntA">2</span></button>
+    <button class="btn-joker btn-call-b" id="callB" onclick="useCall(1)">📞 Appel <span class="joker-count" id="callCntB">2</span></button>
+  </div>
+
   <div class="dj-panel">
     <span class="dj-lbl">🎙 DJ</span>
     <button class="btn-dj btn-rma" onclick="removePoint(0)">−1 <span id="djRmA">A</span></button>
     <button class="btn-dj btn-rmb" onclick="removePoint(1)">−1 <span id="djRmB">B</span></button>
-    <button class="btn-dj btn-home-sm" onclick="goHome()">🏠</button>
+    <button class="btn-dj btn-home-sm" onclick="confirmGoHome()">🏠</button>
     <button class="btn-dj btn-nextq" id="btnNext" onclick="nextQuestion()" disabled>Suivant →</button>
   </div>
 
@@ -410,7 +552,7 @@ body::before{
   </div>
 
   <div class="res-btns">
-    <button class="btn-res btn-res-home"   onclick="goHome()">🏠 Changer les équipes</button>
+    <button class="btn-res btn-res-replay" onclick="goHome()">🏠 Retour au menu</button>
     <button class="btn-res btn-res-replay" onclick="startGame()">🔄 Rejouer</button>
   </div>
 
@@ -420,6 +562,31 @@ body::before{
   </div>
 </div>
 
+
+
+<!-- OVERLAY INDICE / APPEL -->
+<div class="hint-overlay" id="hintOverlay" onclick="closeHint()">
+  <div class="hint-box" onclick="event.stopPropagation()">
+    <div class="hint-icon" id="hintIcon">💡</div>
+    <div class="hint-title" id="hintTitle">Indice</div>
+    <div class="hint-content" id="hintContent"></div>
+    <button class="btn-hint-close" onclick="closeHint()">Merci !</button>
+  </div>
+</div>
+
+<!-- CANVAS CONFETTIS -->
+<canvas class="confetti-canvas" id="confettiCanvas"></canvas>
+
+<!-- OVERLAY CONFIRMATION -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-msg" id="confirmMsg"></div>
+    <div class="confirm-btns">
+      <button class="btn-confirm-no"  onclick="closeConfirm()">Non</button>
+      <button class="btn-confirm-yes" onclick="confirmYes()">Oui</button>
+    </div>
+  </div>
+</div>
 </div>
 <script>
 const Q=[
@@ -465,6 +632,89 @@ const Q=[
   {r:"« Y'a pas de sot métier, y'a que de sottes gens. »",film:"Papy fait de la résistance",year:1983,wrong:["Le Père Noël est une ordure","Les Bronzés font du ski","Trois hommes et un couffin"]},
 ];
 
+
+// ════════════════════════════════
+//  QUESTIONS BONUS (2 pts chacune)
+//  1 par équipe, milieu du quiz
+// ════════════════════════════════
+const BONUS = [
+  // Équipe A (question 10 — cur===9)
+  { r:"« Allez, on se fait la valise ! »", film:"Le Grand Bain", year:2018,
+    hint:"Acteur : Mathieu Amalric", wrong:["Intouchables","Les Invisibles","Rodin"] },
+  // Équipe B (question 10 côté B — cur===10)
+  { r:"« T'as vu ma face ? »", film:"La Vérité si je mens ! 2", year:2004,
+    hint:"Acteur : José Garcia", wrong:["Le Corniaud","Le Dîner de cons","Taxi"] },
+];
+
+// ════════════════════════════════
+//  QUESTIONS D'ÉGALITÉ (3 dispo)
+// ════════════════════════════════
+const TIEBREAK = [
+  { r:"« C'est pas parce qu'on a rien à dire qu'il faut fermer sa gueule. »",
+    film:"Les Valseuses", year:1974,
+    hint:"Acteur : Gérard Depardieu", wrong:["Buffet froid","Tenue de soirée","Tchao Pantin"] },
+  { r:"« La politesse, c'est le début de la violence. »",
+    film:"Buffet froid", year:1979,
+    hint:"Acteur : Gérard Depardieu", wrong:["Les Valseuses","Tenue de soirée","Série noire"] },
+  { r:"« Je suis un homme libre, moi ! Enfin, presque. »",
+    film:"Les Fugitifs", year:1986,
+    hint:"Acteur : Pierre Richard", wrong:["La Chèvre","Les Compères","Le Jouet"] },
+];
+
+// ════════════════════════════════
+//  INDICES par question (index = order dans Q[])
+//  On stocke acteur + réalisateur
+// ════════════════════════════════
+const HINTS = [
+  "Acteur : Michel Jouvet · Réal : Marcel Carné",   // 0 Drôle de drame
+  "Acteur : Lino Ventura · Réal : Georges Lautner",  // 1 Tontons
+  "Acteur : Jean Reno · Réal : Jean-Marie Poiré",    // 2 Visiteurs
+  "Acteur : Vincent Cassel · Réal : Mathieu Kassovitz", // 3 La Haine
+  "Acteur : Hubert Koundé · Réal : Mathieu Kassovitz",  // 4 La Haine
+  "Acteur : Jacques Villeret · Réal : Francis Veber",    // 5 Dîner de cons
+  "Acteur : Thierry Lhermitte · Réal : Francis Veber",   // 6 Dîner de cons
+  "Acteur : Josiane Balasko · Réal : Jean-Marie Poiré",  // 7 Père Noël
+  "Acteur : Anémone · Réal : Jean-Marie Poiré",          // 8 Père Noël
+  "Acteur : Didier Bourdon · Réal : Les Inconnus",       // 9 Trois Frères
+  "Acteur : Alain Chabat · Réal : Alain Chabat",         // 10 Didier
+  "Acteur : Louis de Funès · Réal : Claude Zidi",        // 11 Aile ou Cuisse
+  "Acteur : Jean-Paul Belmondo · Réal : Philippe Labro", // 12 L'Héritier
+  "Acteur : Jean-Paul Belmondo · Réal : Gérard Oury",   // 13 As des as
+  "Acteur : Gérard Depardieu · Réal : Bertrand Blier",   // 14 Valseuses
+  "Acteur : Philippe Noiret · Réal : Robert Enrico",     // 15 Vieux Fusil
+  "Acteur : Isabelle Adjani · Réal : Claude Pinoteau",   // 16 La Gifle
+  "Acteur : Christophe Lambert · Réal : Luc Besson",     // 17 Subway
+  "Acteur : Jean-Marc Barr · Réal : Luc Besson",         // 18 Grand Bleu
+  "Acteur : Béatrice Dalle · Réal : Jean-Jacques Beineix",// 19 37°2
+  "Acteur : Sophie Marceau · Réal : Claude Pinoteau",    // 20 La Boum
+  "Acteur : Pierre Richard · Réal : Francis Veber",      // 21 Les Compères
+  "Acteur : Gérard Depardieu · Réal : Francis Veber",    // 22 La Chèvre
+  "Acteur : Anne Parillaud · Réal : Luc Besson",         // 23 Nikita
+  "Acteur : Richard Bohringer · Réal : Jean-Jacques Beineix", // 24 Diva
+  "Acteur : Gérard Depardieu · Réal : Bertrand Blier",   // 25 Tenue de soirée
+  "Acteur : Pierre Richard · Réal : Francis Veber",      // 26 Les Fugitifs
+  "Acteur : Yves Robert · Réal : Yves Robert",           // 27 Gloire de mon père
+  "Acteur : Christian Clavier · Réal : Jean-Marie Poiré",// 28 Visiteurs
+  "Acteur : Franck Dubosc · Réal : Philippe Harel",      // 29 Randonneurs
+  "Acteur : Monica Bellucci · Réal : Gilles Mimouni",    // 30 L'Appartement
+  "Acteur : Charles Berling · Réal : Patrice Leconte",   // 31 Ridicule
+  "Acteur : Michel Serrault · Réal : Étienne Chatiliez", // 32 Bonheur dans le pré
+  "Acteur : Victoria Abril · Réal : Josiane Balasko",    // 33 Gazon maudit
+  "Acteur : José Garcia · Réal : Thomas Gilou",          // 34 Vérité si je mens
+  "Acteur : Michel Galabru · Réal : Claude Zidi",        // 35 Sous-doués
+  "Acteur : Michel Galabru · Réal : Bertrand Tavernier", // 36 Juge et l'Assassin
+  "Acteur : Olivier Martinez · Réal : Jean-Paul Rappeneau",// 37 Hussard
+  "Acteur : Christian Clavier · Réal : Jean-Marie Poiré",// 38 Visiteurs 2
+  "Acteur : Michel Galabru · Réal : Jean-Marie Poiré",   // 39 Papy
+];
+
+// ── JOKER state ──
+let jokers = { hints:[3,3], calls:[2,2] };
+let bonusUsed = [false, false];
+let tiebreakMode = false;
+let tiebreakIdx = 0;
+let tiebreakScores = [0,0];
+
 const TIMER=15;
 const CIRC=2*Math.PI*30; // r=30 → ~188.5
 let nameA='Équipe A',nameB='Équipe B';
@@ -479,6 +729,188 @@ function goHome(){
   document.getElementById('screenGame').style.display='none';
   document.getElementById('screenResult').style.display='none';
   
+
+// ── JOKERS ──
+function updateJokerUI(){
+  [0,1].forEach(t=>{
+    const hs=jokers.hints[t], cs=jokers.calls[t];
+    const name=t===0?'A':'B';
+    const hBtn=document.getElementById('hint'+name);
+    const cBtn=document.getElementById('call'+name);
+    const hCnt=document.getElementById('hintCnt'+name);
+    const cCnt=document.getElementById('callCnt'+name);
+    if(hBtn){ hBtn.disabled=hs<=0; if(hCnt) hCnt.textContent=hs; }
+    if(cBtn){ cBtn.disabled=cs<=0; if(cCnt) cCnt.textContent=cs; }
+  });
+}
+
+function useHint(t){
+  if(jokers.hints[t]<=0) return;
+  const q = tiebreakMode ? TIEBREAK[tiebreakIdx] : Q[order[cur]];
+  const hint = tiebreakMode ? q.hint : (HINTS[order[cur]] || '—');
+  jokers.hints[t]--;
+  updateJokerUI();
+  showHintOverlay('💡','Indice pour '+( t===0?nameA:nameB), hint);
+}
+
+function useCall(t){
+  if(jokers.calls[t]<=0) return;
+  jokers.calls[t]--;
+  updateJokerUI();
+  showHintOverlay('📞','Appel au plus jeune !','L'équipe '+( t===0?nameA:nameB)+' appelle un ami pour avoir de l'aide. Donnez-leur 30 secondes ! ⏳');
+}
+
+function showHintOverlay(icon, title, content){
+  document.getElementById('hintIcon').textContent=icon;
+  document.getElementById('hintTitle').textContent=title;
+  document.getElementById('hintContent').textContent=content;
+  document.getElementById('hintOverlay').classList.add('show');
+}
+function closeHint(){ document.getElementById('hintOverlay').classList.remove('show'); }
+
+// ── SCORE ANIMATION ──
+function animScore(t){
+  const el=document.getElementById(t===0?'spA':'spB');
+  el.classList.remove('score-pop');
+  void el.offsetWidth;
+  el.classList.add('score-pop');
+  setTimeout(()=>el.classList.remove('score-pop'),500);
+}
+
+// ── TIEBREAK ──
+function renderTiebreak(){
+  if(tiebreakIdx>=TIEBREAK.length){
+    showResult();
+    return;
+  }
+  const q=TIEBREAK[tiebreakIdx];
+  const t=team();
+
+  document.getElementById('spA').textContent=scores[0];
+  document.getElementById('spB').textContent=scores[1];
+  document.getElementById('snA').textContent=nameA;
+  document.getElementById('snB').textContent=nameB;
+  document.getElementById('sbA').className='score-block'+(t===0?' active-a':'');
+  document.getElementById('sbB').className='score-block'+(t===1?' active-b':'');
+  const tb=document.getElementById('turnBadge');
+  tb.textContent=`Tour de ${t===0?nameA:nameB}`;
+  tb.className='turn-badge '+(t===0?'a':'b');
+  document.getElementById('progFill').style.width='100%';
+  document.getElementById('progLbl').textContent='⚔️ Égalité !';
+  document.getElementById('qNum').innerHTML='Question de départage <span class="tiebreak-badge">⚔️ ÉGALITÉ</span>';
+  document.getElementById('qYear').textContent=`Film de ${q.year}`;
+  document.getElementById('qText').textContent=q.r;
+
+  const card=document.getElementById('qCard');
+  card.style.animation='none';void card.offsetWidth;card.style.animation='';
+  soundClap();
+
+  const optOrder2=shuffle([q.film,...q.wrong]);
+  const grid=document.getElementById('optsGrid');
+  grid.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{
+    const d=document.createElement('div');
+    d.className='opt'; d.id='opt'+i;
+    d.innerHTML=`<span class="opt-l">${l}</span><span>${optOrder2[i]}</span>`;
+    d.addEventListener('click',()=>chooseTiebreak(i,optOrder2[i],q.film,optOrder2));
+    grid.appendChild(d);
+  });
+
+  document.getElementById('feedback').className='feedback';
+  const bn=document.getElementById('btnNext');
+  bn.disabled=true;
+  bn.className='btn-dj btn-nextq';
+  bn.textContent='Suivant →';
+
+  startTimer();
+}
+
+function chooseTiebreak(idx,chosen,correct,opts){
+  if(answered)return;
+  answered=true;
+  stopTimer();
+  const t=team();
+  const isRight=chosen===correct;
+
+  opts.forEach((o,i)=>{
+    const el=document.getElementById('opt'+i);
+    if(!el)return;
+    el.classList.add('disabled');
+    if(o===correct) el.classList.add('correct');
+    else if(i===idx && !isRight) el.classList.add('wrong');
+    else el.classList.add('timeout');
+  });
+
+  if(isRight){
+    scores[t]++;
+    document.getElementById(t===0?'spA':'spB').textContent=scores[t];
+    animScore(t);
+    soundCorrect();
+  } else {
+    soundWrong();
+  }
+
+  const fb=document.getElementById('feedback');
+  const tName=t===0?nameA:nameB;
+  fb.textContent=isRight?`✓ +1 point pour ${tName} !`:`✗ C'était « ${correct} ».`;
+  fb.className='feedback show '+(isRight?'ok':'ko');
+
+  document.getElementById('revLbl').textContent=isRight?'✓ Bonne réponse !':'✗ La bonne réponse était…';
+  document.getElementById('revLbl').style.color=isRight?'var(--correct)':'var(--wrong)';
+  document.getElementById('revFilm').textContent=correct;
+  document.getElementById('revYear').textContent=TIEBREAK[tiebreakIdx].year;
+  document.getElementById('revOverlay').classList.add('show');
+
+  tiebreakIdx++;
+  document.getElementById('btnNext').disabled=false;
+}
+
+// ── CONFETTIS ──
+function launchConfetti(){
+  const canvas=document.getElementById('confettiCanvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+
+  const colors=['#C9A96E','#E8D5B0','#2563A8','#8B3A3A','#4A7C59','#F5C518','#E84040','#50C878'];
+  const pieces=[];
+  for(let i=0;i<180;i++){
+    pieces.push({
+      x:Math.random()*canvas.width,
+      y:-20-Math.random()*200,
+      w:8+Math.random()*10,
+      h:4+Math.random()*6,
+      color:colors[Math.floor(Math.random()*colors.length)],
+      angle:Math.random()*Math.PI*2,
+      spin:(.5-Math.random())*.15,
+      vx:(.5-Math.random())*3,
+      vy:2+Math.random()*4,
+      alpha:1
+    });
+  }
+
+  let frame=0;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pieces.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.angle+=p.spin;
+      if(frame>120) p.alpha=Math.max(0,p.alpha-.012);
+      ctx.save();
+      ctx.globalAlpha=p.alpha;
+      ctx.translate(p.x,p.y);
+      ctx.rotate(p.angle);
+      ctx.fillStyle=p.color;
+      ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+      ctx.restore();
+    });
+    frame++;
+    if(frame<220) requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,canvas.width,canvas.height);
+  }
+  draw();
+}
+
 // ══════════════════════════════
 //  SONS — Web Audio API
 // ══════════════════════════════
@@ -530,15 +962,22 @@ function soundCorrect(){
   unlockAudio();
   const ac=getAC();if(!ac)return;
   const now=ac.currentTime;
-  [523,659,784,1047].forEach((f,i)=>beep(f,0.18,0.28,'sine',now+i*0.1));
-  for(let r=0;r<6;r++){
-    const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.06),ac.sampleRate);
+  // Fanfare montante puissante
+  const notes=[392,523,659,784,1047,1319];
+  const vols =[0.5,0.5,0.55,0.6,0.7,0.8];
+  notes.forEach((f,i)=>beep(f,0.22,vols[i],'sine',now+i*0.08));
+  // Harmonique basse pour plus de corps
+  beep(196,0.4,0.35,'sine',now);
+  beep(261,0.35,0.3,'sine',now+0.05);
+  // Applaudissements nourris
+  for(let r=0;r<12;r++){
+    const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.08),ac.sampleRate);
     const d=buf.getChannelData(0);
-    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,1.5);
+    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,1.2);
     const src=ac.createBufferSource(),g=ac.createGain();
-    g.gain.setValueAtTime(0.22,ac.currentTime);
+    g.gain.setValueAtTime(0.38,ac.currentTime);
     src.buffer=buf;src.connect(g);g.connect(ac.destination);
-    src.start(ac.currentTime+r*0.07);
+    src.start(ac.currentTime+r*0.055+0.1);
   }
 }
 
@@ -546,19 +985,77 @@ function soundWrong(){
   unlockAudio();
   const ac=getAC();if(!ac)return;
   const now=ac.currentTime;
-  beep(280,0.15,0.45,'sawtooth',now);
-  beep(190,0.28,0.35,'sawtooth',now+0.13);
+  // Buzzer game show — triple descente puissante
+  beep(180,0.18,0.7,'sawtooth',now);
+  beep(140,0.18,0.65,'sawtooth',now+0.17);
+  beep(110,0.30,0.6,'sawtooth',now+0.33);
+  // Bruit blanc court pour impact
+  const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.12),ac.sampleRate);
+  const d=buf.getChannelData(0);
+  for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,0.8);
+  const src=ac.createBufferSource(),g=ac.createGain();
+  g.gain.setValueAtTime(0.45,now);
+  src.buffer=buf;src.connect(g);g.connect(ac.destination);src.start(now);
 }
 
 function soundVictory(){
   unlockAudio();
   const ac=getAC();if(!ac)return;
   const now=ac.currentTime;
-  const mel=[523,523,523,415,622,523,415,622,523];
-  const dur=[.15,.15,.15,.1,.4,.15,.1,.4,.6];
+  // Fanfare de victoire — plus forte et festive
+  const mel=[523,523,523,415,622,523,415,622,523,784,1047];
+  const dur=[.12,.12,.12,.09,.35,.12,.09,.35,.12,.2,.6];
+  const vol=[.5,.5,.55,.45,.65,.55,.45,.65,.55,.7,.85];
   let t=now;
-  mel.forEach((f,i)=>{beep(f,dur[i],0.3,'sine',t);t+=dur[i]+0.02;});
+  mel.forEach((f,i)=>{beep(f,dur[i],vol[i],'sine',t);t+=dur[i]+0.02;});
+  // Basse pour le punch
+  beep(130,0.8,0.4,'sine',now);
+  beep(196,0.6,0.35,'sine',now+0.3);
+  // Applaudissements finale
+  for(let r=0;r<18;r++){
+    const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.07),ac.sampleRate);
+    const d=buf.getChannelData(0);
+    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,1.1);
+    const src=ac.createBufferSource(),g=ac.createGain();
+    g.gain.setValueAtTime(0.42,ac.currentTime);
+    src.buffer=buf;src.connect(g);g.connect(ac.destination);
+    src.start(ac.currentTime+r*0.06+0.2);
+  }
 }
+
+
+// ── PLEIN ÉCRAN ──
+function toggleFullscreen(){
+  const el=document.documentElement;
+  if(!document.fullscreenElement && !document.webkitFullscreenElement){
+    const req=el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen;
+    if(req) req.call(el);
+    document.getElementById('btnFS').textContent='✕ Quitter plein écran';
+  } else {
+    const ex=document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen||document.msExitFullscreen;
+    if(ex) ex.call(document);
+    document.getElementById('btnFS').textContent='⛶ Plein écran';
+  }
+}
+
+// Plein écran automatique au lancement du quiz
+function requestFullscreenAuto(){
+  const el=document.documentElement;
+  const req=el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen;
+  if(req && !document.fullscreenElement && !document.webkitFullscreenElement){
+    req.call(el).catch(()=>{});
+  }
+}
+
+// Mise à jour du bouton si plein écran fermé via Echap
+document.addEventListener('fullscreenchange',()=>{
+  const btn=document.getElementById('btnFS');
+  if(btn) btn.textContent=document.fullscreenElement?'✕ Quitter plein écran':'⛶ Plein écran';
+});
+document.addEventListener('webkitfullscreenchange',()=>{
+  const btn=document.getElementById('btnFS');
+  if(btn) btn.textContent=document.webkitFullscreenElement?'✕ Quitter plein écran':'⛶ Plein écran';
+});
 
 document.getElementById('screenHome').style.display='flex';
 }
@@ -568,6 +1065,11 @@ function startGame(){
   nameB=document.getElementById('nameB').value.trim()||'Équipe B';
   order=shuffle([...Array(Q.length).keys()]);
   cur=0;scores=[0,0];answers=[];
+  jokers={hints:[3,3],calls:[2,2]};
+  bonusUsed=[false,false];
+  tiebreakMode=false;tiebreakIdx=0;tiebreakScores=[0,0];
+  updateJokerUI();
+  requestFullscreenAuto();
   document.getElementById('screenHome').style.display='none';
   document.getElementById('screenResult').style.display='none';
   document.getElementById('screenGame').style.display='flex';
@@ -579,7 +1081,26 @@ function startGame(){
 function renderQ(){
   stopTimer();
   answered=false;
-  const q=Q[order[cur]];
+
+  // Tiebreak mode
+  if(tiebreakMode){
+    renderTiebreak();
+    return;
+  }
+
+  // Bonus question? Insert at question 19 for A (cur===18) and 20 for B (cur===19)
+  const isBonus = (cur===18 && !bonusUsed[0]) || (cur===19 && !bonusUsed[1]);
+  const bonusTeam = cur===18 ? 0 : 1;
+
+  let q, isBonusQ=false;
+  if(isBonus){
+    q=BONUS[bonusTeam];
+    isBonusQ=true;
+    bonusUsed[bonusTeam]=true;
+  } else {
+    q=Q[order[cur]];
+  }
+
   const total=Q.length;
   const t=team();
 
@@ -597,7 +1118,7 @@ function renderQ(){
 
   document.getElementById('progFill').style.width=`${(cur/total)*100}%`;
   document.getElementById('progLbl').textContent=`${cur+1} / ${total}`;
-  document.getElementById('qNum').textContent=`Question ${cur+1}`;
+  document.getElementById('qNum').innerHTML=`Question ${cur+1}`+(isBonusQ?'<span class="bonus-badge">⭐ BONUS ×2</span>':'');
   document.getElementById('qYear').textContent=`Film de ${q.year}`;
   document.getElementById('qText').textContent=q.r;
 
@@ -615,7 +1136,7 @@ function renderQ(){
     d.className='opt';
     d.id='opt'+i;
     d.innerHTML=`<span class="opt-l">${l}</span><span>${optOrder[i]}</span>`;
-    d.addEventListener('click',()=>chooseOpt(i,optOrder[i],q.film));
+    d.addEventListener('click',()=>chooseOpt(i,optOrder[i],q.film,isBonusQ?2:1));
     grid.appendChild(d);
   });
 
@@ -626,6 +1147,7 @@ function renderQ(){
   bn.className=cur===total-1?'btn-dj btn-nextq final':'btn-dj btn-nextq';
   bn.textContent=cur===total-1?'Résultats 🏆':'Suivant →';
 
+  updateJokerUI();
   startTimer();
 }
 
@@ -660,7 +1182,7 @@ function handleTimeout(){
 }
 
 // ── CLIC SUR UNE OPTION ──
-function chooseOpt(idx,chosen,correct){
+function chooseOpt(idx,chosen,correct,pts=1){
   if(answered)return;
   answered=true;
   stopTimer();
@@ -678,8 +1200,9 @@ function chooseOpt(idx,chosen,correct){
   });
 
   if(isRight){
-    scores[t]++;
+    scores[t]+=pts;
     document.getElementById(t===0?'spA':'spB').textContent=scores[t];
+    animScore(t);
     soundCorrect();
     const sb=document.getElementById(t===0?'sbA':'sbB');
     sb.style.transform='scale(1.1)';setTimeout(()=>sb.style.transform='',220);
@@ -690,7 +1213,7 @@ function chooseOpt(idx,chosen,correct){
   const fb=document.getElementById('feedback');
   const tName=t===0?nameA:nameB;
   if(isRight){
-    fb.textContent=`✓ Bonne réponse ! +1 point pour ${tName} 🎉`;
+    fb.textContent=`✓ Bonne réponse ! +${pts} point${pts>1?'s':''} pour ${tName} 🎉`;
     fb.className='feedback show ok';
   } else {
     fb.textContent=`✗ C'était « ${correct} » (${Q[order[cur]].year}).`;
@@ -711,13 +1234,42 @@ function chooseOpt(idx,chosen,correct){
 function closeReveal(){document.getElementById('revOverlay').classList.remove('show');}
 
 function removePoint(t){
-  if(scores[t]>0){scores[t]--;document.getElementById(t===0?'spA':'spB').textContent=scores[t];}
+  const name=t===0?nameA:nameB;
+  showConfirm(
+    `Retirer 1 point à ${name} ?`,
+    ()=>{ if(scores[t]>0){scores[t]--;document.getElementById(t===0?'spA':'spB').textContent=scores[t];} }
+  );
 }
 
+function confirmGoHome(){
+  showConfirm('Quitter la partie en cours ?', ()=>goHome());
+}
+
+function showConfirm(msg, onYes){
+  document.getElementById('confirmMsg').textContent=msg;
+  document.getElementById('confirmOnYes', onYes);
+  window._confirmCb=onYes;
+  document.getElementById('confirmOverlay').classList.add('show');
+}
+function confirmYes(){ window._confirmCb && window._confirmCb(); closeConfirm(); }
+function closeConfirm(){ document.getElementById('confirmOverlay').classList.remove('show'); }
+
 function nextQuestion(){
-  closeReveal();cur++;
-  if(cur>=Q.length) showResult();
-  else renderQ();
+  closeReveal();
+  if(tiebreakMode){ renderQ(); return; }
+  cur++;
+  if(cur>=Q.length){
+    // Check tiebreak needed
+    if(scores[0]===scores[1] && tiebreakIdx<TIEBREAK.length){
+      tiebreakMode=true;
+      answered=false;
+      renderQ();
+    } else {
+      showResult();
+    }
+  } else {
+    renderQ();
+  }
 }
 
 function showResult(){
@@ -749,9 +1301,12 @@ function showResult(){
     sub=`${scores[0]} points chacun — match nul digne des Tontons flingueurs ! 🍾`;
   }
   document.getElementById('resCrown').textContent=crown;
-  if(scores[0]!==scores[1]) soundVictory();
+  if(scores[0]!==scores[1]){ soundVictory(); launchConfetti(); }
   document.getElementById('resTitle').textContent=title;
   document.getElementById('resSub').textContent=sub;
+
+  // Auto-retour accueil après 8 secondes
+  setTimeout(()=>goHome(), 8000);
 
   const list=document.getElementById('recapList');list.innerHTML='';
   answers.forEach(a=>{
@@ -764,6 +1319,188 @@ function showResult(){
   });
 }
 
+
+
+// ── JOKERS ──
+function updateJokerUI(){
+  [0,1].forEach(t=>{
+    const hs=jokers.hints[t], cs=jokers.calls[t];
+    const name=t===0?'A':'B';
+    const hBtn=document.getElementById('hint'+name);
+    const cBtn=document.getElementById('call'+name);
+    const hCnt=document.getElementById('hintCnt'+name);
+    const cCnt=document.getElementById('callCnt'+name);
+    if(hBtn){ hBtn.disabled=hs<=0; if(hCnt) hCnt.textContent=hs; }
+    if(cBtn){ cBtn.disabled=cs<=0; if(cCnt) cCnt.textContent=cs; }
+  });
+}
+
+function useHint(t){
+  if(jokers.hints[t]<=0) return;
+  const q = tiebreakMode ? TIEBREAK[tiebreakIdx] : Q[order[cur]];
+  const hint = tiebreakMode ? q.hint : (HINTS[order[cur]] || '—');
+  jokers.hints[t]--;
+  updateJokerUI();
+  showHintOverlay('💡','Indice pour '+( t===0?nameA:nameB), hint);
+}
+
+function useCall(t){
+  if(jokers.calls[t]<=0) return;
+  jokers.calls[t]--;
+  updateJokerUI();
+  showHintOverlay('📞','Appel au plus jeune !','L'équipe '+( t===0?nameA:nameB)+' appelle un ami pour avoir de l'aide. Donnez-leur 30 secondes ! ⏳');
+}
+
+function showHintOverlay(icon, title, content){
+  document.getElementById('hintIcon').textContent=icon;
+  document.getElementById('hintTitle').textContent=title;
+  document.getElementById('hintContent').textContent=content;
+  document.getElementById('hintOverlay').classList.add('show');
+}
+function closeHint(){ document.getElementById('hintOverlay').classList.remove('show'); }
+
+// ── SCORE ANIMATION ──
+function animScore(t){
+  const el=document.getElementById(t===0?'spA':'spB');
+  el.classList.remove('score-pop');
+  void el.offsetWidth;
+  el.classList.add('score-pop');
+  setTimeout(()=>el.classList.remove('score-pop'),500);
+}
+
+// ── TIEBREAK ──
+function renderTiebreak(){
+  if(tiebreakIdx>=TIEBREAK.length){
+    showResult();
+    return;
+  }
+  const q=TIEBREAK[tiebreakIdx];
+  const t=team();
+
+  document.getElementById('spA').textContent=scores[0];
+  document.getElementById('spB').textContent=scores[1];
+  document.getElementById('snA').textContent=nameA;
+  document.getElementById('snB').textContent=nameB;
+  document.getElementById('sbA').className='score-block'+(t===0?' active-a':'');
+  document.getElementById('sbB').className='score-block'+(t===1?' active-b':'');
+  const tb=document.getElementById('turnBadge');
+  tb.textContent=`Tour de ${t===0?nameA:nameB}`;
+  tb.className='turn-badge '+(t===0?'a':'b');
+  document.getElementById('progFill').style.width='100%';
+  document.getElementById('progLbl').textContent='⚔️ Égalité !';
+  document.getElementById('qNum').innerHTML='Question de départage <span class="tiebreak-badge">⚔️ ÉGALITÉ</span>';
+  document.getElementById('qYear').textContent=`Film de ${q.year}`;
+  document.getElementById('qText').textContent=q.r;
+
+  const card=document.getElementById('qCard');
+  card.style.animation='none';void card.offsetWidth;card.style.animation='';
+  soundClap();
+
+  const optOrder2=shuffle([q.film,...q.wrong]);
+  const grid=document.getElementById('optsGrid');
+  grid.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{
+    const d=document.createElement('div');
+    d.className='opt'; d.id='opt'+i;
+    d.innerHTML=`<span class="opt-l">${l}</span><span>${optOrder2[i]}</span>`;
+    d.addEventListener('click',()=>chooseTiebreak(i,optOrder2[i],q.film,optOrder2));
+    grid.appendChild(d);
+  });
+
+  document.getElementById('feedback').className='feedback';
+  const bn=document.getElementById('btnNext');
+  bn.disabled=true;
+  bn.className='btn-dj btn-nextq';
+  bn.textContent='Suivant →';
+
+  startTimer();
+}
+
+function chooseTiebreak(idx,chosen,correct,opts){
+  if(answered)return;
+  answered=true;
+  stopTimer();
+  const t=team();
+  const isRight=chosen===correct;
+
+  opts.forEach((o,i)=>{
+    const el=document.getElementById('opt'+i);
+    if(!el)return;
+    el.classList.add('disabled');
+    if(o===correct) el.classList.add('correct');
+    else if(i===idx && !isRight) el.classList.add('wrong');
+    else el.classList.add('timeout');
+  });
+
+  if(isRight){
+    scores[t]++;
+    document.getElementById(t===0?'spA':'spB').textContent=scores[t];
+    animScore(t);
+    soundCorrect();
+  } else {
+    soundWrong();
+  }
+
+  const fb=document.getElementById('feedback');
+  const tName=t===0?nameA:nameB;
+  fb.textContent=isRight?`✓ +1 point pour ${tName} !`:`✗ C'était « ${correct} ».`;
+  fb.className='feedback show '+(isRight?'ok':'ko');
+
+  document.getElementById('revLbl').textContent=isRight?'✓ Bonne réponse !':'✗ La bonne réponse était…';
+  document.getElementById('revLbl').style.color=isRight?'var(--correct)':'var(--wrong)';
+  document.getElementById('revFilm').textContent=correct;
+  document.getElementById('revYear').textContent=TIEBREAK[tiebreakIdx].year;
+  document.getElementById('revOverlay').classList.add('show');
+
+  tiebreakIdx++;
+  document.getElementById('btnNext').disabled=false;
+}
+
+// ── CONFETTIS ──
+function launchConfetti(){
+  const canvas=document.getElementById('confettiCanvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+
+  const colors=['#C9A96E','#E8D5B0','#2563A8','#8B3A3A','#4A7C59','#F5C518','#E84040','#50C878'];
+  const pieces=[];
+  for(let i=0;i<180;i++){
+    pieces.push({
+      x:Math.random()*canvas.width,
+      y:-20-Math.random()*200,
+      w:8+Math.random()*10,
+      h:4+Math.random()*6,
+      color:colors[Math.floor(Math.random()*colors.length)],
+      angle:Math.random()*Math.PI*2,
+      spin:(.5-Math.random())*.15,
+      vx:(.5-Math.random())*3,
+      vy:2+Math.random()*4,
+      alpha:1
+    });
+  }
+
+  let frame=0;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pieces.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.angle+=p.spin;
+      if(frame>120) p.alpha=Math.max(0,p.alpha-.012);
+      ctx.save();
+      ctx.globalAlpha=p.alpha;
+      ctx.translate(p.x,p.y);
+      ctx.rotate(p.angle);
+      ctx.fillStyle=p.color;
+      ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+      ctx.restore();
+    });
+    frame++;
+    if(frame<220) requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,canvas.width,canvas.height);
+  }
+  draw();
+}
 
 // ══════════════════════════════
 //  SONS — Web Audio API
@@ -816,15 +1553,22 @@ function soundCorrect(){
   unlockAudio();
   const ac=getAC();if(!ac)return;
   const now=ac.currentTime;
-  [523,659,784,1047].forEach((f,i)=>beep(f,0.18,0.28,'sine',now+i*0.1));
-  for(let r=0;r<6;r++){
-    const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.06),ac.sampleRate);
+  // Fanfare montante puissante
+  const notes=[392,523,659,784,1047,1319];
+  const vols =[0.5,0.5,0.55,0.6,0.7,0.8];
+  notes.forEach((f,i)=>beep(f,0.22,vols[i],'sine',now+i*0.08));
+  // Harmonique basse pour plus de corps
+  beep(196,0.4,0.35,'sine',now);
+  beep(261,0.35,0.3,'sine',now+0.05);
+  // Applaudissements nourris
+  for(let r=0;r<12;r++){
+    const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.08),ac.sampleRate);
     const d=buf.getChannelData(0);
-    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,1.5);
+    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,1.2);
     const src=ac.createBufferSource(),g=ac.createGain();
-    g.gain.setValueAtTime(0.22,ac.currentTime);
+    g.gain.setValueAtTime(0.38,ac.currentTime);
     src.buffer=buf;src.connect(g);g.connect(ac.destination);
-    src.start(ac.currentTime+r*0.07);
+    src.start(ac.currentTime+r*0.055+0.1);
   }
 }
 
@@ -832,19 +1576,77 @@ function soundWrong(){
   unlockAudio();
   const ac=getAC();if(!ac)return;
   const now=ac.currentTime;
-  beep(280,0.15,0.45,'sawtooth',now);
-  beep(190,0.28,0.35,'sawtooth',now+0.13);
+  // Buzzer game show — triple descente puissante
+  beep(180,0.18,0.7,'sawtooth',now);
+  beep(140,0.18,0.65,'sawtooth',now+0.17);
+  beep(110,0.30,0.6,'sawtooth',now+0.33);
+  // Bruit blanc court pour impact
+  const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.12),ac.sampleRate);
+  const d=buf.getChannelData(0);
+  for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,0.8);
+  const src=ac.createBufferSource(),g=ac.createGain();
+  g.gain.setValueAtTime(0.45,now);
+  src.buffer=buf;src.connect(g);g.connect(ac.destination);src.start(now);
 }
 
 function soundVictory(){
   unlockAudio();
   const ac=getAC();if(!ac)return;
   const now=ac.currentTime;
-  const mel=[523,523,523,415,622,523,415,622,523];
-  const dur=[.15,.15,.15,.1,.4,.15,.1,.4,.6];
+  // Fanfare de victoire — plus forte et festive
+  const mel=[523,523,523,415,622,523,415,622,523,784,1047];
+  const dur=[.12,.12,.12,.09,.35,.12,.09,.35,.12,.2,.6];
+  const vol=[.5,.5,.55,.45,.65,.55,.45,.65,.55,.7,.85];
   let t=now;
-  mel.forEach((f,i)=>{beep(f,dur[i],0.3,'sine',t);t+=dur[i]+0.02;});
+  mel.forEach((f,i)=>{beep(f,dur[i],vol[i],'sine',t);t+=dur[i]+0.02;});
+  // Basse pour le punch
+  beep(130,0.8,0.4,'sine',now);
+  beep(196,0.6,0.35,'sine',now+0.3);
+  // Applaudissements finale
+  for(let r=0;r<18;r++){
+    const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.07),ac.sampleRate);
+    const d=buf.getChannelData(0);
+    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,1.1);
+    const src=ac.createBufferSource(),g=ac.createGain();
+    g.gain.setValueAtTime(0.42,ac.currentTime);
+    src.buffer=buf;src.connect(g);g.connect(ac.destination);
+    src.start(ac.currentTime+r*0.06+0.2);
+  }
 }
+
+
+// ── PLEIN ÉCRAN ──
+function toggleFullscreen(){
+  const el=document.documentElement;
+  if(!document.fullscreenElement && !document.webkitFullscreenElement){
+    const req=el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen;
+    if(req) req.call(el);
+    document.getElementById('btnFS').textContent='✕ Quitter plein écran';
+  } else {
+    const ex=document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen||document.msExitFullscreen;
+    if(ex) ex.call(document);
+    document.getElementById('btnFS').textContent='⛶ Plein écran';
+  }
+}
+
+// Plein écran automatique au lancement du quiz
+function requestFullscreenAuto(){
+  const el=document.documentElement;
+  const req=el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen;
+  if(req && !document.fullscreenElement && !document.webkitFullscreenElement){
+    req.call(el).catch(()=>{});
+  }
+}
+
+// Mise à jour du bouton si plein écran fermé via Echap
+document.addEventListener('fullscreenchange',()=>{
+  const btn=document.getElementById('btnFS');
+  if(btn) btn.textContent=document.fullscreenElement?'✕ Quitter plein écran':'⛶ Plein écran';
+});
+document.addEventListener('webkitfullscreenchange',()=>{
+  const btn=document.getElementById('btnFS');
+  if(btn) btn.textContent=document.webkitFullscreenElement?'✕ Quitter plein écran':'⛶ Plein écran';
+});
 
 document.getElementById('screenHome').style.display='flex';
 </script>
