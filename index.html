@@ -202,6 +202,78 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   <button class="btn-fullscreen" id="btnFS" onclick="toggleFullscreen()">⛶ Plein écran</button>
 </div>
 
+<!-- INTRO JOKERS -->
+<div id="screenIntro" style="display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem 1.5rem;text-align:center;">
+  <div style="font-size:3rem;margin-bottom:.8rem;">🎬</div>
+  <div style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:700;color:var(--ink);margin-bottom:.3rem;">
+    Avant de commencer…
+  </div>
+  <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:var(--muted);margin-bottom:2rem;letter-spacing:.08em;">
+    Vos jokers pour cette partie
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;width:100%;max-width:520px;margin-bottom:2rem;">
+
+    <div style="background:white;border:2px solid #E8C87A;border-radius:16px;padding:1.4rem 1.2rem;text-align:center;">
+      <div style="font-size:2.2rem;margin-bottom:.6rem;">💡</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:.4rem;">Indice</div>
+      <div style="font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:.8rem;">
+        Le DJ révèle l'acteur principal ou le réalisateur du film.
+      </div>
+      <div style="background:#FFF8E8;border-radius:8px;padding:.4rem .8rem;display:inline-block;font-size:.8rem;font-weight:700;color:#A07020;">
+        3 par équipe
+      </div>
+    </div>
+
+    <div style="background:white;border:2px solid var(--a-bd);border-radius:16px;padding:1.4rem 1.2rem;text-align:center;">
+      <div style="font-size:2.2rem;margin-bottom:.6rem;">📞</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:.4rem;">Appel</div>
+      <div style="font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:.8rem;">
+        L'équipe appelle le plus jeune de la salle pour 30 secondes d'aide !
+      </div>
+      <div style="background:var(--a-lt);border-radius:8px;padding:.4rem .8rem;display:inline-block;font-size:.8rem;font-weight:700;color:var(--a);">
+        2 par équipe
+      </div>
+    </div>
+
+    <div style="background:white;border:2px solid var(--gold-lt);border-radius:16px;padding:1.4rem 1.2rem;text-align:center;">
+      <div style="font-size:2.2rem;margin-bottom:.6rem;">⭐</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:.4rem;">Bonus</div>
+      <div style="font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:.8rem;">
+        Une question spéciale vaut <strong style="color:var(--gold)">2 points</strong> au milieu du quiz !
+      </div>
+      <div style="background:var(--ivory-2);border-radius:8px;padding:.4rem .8rem;display:inline-block;font-size:.8rem;font-weight:700;color:var(--gold);">
+        1 par équipe
+      </div>
+    </div>
+
+    <div style="background:white;border:2px solid var(--b-bd);border-radius:16px;padding:1.4rem 1.2rem;text-align:center;">
+      <div style="font-size:2.2rem;margin-bottom:.6rem;">⚔️</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:.4rem;">Égalité</div>
+      <div style="font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:.8rem;">
+        Si les scores sont à égalité à la fin, jusqu'à 3 questions de départage !
+      </div>
+      <div style="background:var(--b-lt);border-radius:8px;padding:.4rem .8rem;display:inline-block;font-size:.8rem;font-weight:700;color:var(--b);">
+        3 max
+      </div>
+    </div>
+
+  </div>
+
+  <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:.9rem 1.3rem;font-size:.82rem;color:var(--muted);line-height:1.8;max-width:400px;margin-bottom:2rem;text-align:left;">
+    🎙 <strong style="color:var(--ink);">Le DJ clique</strong> sur la réponse donnée à voix haute par l'équipe<br>
+    ⏱ <strong style="color:var(--ink);">15 secondes</strong> par réplique — pas de pénalité si temps écoulé<br>
+    ✅ Les points sont attribués <strong style="color:var(--ink);">automatiquement</strong>
+  </div>
+
+  <div id="introTeamNames" style="font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:var(--gold);margin-bottom:1.5rem;"></div>
+
+  <button onclick="launchGame()" style="padding:1rem 3rem;background:var(--gold);color:white;border:none;border-radius:12px;font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(201,169,110,.35);transition:transform .15s;">
+    C'est parti ! 🎬
+  </button>
+</div>
+
+
 <!-- JEU -->
 <div id="screenGame">
   <div class="scoreboard">
@@ -389,6 +461,7 @@ function goHome() {
   stopTimer();
   document.getElementById('screenGame').style.display = 'none';
   document.getElementById('screenResult').style.display = 'none';
+  document.getElementById('screenIntro').style.display = 'none';
   document.getElementById('screenHome').style.display = 'flex';
 }
 
@@ -406,6 +479,14 @@ function startGame() {
   updateJokerUI();
   document.getElementById('screenHome').style.display = 'none';
   document.getElementById('screenResult').style.display = 'none';
+  document.getElementById('screenGame').style.display = 'none';
+  // Show intro
+  document.getElementById('introTeamNames').textContent = nameA + ' ⚔️ ' + nameB;
+  document.getElementById('screenIntro').style.display = 'flex';
+}
+
+function launchGame() {
+  document.getElementById('screenIntro').style.display = 'none';
   document.getElementById('screenGame').style.display = 'flex';
   requestFSAuto();
   renderQ();
