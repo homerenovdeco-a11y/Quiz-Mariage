@@ -478,7 +478,89 @@ function goHome(){
   stopTimer();
   document.getElementById('screenGame').style.display='none';
   document.getElementById('screenResult').style.display='none';
-  document.getElementById('screenHome').style.display='flex';
+  
+// ══════════════════════════════
+//  SONS — Web Audio API
+// ══════════════════════════════
+let AC = null;
+function getAC(){
+  if(!AC){
+    try{ AC = new (window.AudioContext || window.webkitAudioContext)(); }
+    catch(e){ AC = null; }
+  }
+  return AC;
+}
+function unlockAudio(){
+  const ac=getAC();
+  if(ac && ac.state==='suspended') ac.resume();
+}
+document.addEventListener('touchstart', unlockAudio, {once:true});
+document.addEventListener('click', unlockAudio, {once:true});
+
+function beep(freq,dur,vol=0.3,type='sine',when=null){
+  const ac=getAC();if(!ac)return;
+  if(when===null)when=ac.currentTime;
+  const o=ac.createOscillator(),g=ac.createGain();
+  o.connect(g);g.connect(ac.destination);
+  o.type=type;o.frequency.setValueAtTime(freq,when);
+  g.gain.setValueAtTime(vol,when);
+  g.gain.exponentialRampToValueAtTime(0.001,when+dur);
+  o.start(when);o.stop(when+dur+0.01);
+}
+
+function soundClap(){
+  unlockAudio();
+  const ac=getAC();if(!ac)return;
+  const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.05),ac.sampleRate);
+  const data=buf.getChannelData(0);
+  for(let i=0;i<data.length;i++) data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,2);
+  const src=ac.createBufferSource(),g=ac.createGain();
+  g.gain.setValueAtTime(0.55,ac.currentTime);
+  src.buffer=buf;src.connect(g);g.connect(ac.destination);src.start();
+  beep(900,0.04,0.18,'square',ac.currentTime);
+}
+
+function soundTick(t){
+  unlockAudio();
+  const ac=getAC();if(!ac)return;
+  beep(t<=2?1100:750, 0.07, t<=2?0.4:0.22, 'square', ac.currentTime);
+}
+
+function soundCorrect(){
+  unlockAudio();
+  const ac=getAC();if(!ac)return;
+  const now=ac.currentTime;
+  [523,659,784,1047].forEach((f,i)=>beep(f,0.18,0.28,'sine',now+i*0.1));
+  for(let r=0;r<6;r++){
+    const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.06),ac.sampleRate);
+    const d=buf.getChannelData(0);
+    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,1.5);
+    const src=ac.createBufferSource(),g=ac.createGain();
+    g.gain.setValueAtTime(0.22,ac.currentTime);
+    src.buffer=buf;src.connect(g);g.connect(ac.destination);
+    src.start(ac.currentTime+r*0.07);
+  }
+}
+
+function soundWrong(){
+  unlockAudio();
+  const ac=getAC();if(!ac)return;
+  const now=ac.currentTime;
+  beep(280,0.15,0.45,'sawtooth',now);
+  beep(190,0.28,0.35,'sawtooth',now+0.13);
+}
+
+function soundVictory(){
+  unlockAudio();
+  const ac=getAC();if(!ac)return;
+  const now=ac.currentTime;
+  const mel=[523,523,523,415,622,523,415,622,523];
+  const dur=[.15,.15,.15,.1,.4,.15,.1,.4,.6];
+  let t=now;
+  mel.forEach((f,i)=>{beep(f,dur[i],0.3,'sine',t);t+=dur[i]+0.02;});
+}
+
+document.getElementById('screenHome').style.display='flex';
 }
 
 function startGame(){
@@ -522,6 +604,7 @@ function renderQ(){
   // Animer carte
   const card=document.getElementById('qCard');
   card.style.animation='none';void card.offsetWidth;card.style.animation='';
+  soundClap();
 
   // Construire options cliquables
   optOrder=shuffle([q.film,...q.wrong]);
@@ -559,9 +642,10 @@ function updateChrono(t){
   const arc=document.getElementById('cArc'),num=document.getElementById('cNum');
   arc.style.strokeDashoffset=CIRC*(1-t/TIMER);
   num.textContent=t;
-  const u=t<=4;
+  const u=t<=5;
   num.className='c-num'+(u?' urgent':'');
   arc.className='c-arc'+(u?' urgent':'');
+  if(u) soundTick(t);
 }
 
 // ── TEMPS ÉCOULÉ : pas de pénalité ──
@@ -598,11 +682,10 @@ function chooseOpt(idx,chosen,correct){
   if(isRight){
     scores[t]++;
     document.getElementById(t===0?'spA':'spB').textContent=scores[t];
-    // Flash score
+    soundCorrect();
     const sb=document.getElementById(t===0?'sbA':'sbB');
     sb.style.transform='scale(1.1)';setTimeout(()=>sb.style.transform='',220);
-  }
-
+  
   // Feedback
   const fb=document.getElementById('feedback');
   const tName=t===0?nameA:nameB;
@@ -610,6 +693,7 @@ function chooseOpt(idx,chosen,correct){
     fb.textContent=`✓ Bonne réponse ! +1 point pour ${tName} 🎉`;
     fb.className='feedback show ok';
   } else {
+    soundWrong();
     fb.textContent=`✗ C'était « ${correct } » (${Q[order[cur]].year}).`;
     fb.className='feedback show ko';
   }
@@ -667,6 +751,7 @@ function showResult(){
     sub=`${scores[0]} points chacun — match nul digne des Tontons flingueurs ! 🍾`;
   }
   document.getElementById('resCrown').textContent=crown;
+  if(scores[0]!==scores[1]) soundVictory();
   document.getElementById('resTitle').textContent=title;
   document.getElementById('resSub').textContent=sub;
 
@@ -679,6 +764,88 @@ function showResult(){
     d.innerHTML=`<span class="ri-dot ${dc}"></span><div><div class="ri-who ${tc}">${tn} — ${icon}</div><div>${a.replique}</div><div class="ri-film">${a.film} <span class="ri-yr">(${a.year})</span></div></div>`;
     list.appendChild(d);
   });
+}
+
+
+// ══════════════════════════════
+//  SONS — Web Audio API
+// ══════════════════════════════
+let AC = null;
+function getAC(){
+  if(!AC){
+    try{ AC = new (window.AudioContext || window.webkitAudioContext)(); }
+    catch(e){ AC = null; }
+  }
+  return AC;
+}
+function unlockAudio(){
+  const ac=getAC();
+  if(ac && ac.state==='suspended') ac.resume();
+}
+document.addEventListener('touchstart', unlockAudio, {once:true});
+document.addEventListener('click', unlockAudio, {once:true});
+
+function beep(freq,dur,vol=0.3,type='sine',when=null){
+  const ac=getAC();if(!ac)return;
+  if(when===null)when=ac.currentTime;
+  const o=ac.createOscillator(),g=ac.createGain();
+  o.connect(g);g.connect(ac.destination);
+  o.type=type;o.frequency.setValueAtTime(freq,when);
+  g.gain.setValueAtTime(vol,when);
+  g.gain.exponentialRampToValueAtTime(0.001,when+dur);
+  o.start(when);o.stop(when+dur+0.01);
+}
+
+function soundClap(){
+  unlockAudio();
+  const ac=getAC();if(!ac)return;
+  const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.05),ac.sampleRate);
+  const data=buf.getChannelData(0);
+  for(let i=0;i<data.length;i++) data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,2);
+  const src=ac.createBufferSource(),g=ac.createGain();
+  g.gain.setValueAtTime(0.55,ac.currentTime);
+  src.buffer=buf;src.connect(g);g.connect(ac.destination);src.start();
+  beep(900,0.04,0.18,'square',ac.currentTime);
+}
+
+function soundTick(t){
+  unlockAudio();
+  const ac=getAC();if(!ac)return;
+  beep(t<=2?1100:750, 0.07, t<=2?0.4:0.22, 'square', ac.currentTime);
+}
+
+function soundCorrect(){
+  unlockAudio();
+  const ac=getAC();if(!ac)return;
+  const now=ac.currentTime;
+  [523,659,784,1047].forEach((f,i)=>beep(f,0.18,0.28,'sine',now+i*0.1));
+  for(let r=0;r<6;r++){
+    const buf=ac.createBuffer(1,Math.floor(ac.sampleRate*0.06),ac.sampleRate);
+    const d=buf.getChannelData(0);
+    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,1.5);
+    const src=ac.createBufferSource(),g=ac.createGain();
+    g.gain.setValueAtTime(0.22,ac.currentTime);
+    src.buffer=buf;src.connect(g);g.connect(ac.destination);
+    src.start(ac.currentTime+r*0.07);
+  }
+}
+
+function soundWrong(){
+  unlockAudio();
+  const ac=getAC();if(!ac)return;
+  const now=ac.currentTime;
+  beep(280,0.15,0.45,'sawtooth',now);
+  beep(190,0.28,0.35,'sawtooth',now+0.13);
+}
+
+function soundVictory(){
+  unlockAudio();
+  const ac=getAC();if(!ac)return;
+  const now=ac.currentTime;
+  const mel=[523,523,523,415,622,523,415,622,523];
+  const dur=[.15,.15,.15,.1,.4,.15,.1,.4,.6];
+  let t=now;
+  mel.forEach((f,i)=>{beep(f,dur[i],0.3,'sine',t);t+=dur[i]+0.02;});
 }
 
 document.getElementById('screenHome').style.display='flex';
