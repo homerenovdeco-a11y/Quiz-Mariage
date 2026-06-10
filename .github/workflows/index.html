@@ -5,575 +5,345 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quiz Cinéma Français — Mariage</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
 
-/* ═══════════════════════════════
-   TOKENS
-═══════════════════════════════ */
 :root {
-  --noir:      #0A0A0F;
-  --noir-card: #12121A;
-  --noir-2:    #1C1C28;
-  --or:        #F0C060;
-  --or-lt:     #F8E0A0;
-  --or-dim:    #8A6A28;
-  --blanc:     #F5F0E8;
-  --gris:      #6A6480;
-  --a:         #4A9EE8;
-  --a-lt:      #1A3A5C;
-  --b:         #E86060;
-  --b-lt:      #5C1A1A;
-  --vert:      #50C878;
-  --vert-lt:   #1A4A28;
-  --rouge:     #E84040;
-  --rouge-lt:  #4A1010;
+  --gold:    #C9A96E;
+  --gold-lt: #E8D5B0;
+  --ivory:   #FAF6EF;
+  --ivory-2: #F0EAE0;
+  --ink:     #1A1410;
+  --muted:   #8A7A6A;
+  --card:    #FFFFFF;
+  --border:  #E0D8CC;
+  --correct: #4A7C59;
+  --correct-lt:#EEF7F2;
+  --wrong:   #8B3A3A;
+  --wrong-lt:#FBF0F0;
+  --a:       #2563A8;
+  --a-lt:    #EEF4FC;
+  --a-bd:    #AACCE8;
+  --b:       #8B3A3A;
+  --b-lt:    #FBF0F0;
+  --b-bd:    #E8AAAA;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;min-height:100vh;background:var(--ivory);color:var(--ink);font-family:'DM Sans',sans-serif;}
 
-html, body {
-  width: 100%; min-height: 100vh;
-  background: var(--noir);
-  color: var(--blanc);
-  font-family: 'DM Sans', sans-serif;
-  overflow-x: hidden;
-}
-
-/* ── Grain cinéma ── */
-body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  background-size: 200px;
-  pointer-events: none;
-  opacity: .6;
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 10% 10%,rgba(201,169,110,.12) 0%,transparent 50%),
+    radial-gradient(ellipse at 90% 90%,rgba(201,169,110,.09) 0%,transparent 50%);
 }
 
-/* ── Vignette ── */
-body::after {
-  content: '';
-  position: fixed; inset: 0; z-index: 0;
-  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,.7) 100%);
-  pointer-events: none;
+.app{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;}
+
+/* ══ ACCUEIL ══ */
+#screenHome{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:2rem 1.5rem;text-align:center;min-height:100vh;
+}
+.clap{font-size:4rem;margin-bottom:.8rem;animation:float 3s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(2deg)}}
+
+.home-title{font-family:'Playfair Display',serif;font-size:clamp(3.5rem,11vw,6rem);font-weight:700;line-height:1;color:var(--ink);margin-bottom:.4rem;}
+.home-title em{font-style:italic;color:var(--gold);}
+.home-wedding{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:clamp(2rem,6vw,3.2rem);color:var(--gold);
+  margin-bottom:.7rem;letter-spacing:.04em;font-weight:700;
+}
+.home-sub{font-size:1rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;}
+.home-flag{font-size:1.1rem;letter-spacing:.2em;margin-bottom:2rem;opacity:.7;}
+
+.divider{display:flex;align-items:center;gap:.8rem;margin:0 auto 1.8rem;max-width:300px;width:100%;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--gold-lt);}
+.divider span{color:var(--gold);}
+
+.teams-home{display:grid;grid-template-columns:1fr 1fr;gap:1rem;width:100%;max-width:480px;margin-bottom:1.4rem;}
+.tf{display:flex;flex-direction:column;gap:.4rem;}
+.tf label{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;}
+.lbl-a{color:var(--a);}
+.lbl-b{color:var(--b);}
+.tf input{
+  background:white;border:1.5px solid var(--border);border-radius:8px;
+  padding:.65rem 1rem;font-family:'DM Sans',sans-serif;font-size:.95rem;color:var(--ink);
+  outline:none;transition:border-color .2s;
+}
+.tf input:focus{border-color:var(--gold);}
+
+.rules-box{
+  background:white;border:1px solid var(--border);border-radius:12px;
+  padding:.9rem 1.3rem;font-size:.82rem;color:var(--muted);line-height:1.9;
+  max-width:420px;text-align:left;margin-bottom:1.8rem;
+}
+.rules-box strong{color:var(--ink);}
+
+.btn-launch{
+  padding:1rem 3rem;background:var(--gold);color:white;
+  border:none;border-radius:12px;
+  font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;
+  cursor:pointer;box-shadow:0 4px 20px rgba(201,169,110,.35);
+  transition:transform .15s,box-shadow .15s;
+}
+.btn-launch:hover{transform:scale(1.04);box-shadow:0 6px 28px rgba(201,169,110,.5);}
+
+/* ══ JEU ══ */
+#screenGame{display:none;flex-direction:column;min-height:100vh;padding:1.2rem 1.2rem 1rem;gap:.75rem;}
+
+/* Scores */
+.scoreboard{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:.5rem;}
+.score-block{
+  display:flex;flex-direction:column;align-items:center;
+  padding:.6rem .8rem;border-radius:12px;
+  border:2px solid var(--border);background:white;
+  transition:border-color .3s,background .3s,transform .2s;
+}
+.score-block.active-a{border-color:var(--a);background:var(--a-lt);}
+.score-block.active-b{border-color:var(--b);background:var(--b-lt);}
+.score-name{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.1rem;}
+.score-name.a{color:var(--a);}
+.score-name.b{color:var(--b);}
+.score-pts{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;line-height:1;}
+.score-pts.a{color:var(--a);}
+.score-pts.b{color:var(--b);}
+
+/* Chrono */
+.chrono-wrap{display:flex;flex-direction:column;align-items:center;gap:.3rem;}
+.chrono-ring{position:relative;width:70px;height:70px;}
+.chrono-ring svg{transform:rotate(-90deg);width:70px;height:70px;}
+.c-track{fill:none;stroke:var(--gold-lt);stroke-width:5;}
+.c-arc{fill:none;stroke:var(--gold);stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset .9s linear,stroke .3s;}
+.c-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:var(--ink);}
+.c-num.urgent{color:var(--wrong);}
+.c-arc.urgent{stroke:var(--wrong);}
+.turn-badge{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .8rem;border-radius:2rem;border:1.5px solid transparent;}
+.turn-badge.a{color:var(--a);background:var(--a-lt);border-color:var(--a-bd);}
+.turn-badge.b{color:var(--b);background:var(--b-lt);border-color:var(--b-bd);}
+
+/* Progress */
+.prog-wrap{display:flex;align-items:center;gap:.8rem;}
+.prog-bar{flex:1;height:4px;background:var(--gold-lt);border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s;}
+.prog-lbl{font-size:.75rem;color:var(--muted);white-space:nowrap;}
+
+/* Carte réplique */
+.q-card{
+  background:white;border:1px solid var(--border);border-radius:16px;
+  padding:1.5rem 1.6rem 1.2rem;
+  box-shadow:0 2px 16px rgba(26,20,16,.06);animation:cardIn .35s ease;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.q-meta{display:flex;align-items:center;gap:.7rem;margin-bottom:.5rem;}
+.q-num{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);}
+.q-year{font-size:.7rem;color:var(--muted);font-style:italic;}
+.replique{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:clamp(1.05rem,2.6vw,1.4rem);line-height:1.6;color:var(--ink);
+  border-left:3px solid var(--gold);padding-left:1rem;
 }
 
-.app { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
+/* ══ OPTIONS CLIQUABLES ══ */
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;}
 
-/* ════════════════════════
-   ÉCRAN ACCUEIL
-════════════════════════ */
-#screenHome {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 2rem; text-align: center;
-  min-height: 100vh;
+.opt{
+  background:white;border:2px solid var(--border);border-radius:12px;
+  padding:.85rem 1rem;display:flex;align-items:center;gap:.65rem;
+  font-size:.9rem;color:var(--ink);
+  cursor:pointer; /* cliquable ! */
+  transition:border-color .2s,background .2s,transform .12s,box-shadow .15s;
+  animation:optIn .3s ease both;
+  user-select:none;
 }
+.opt:nth-child(1){animation-delay:.04s}
+.opt:nth-child(2){animation-delay:.09s}
+.opt:nth-child(3){animation-delay:.13s}
+.opt:nth-child(4){animation-delay:.18s}
+@keyframes optIn{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}}
 
-.clapperboard {
-  font-size: 5rem;
-  margin-bottom: 1rem;
-  filter: drop-shadow(0 0 30px rgba(240,192,96,.4));
-  animation: float 3s ease-in-out infinite;
-}
-@keyframes float {
-  0%,100% { transform: translateY(0) rotate(-2deg); }
-  50%      { transform: translateY(-12px) rotate(2deg); }
-}
-
-.home-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3.5rem, 10vw, 7rem);
-  letter-spacing: .06em;
-  line-height: .95;
-  color: var(--or);
-  text-shadow: 0 0 60px rgba(240,192,96,.3);
-}
-.home-sub {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: clamp(1rem, 2.5vw, 1.4rem);
-  color: var(--gris);
-  margin: .6rem 0 2rem;
-  letter-spacing: .12em;
+/* Hover sur les options */
+.opt:not(.correct):not(.wrong):not(.timeout):not(.disabled):hover{
+  border-color:var(--gold);
+  background:#FFFBF4;
+  transform:translateX(3px);
+  box-shadow:0 2px 12px rgba(201,169,110,.2);
 }
 
-.home-flag {
-  font-size: 1.2rem; letter-spacing: .2em;
-  margin-bottom: 2.5rem;
-  opacity: .7;
+.opt-l{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--ivory-2);border:1.5px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.74rem;font-weight:600;color:var(--muted);flex-shrink:0;
+  transition:background .2s,border-color .2s,color .2s;
 }
 
-/* Setup équipes */
-.teams-home {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1.2rem; width: 100%; max-width: 520px;
-  margin-bottom: 2rem;
-}
-.team-field { display: flex; flex-direction: column; gap: .5rem; }
-.team-field label {
-  font-size: .72rem; font-weight: 600;
-  letter-spacing: .14em; text-transform: uppercase;
-}
-.label-a { color: var(--a); }
-.label-b { color: var(--b); }
+/* Correct = bonne réponse */
+.opt.correct{border-color:var(--correct);background:var(--correct-lt);}
+.opt.correct .opt-l{background:var(--correct);border-color:var(--correct);color:white;}
+.opt.correct{animation:pulse-ok .45s ease;}
+@keyframes pulse-ok{0%{transform:scale(1)}40%{transform:scale(1.03)}100%{transform:scale(1)}}
 
-.team-field input {
-  background: var(--noir-2);
-  border: 1.5px solid #2A2A3A;
-  border-radius: 8px;
-  padding: .7rem 1rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 1rem; color: var(--blanc);
-  outline: none; transition: border-color .2s;
-}
-.team-field input:focus { border-color: var(--or); }
+/* Mauvaise réponse */
+.opt.wrong{border-color:var(--wrong);background:var(--wrong-lt);opacity:.65;}
+.opt.wrong .opt-l{background:var(--wrong);border-color:var(--wrong);color:white;}
 
-.rules-home {
-  background: var(--noir-2);
-  border: 1px solid #2A2A3A;
-  border-radius: 12px;
-  padding: .9rem 1.4rem;
-  font-size: .82rem; color: var(--gris);
-  line-height: 1.9; max-width: 440px;
-  text-align: left; margin-bottom: 2rem;
-}
-.rules-home strong { color: var(--blanc); }
+/* Timeout (non cliqué) */
+.opt.timeout{border-color:var(--border);background:var(--ivory-2);opacity:.5;}
 
-.btn-launch {
-  padding: 1.1rem 3.5rem;
-  background: var(--or);
-  color: var(--noir);
-  border: none; border-radius: 12px;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.5rem; letter-spacing: .1em;
-  cursor: pointer;
-  box-shadow: 0 0 40px rgba(240,192,96,.35);
-  transition: transform .15s, box-shadow .15s;
-}
-.btn-launch:hover {
-  transform: scale(1.04);
-  box-shadow: 0 0 60px rgba(240,192,96,.5);
-}
+/* Désactivé après un clic */
+.opt.disabled{cursor:default;pointer-events:none;}
 
-/* ════════════════════════
-   ÉCRAN JEU (grand écran)
-════════════════════════ */
-#screenGame {
-  display: none; flex-direction: column;
-  min-height: 100vh; padding: 1.2rem 1.5rem 1rem;
-  gap: .9rem;
-}
+/* Feedback */
+.feedback{padding:.7rem .9rem;border-radius:8px;font-size:.84rem;line-height:1.5;display:none;}
+.feedback.show{display:block;animation:fadeIn .3s ease;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.feedback.ok{background:var(--correct-lt);color:var(--correct);border:1px solid #C8E6D3;}
+.feedback.ko{background:var(--wrong-lt);color:var(--wrong);border:1px solid #E8C8C8;}
+.feedback.to{background:var(--ivory-2);color:var(--muted);border:1px solid var(--border);}
 
-/* ── Header : scores + chrono ── */
-.game-header {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 1rem;
+/* Panneau DJ simplifié */
+.dj-panel{
+  background:white;border:1px solid var(--border);border-radius:12px;
+  padding:.65rem .9rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;
 }
+.dj-lbl{font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-right:.1rem;}
+.btn-dj{
+  padding:.42rem .8rem;border:none;border-radius:8px;
+  font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:600;
+  cursor:pointer;transition:transform .1s,opacity .15s;
+}
+.btn-dj:hover:not(:disabled){transform:scale(1.05);}
+.btn-dj:disabled{opacity:.3;cursor:default;}
+.btn-rma{background:var(--a-lt);color:var(--a);border:1.5px solid var(--a-bd);}
+.btn-rmb{background:var(--b-lt);color:var(--b);border:1.5px solid var(--b-bd);}
+.btn-home-sm{background:var(--ivory-2);color:var(--muted);border:1px solid var(--border);}
+.btn-nextq{background:var(--ink);color:white;margin-left:auto;}
+.btn-nextq.final{background:var(--gold);}
 
-.score-block {
-  display: flex; flex-direction: column;
-  align-items: center;
-  padding: .6rem 1rem;
-  border-radius: 12px;
-  border: 2px solid transparent;
-  transition: border-color .3s, background .3s;
+/* Overlay révélation */
+.reveal-overlay{
+  position:fixed;inset:0;z-index:100;
+  background:rgba(26,20,16,.55);
+  display:none;align-items:center;justify-content:center;
+  cursor:pointer;animation:fadeIn .25s ease;
 }
-.score-block.active-a { border-color: var(--a); background: var(--a-lt); }
-.score-block.active-b { border-color: var(--b); background: var(--b-lt); }
-.score-block:not(.active-a):not(.active-b) { border-color: #2A2A3A; background: var(--noir-2); }
+.reveal-overlay.show{display:flex;}
+.reveal-box{
+  background:white;border:2px solid var(--correct);border-radius:20px;
+  padding:2.5rem 3rem;text-align:center;max-width:560px;width:92%;
+  box-shadow:0 8px 40px rgba(0,0,0,.12);
+  animation:popIn .35s cubic-bezier(.34,1.56,.64,1);cursor:default;
+}
+@keyframes popIn{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:scale(1)}}
+.rev-lbl{font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--correct);margin-bottom:.5rem;}
+.rev-film{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(1.8rem,5vw,3rem);line-height:1.1;color:var(--ink);margin-bottom:.3rem;}
+.rev-year{font-size:.85rem;color:var(--muted);font-style:italic;}
+.rev-tap{margin-top:1.1rem;font-size:.65rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;}
 
-.score-name {
-  font-size: .7rem; font-weight: 600;
-  letter-spacing: .12em; text-transform: uppercase;
-  margin-bottom: .1rem;
+/* ══ RÉSULTAT ══ */
+#screenResult{
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  min-height:100vh;padding:2rem 1.5rem;text-align:center;
 }
-.score-name.a { color: var(--a); }
-.score-name.b { color: var(--b); }
-.score-pts {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.8rem; line-height: 1;
-  letter-spacing: .04em;
-}
-.score-pts.a { color: var(--a); }
-.score-pts.b { color: var(--b); }
+.res-crown{font-size:4rem;margin-bottom:.5rem;}
+.res-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,7vw,3.5rem);font-weight:700;color:var(--ink);margin-bottom:.3rem;}
+.res-title em{color:var(--gold);font-style:italic;}
+.res-sub{font-size:.88rem;color:var(--muted);margin-bottom:1.8rem;line-height:1.6;max-width:420px;}
 
-/* Chrono central */
-.chrono-center {
-  display: flex; flex-direction: column;
-  align-items: center; gap: .3rem;
-}
-.chrono-svg-wrap { position: relative; width: 80px; height: 80px; }
-.chrono-svg-wrap svg { transform: rotate(-90deg); width: 80px; height: 80px; }
-.c-track { fill: none; stroke: #2A2A3A; stroke-width: 6; }
-.c-arc   { fill: none; stroke: var(--or); stroke-width: 6; stroke-linecap: round;
-           transition: stroke-dashoffset .9s linear, stroke .3s; }
-.c-num {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2rem; letter-spacing: .04em;
-  color: var(--or);
-}
-.c-num.urgent { color: var(--rouge); }
-.c-arc.urgent { stroke: var(--rouge); }
-.chrono-stopped .c-arc { transition: none; }
+.res-scores{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.8rem;width:100%;max-width:460px;}
+.r-team{background:white;border:2px solid var(--border);border-radius:14px;padding:1.2rem;display:flex;flex-direction:column;align-items:center;gap:.3rem;}
+.r-team.a{border-color:var(--a);}
+.r-team.b{border-color:var(--b);}
+.r-team.winner{transform:scale(1.05);box-shadow:0 4px 24px rgba(201,169,110,.25);border-color:var(--gold);}
+.r-name{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;}
+.r-name.a{color:var(--a);}
+.r-name.b{color:var(--b);}
+.r-pts{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700;line-height:1;}
+.r-pts.a{color:var(--a);}
+.r-pts.b{color:var(--b);}
+.r-pts.winner-gold{color:var(--gold);}
+.r-sub{font-size:.72rem;color:var(--muted);}
 
-.turn-badge {
-  font-size: .72rem; font-weight: 600;
-  letter-spacing: .1em; text-transform: uppercase;
-  padding: .2rem .8rem; border-radius: 2rem;
-}
-.turn-badge.a { color: var(--a); background: var(--a-lt); border: 1px solid var(--a); }
-.turn-badge.b { color: var(--b); background: var(--b-lt); border: 1px solid var(--b); }
+.res-btns{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem;}
+.btn-res{padding:.82rem 1.8rem;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;border:none;transition:transform .1s;}
+.btn-res:hover{transform:scale(1.04);}
+.btn-res-home{background:var(--ivory-2);color:var(--ink);border:1.5px solid var(--border);}
+.btn-res-replay{background:var(--gold);color:white;}
 
-/* ── Barre de progression ── */
-.prog-bar-wrap { display: flex; align-items: center; gap: .8rem; }
-.prog-bar { flex: 1; height: 3px; background: #2A2A3A; border-radius: 2px; overflow: hidden; }
-.prog-fill { height: 100%; background: var(--or); border-radius: 2px; transition: width .4s; }
-.prog-label { font-size: .75rem; color: var(--gris); white-space: nowrap; }
+.recap-wrap{width:100%;max-width:680px;text-align:left;}
+.recap-ttl{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:.8rem;}
+.ri{display:flex;gap:.6rem;align-items:flex-start;padding:.5rem 0;border-bottom:1px solid var(--gold-lt);font-size:.78rem;}
+.ri-dot{width:8px;height:8px;border-radius:50%;margin-top:4px;flex-shrink:0;}
+.ri-dot.ok{background:var(--correct);}
+.ri-dot.ko{background:var(--wrong);}
+.ri-dot.to{background:var(--muted);}
+.ri-who{font-size:.68rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.1rem;}
+.ri-who.a{color:var(--a);}
+.ri-who.b{color:var(--b);}
+.ri-film{color:var(--muted);font-style:italic;}
+.ri-yr{color:#BBB;font-size:.7rem;}
 
-/* ── Carte réplique ── */
-.replique-card {
-  flex: 1;
-  background: var(--noir-card);
-  border: 1px solid #2A2A3A;
-  border-radius: 20px;
-  padding: 2rem 2.5rem;
-  display: flex; flex-direction: column;
-  justify-content: center;
-  box-shadow: 0 8px 40px rgba(0,0,0,.5);
-  animation: slideUp .4s ease;
-  min-height: 180px;
-}
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.q-meta {
-  display: flex; align-items: center; gap: .8rem;
-  margin-bottom: 1rem;
-}
-.q-num {
-  font-size: .7rem; font-weight: 600;
-  letter-spacing: .14em; text-transform: uppercase;
-  color: var(--or);
-}
-.q-year {
-  font-size: .7rem; color: var(--gris);
-  font-style: italic;
-}
-
-.replique-text {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-  line-height: 1.5;
-  color: var(--blanc);
-  border-left: 4px solid var(--or);
-  padding-left: 1.2rem;
-}
-
-/* ── Options ── */
-.options-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: .7rem;
-}
-
-.opt {
-  background: var(--noir-2);
-  border: 1.5px solid #2A2A3A;
-  border-radius: 12px;
-  padding: .85rem 1.1rem;
-  display: flex; align-items: center; gap: .8rem;
-  font-size: clamp(.85rem, 1.8vw, 1rem);
-  color: var(--blanc);
-  transition: border-color .25s, background .25s, transform .15s;
-  cursor: default;
-  animation: optIn .3s ease both;
-}
-.opt:nth-child(1) { animation-delay: .05s; }
-.opt:nth-child(2) { animation-delay: .10s; }
-.opt:nth-child(3) { animation-delay: .15s; }
-.opt:nth-child(4) { animation-delay: .20s; }
-@keyframes optIn {
-  from { opacity: 0; transform: translateX(-8px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-.opt-letter {
-  width: 30px; height: 30px; border-radius: 50%;
-  background: #2A2A3A;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: .95rem; letter-spacing: .04em;
-  color: var(--gris); flex-shrink: 0;
-  transition: background .25s, color .25s;
-}
-
-.opt.correct {
-  border-color: var(--vert);
-  background: var(--vert-lt);
-  animation: pulse-correct .5s ease;
-}
-.opt.correct .opt-letter { background: var(--vert); color: var(--noir); }
-@keyframes pulse-correct {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(1.04); }
-  100% { transform: scale(1); }
-}
-.opt.wrong {
-  border-color: var(--rouge);
-  background: var(--rouge-lt);
-  opacity: .6;
-}
-.opt.timeout { border-color: #3A3A4A; opacity: .45; }
-
-/* ── Panneau animateur ── */
-.dj-panel {
-  background: var(--noir-2);
-  border: 1px solid #2A2A3A;
-  border-radius: 14px;
-  padding: .8rem 1rem;
-  display: flex; align-items: center;
-  gap: .6rem; flex-wrap: wrap;
-}
-
-.dj-label {
-  font-size: .65rem; font-weight: 600;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: var(--or-dim); margin-right: .2rem;
-}
-
-.btn-dj {
-  padding: .5rem 1rem;
-  border: none; border-radius: 8px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: .82rem; font-weight: 600;
-  cursor: pointer; letter-spacing: .04em;
-  transition: transform .1s, opacity .15s;
-}
-.btn-dj:hover:not(:disabled) { transform: scale(1.05); }
-.btn-dj:disabled { opacity: .35; cursor: default; }
-
-.btn-reveal  { background: var(--or); color: var(--noir); }
-.btn-point-a { background: var(--a); color: white; }
-.btn-point-b { background: var(--b); color: white; }
-.btn-rm-a    { background: #1A2A3C; color: var(--a); border: 1px solid var(--a); }
-.btn-rm-b    { background: #3C1A1A; color: var(--b); border: 1px solid var(--b); }
-.btn-next-q  { background: #2A2A3A; color: var(--blanc); margin-left: auto; }
-.btn-next-q.final { background: var(--or); color: var(--noir); }
-.btn-restart-home { background: transparent; color: var(--gris); border: 1px solid #3A3A4A; }
-
-/* ── Overlay réponse révélée ── */
-.reveal-overlay {
-  position: fixed; inset: 0; z-index: 100;
-  background: rgba(0,0,0,.85);
-  display: none;
-  align-items: center; justify-content: center;
-  animation: fadeIn .25s ease;
-  cursor: pointer;
-}
-.reveal-overlay.show { display: flex; }
-@keyframes fadeIn { from{opacity:0} to{opacity:1} }
-
-.reveal-box {
-  background: var(--noir-card);
-  border: 2px solid var(--vert);
-  border-radius: 24px;
-  padding: 3rem 4rem;
-  text-align: center;
-  max-width: 640px; width: 90%;
-  box-shadow: 0 0 80px rgba(80,200,120,.25);
-  animation: popIn .35s cubic-bezier(.34,1.56,.64,1);
-}
-@keyframes popIn {
-  from { opacity:0; transform: scale(.8); }
-  to   { opacity:1; transform: scale(1); }
-}
-.reveal-label {
-  font-size: .75rem; font-weight: 600;
-  letter-spacing: .14em; text-transform: uppercase;
-  color: var(--vert); margin-bottom: .6rem;
-}
-.reveal-film {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2.5rem, 7vw, 4.5rem);
-  letter-spacing: .06em;
-  color: var(--or);
-  line-height: 1;
-  margin-bottom: .4rem;
-}
-.reveal-year {
-  font-size: .9rem; color: var(--gris);
-  font-style: italic;
-}
-.reveal-hint {
-  margin-top: .5rem;
-  font-size: .8rem; color: var(--gris);
-}
-.reveal-tap {
-  margin-top: 1.5rem;
-  font-size: .72rem; color: var(--gris);
-  letter-spacing: .08em; text-transform: uppercase;
-}
-
-/* ════════════════════════
-   ÉCRAN RÉSULTAT
-════════════════════════ */
-#screenResult {
-  display: none; flex-direction: column;
-  align-items: center; justify-content: center;
-  min-height: 100vh; padding: 2rem; text-align: center;
-}
-
-.result-film-strip {
-  font-size: .75rem; letter-spacing: .3em;
-  color: var(--gris); margin-bottom: 1.5rem;
-  text-transform: uppercase;
-}
-
-.result-crown { font-size: 4rem; margin-bottom: .5rem; }
-.result-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2.5rem, 8vw, 5rem);
-  letter-spacing: .06em;
-  color: var(--or);
-  text-shadow: 0 0 50px rgba(240,192,96,.4);
-  margin-bottom: .3rem;
-}
-.result-sub {
-  font-size: .95rem; color: var(--gris);
-  margin-bottom: 2rem; line-height: 1.6;
-}
-
-.result-scores {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1.2rem; margin: 1rem 0 2rem; width: 100%; max-width: 520px;
-}
-.r-team {
-  background: var(--noir-2);
-  border: 2px solid #2A2A3A;
-  border-radius: 16px;
-  padding: 1.4rem;
-  display: flex; flex-direction: column; align-items: center; gap: .3rem;
-  transition: transform .3s;
-}
-.r-team.a { border-color: var(--a); }
-.r-team.b { border-color: var(--b); }
-.r-team.winner {
-  transform: scale(1.05);
-  box-shadow: 0 0 40px rgba(240,192,96,.2);
-  border-color: var(--or);
-}
-.r-team-name { font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
-.r-team-name.a { color: var(--a); }
-.r-team-name.b { color: var(--b); }
-.r-team-pts {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 4rem; line-height: 1; letter-spacing: .04em;
-}
-.r-team-pts.a { color: var(--a); }
-.r-team-pts.b { color: var(--b); }
-.r-team-pts.winner-color { color: var(--or); }
-.r-team-sub { font-size: .72rem; color: var(--gris); }
-
-.result-btns { display: flex; gap: .8rem; flex-wrap: wrap; justify-content: center; margin-bottom: 2rem; }
-.btn-res-home, .btn-res-replay {
-  padding: .85rem 2rem; border-radius: 10px;
-  font-family: 'DM Sans', sans-serif; font-size: .9rem; font-weight: 600;
-  cursor: pointer; letter-spacing: .04em; border: none;
-  transition: transform .1s, opacity .15s;
-}
-.btn-res-home   { background: var(--noir-2); color: var(--gris); border: 1px solid #3A3A4A; }
-.btn-res-replay { background: var(--or); color: var(--noir); }
-.btn-res-home:hover, .btn-res-replay:hover { transform: scale(1.04); }
-
-/* Récap */
-.recap-wrap { width: 100%; max-width: 700px; text-align: left; }
-.recap-head {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.3rem; letter-spacing: .08em;
-  color: var(--or); margin-bottom: .8rem;
-}
-.ri {
-  display: flex; gap: .6rem; align-items: flex-start;
-  padding: .5rem 0; border-bottom: 1px solid #1C1C28;
-  font-size: .78rem;
-}
-.ri-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
-.ri-dot.ok { background: var(--vert); }
-.ri-dot.ko { background: var(--rouge); }
-.ri-dot.to { background: var(--gris); }
-.ri-who { font-size: .68rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; margin-bottom: .1rem; }
-.ri-who.a { color: var(--a); }
-.ri-who.b { color: var(--b); }
-.ri-film { color: var(--gris); font-style: italic; }
-.ri-yr   { color: #444; font-size: .7rem; }
-
-@media (max-width:600px) {
-  .options-grid { grid-template-columns: 1fr; }
-  .game-header  { grid-template-columns: 1fr auto 1fr; }
-  .replique-text { font-size: 1.1rem; }
-  .result-scores { max-width: 320px; }
-  .r-team-pts { font-size: 3rem; }
+@media(max-width:520px){
+  .opts{grid-template-columns:1fr;}
+  .r-pts{font-size:2.8rem;}
 }
 </style>
 </head>
 <body>
 <div class="app">
 
-<!-- ══════════════════════ ACCUEIL ══════════════════════ -->
+<!-- ACCUEIL -->
 <div id="screenHome">
-  <div class="clapperboard">🎬</div>
-  <div class="home-title">Quiz<br>Cinéma</div>
-  <div class="home-sub">Répliques cultes · Cinéma français · 1970–2000</div>
+  <div class="clap">🎬</div>
+  <div class="home-title">Quiz <em>Cinéma</em></div>
+  <div class="home-wedding">Mariage S &amp; S</div>
+  <div class="home-sub">Répliques cultes · 1970–2000</div>
   <div class="home-flag">🇫🇷 · · · 🇫🇷</div>
+  <div class="divider"><span>✦</span></div>
 
   <div class="teams-home">
-    <div class="team-field">
-      <label class="label-a">⬤ Équipe A</label>
-      <input id="nameA" type="text" value="Équipe A" maxlength="18" placeholder="Nom équipe A">
+    <div class="tf">
+      <label class="lbl-a">⬤ Équipe A</label>
+      <input id="nameA" type="text" value="Équipe A" maxlength="18">
     </div>
-    <div class="team-field">
-      <label class="label-b">⬤ Équipe B</label>
-      <input id="nameB" type="text" value="Équipe B" maxlength="18" placeholder="Nom équipe B">
+    <div class="tf">
+      <label class="lbl-b">⬤ Équipe B</label>
+      <input id="nameB" type="text" value="Équipe B" maxlength="18">
     </div>
   </div>
 
-  <div class="rules-home">
-    🎙 <strong>Le DJ gère le quiz sur grand écran</strong><br>
+  <div class="rules-box">
+    🎙 <strong>Le DJ clique sur la réponse donnée par l'équipe</strong><br>
     🎬 <strong>40 répliques</strong> du cinéma français — 20 par équipe<br>
-    ⏱ <strong>15 secondes</strong> par réplique<br>
-    ▶ <strong>Révéler</strong> la réponse après le buzzer · attribuer les points manuellement
+    ⏱ <strong>15 secondes</strong> par réplique · pas de pénalité si temps écoulé<br>
+    ✅ Le point est attribué <strong>automatiquement</strong> à l'équipe dont c'est le tour
   </div>
 
-  <button class="btn-launch" onclick="startGame()">▶ LANCER LE QUIZ</button>
+  <button class="btn-launch" onclick="startGame()">▶ Lancer le quiz !</button>
 </div>
 
-<!-- ══════════════════════ JEU ══════════════════════ -->
+<!-- JEU -->
 <div id="screenGame">
 
-  <!-- Header -->
-  <div class="game-header">
+  <div class="scoreboard">
     <div class="score-block" id="sbA">
       <div class="score-name a" id="snA">Équipe A</div>
       <div class="score-pts a" id="spA">0</div>
     </div>
 
-    <div class="chrono-center">
-      <div class="chrono-svg-wrap" id="chronoWrap">
-        <svg viewBox="0 0 80 80">
-          <circle class="c-track" cx="40" cy="40" r="33"/>
-          <circle class="c-arc" id="cArc" cx="40" cy="40" r="33"
-            stroke-dasharray="207.3" stroke-dashoffset="0"/>
+    <div class="chrono-wrap">
+      <div class="chrono-ring">
+        <svg viewBox="0 0 70 70">
+          <circle class="c-track" cx="35" cy="35" r="30"/>
+          <circle class="c-arc" id="cArc" cx="35" cy="35" r="30"
+            stroke-dasharray="188.5" stroke-dashoffset="0"/>
         </svg>
         <div class="c-num" id="cNum">15</div>
       </div>
-      <div class="turn-badge a" id="turnBadge">Tour de Équipe A</div>
+      <div class="turn-badge a" id="turnBadge">Tour A</div>
     </div>
 
     <div class="score-block" id="sbB">
@@ -582,139 +352,127 @@ body::after {
     </div>
   </div>
 
-  <!-- Progression -->
-  <div class="prog-bar-wrap">
+  <div class="prog-wrap">
     <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
-    <span class="prog-label" id="progLabel">1 / 40</span>
+    <span class="prog-lbl" id="progLbl">1 / 40</span>
   </div>
 
-  <!-- Réplique -->
-  <div class="replique-card" id="replicaCard">
+  <div class="q-card" id="qCard">
     <div class="q-meta">
       <span class="q-num" id="qNum">Question 1</span>
       <span class="q-year" id="qYear">Film de 1980</span>
     </div>
-    <div class="replique-text" id="qText"></div>
+    <div class="replique" id="qText"></div>
   </div>
 
-  <!-- Options -->
-  <div class="options-grid" id="optionsGrid"></div>
+  <!-- Options cliquables par le DJ -->
+  <div class="opts" id="optsGrid"></div>
 
-  <!-- Panneau DJ -->
+  <div class="feedback" id="feedback"></div>
+
   <div class="dj-panel">
-    <span class="dj-label">🎙 DJ</span>
-    <button class="btn-dj btn-reveal"  id="btnReveal"  onclick="revealAnswer()">🔍 Révéler</button>
-    <button class="btn-dj btn-point-a" id="btnPA"      onclick="addPoint(0)" disabled>+1 <span id="djNameA">A</span></button>
-    <button class="btn-dj btn-point-b" id="btnPB"      onclick="addPoint(1)" disabled>+1 <span id="djNameB">B</span></button>
-    <button class="btn-dj btn-rm-a"    id="btnRmA"     onclick="removePoint(0)">−1 <span id="djRmA">A</span></button>
-    <button class="btn-dj btn-rm-b"    id="btnRmB"     onclick="removePoint(1)">−1 <span id="djRmB">B</span></button>
-    <button class="btn-dj btn-restart-home" onclick="goHome()">🏠</button>
-    <button class="btn-dj btn-next-q"  id="btnNextQ"   onclick="nextQuestion()" disabled>Suivant →</button>
+    <span class="dj-lbl">🎙 DJ</span>
+    <button class="btn-dj btn-rma" onclick="removePoint(0)">−1 <span id="djRmA">A</span></button>
+    <button class="btn-dj btn-rmb" onclick="removePoint(1)">−1 <span id="djRmB">B</span></button>
+    <button class="btn-dj btn-home-sm" onclick="goHome()">🏠</button>
+    <button class="btn-dj btn-nextq" id="btnNext" onclick="nextQuestion()" disabled>Suivant →</button>
   </div>
 
 </div>
 
-<!-- ══════════════════════ OVERLAY RÉPONSE ══════════════════════ -->
-<div class="reveal-overlay" id="revealOverlay" onclick="closeReveal()">
+<!-- OVERLAY RÉPONSE -->
+<div class="reveal-overlay" id="revOverlay" onclick="closeReveal()">
   <div class="reveal-box" onclick="event.stopPropagation()">
-    <div class="reveal-label">✓ Bonne réponse</div>
-    <div class="reveal-film" id="revFilm">—</div>
-    <div class="reveal-year" id="revYear">—</div>
-    <div class="reveal-hint" id="revHint"></div>
-    <div class="reveal-tap">Tap pour fermer</div>
+    <div class="rev-lbl" id="revLbl">✓ Bonne réponse</div>
+    <div class="rev-film" id="revFilm">—</div>
+    <div class="rev-year" id="revYear">—</div>
+    <div class="rev-tap">Tap pour continuer</div>
   </div>
 </div>
 
-<!-- ══════════════════════ RÉSULTAT ══════════════════════ -->
+<!-- RÉSULTAT -->
 <div id="screenResult">
-  <div class="result-film-strip">— fin du quiz —</div>
-  <div class="result-crown" id="resCrown">🏆</div>
-  <div class="result-title" id="resTitle">Résultats</div>
-  <div class="result-sub" id="resSub"></div>
+  <div class="res-crown" id="resCrown">🏆</div>
+  <div class="res-title" id="resTitle">Résultats</div>
+  <div class="res-sub"   id="resSub"></div>
 
-  <div class="result-scores">
+  <div class="res-scores">
     <div class="r-team a" id="rtA">
-      <div class="r-team-name a" id="rnA">Équipe A</div>
-      <div class="r-team-pts a" id="rpA">0</div>
-      <div class="r-team-sub">points / 20</div>
+      <div class="r-name a" id="rnA">Équipe A</div>
+      <div class="r-pts a"  id="rpA">0</div>
+      <div class="r-sub">points / 20</div>
     </div>
     <div class="r-team b" id="rtB">
-      <div class="r-team-name b" id="rnB">Équipe B</div>
-      <div class="r-team-pts b" id="rpB">0</div>
-      <div class="r-team-sub">points / 20</div>
+      <div class="r-name b" id="rnB">Équipe B</div>
+      <div class="r-pts b"  id="rpB">0</div>
+      <div class="r-sub">points / 20</div>
     </div>
   </div>
 
-  <div class="result-btns">
-    <button class="btn-res-home"   onclick="goHome()">🏠 Changer les équipes</button>
-    <button class="btn-res-replay" onclick="startGame()">🔄 Rejouer</button>
+  <div class="res-btns">
+    <button class="btn-res btn-res-home"   onclick="goHome()">🏠 Changer les équipes</button>
+    <button class="btn-res btn-res-replay" onclick="startGame()">🔄 Rejouer</button>
   </div>
 
   <div class="recap-wrap">
-    <div class="recap-head">Récapitulatif</div>
+    <div class="recap-ttl">Récapitulatif</div>
     <div id="recapList"></div>
   </div>
 </div>
 
-</div><!-- .app -->
-
+</div>
 <script>
-// ════════════════════════════════════════════════
-//  40 RÉPLIQUES CULTES — CINÉMA FRANÇAIS 1970-2000
-// ════════════════════════════════════════════════
-const Q = [
-  { r:"« Vous avez dit bizarre ? Comme c'est bizarre. »",                                            film:"Drôle de drame",                       year:1937, wrong:["Hôtel du Nord","La Bête humaine","Quai des brumes"] },
-  { r:"« La vengeance est un plat qui se mange froid. »",                                            film:"Les Tontons flingueurs",                year:1963, wrong:["Les Barbouzes","Ne nous fâchons pas","Mélodie en sous-sol"] },
-  { r:"« On n'est pas des sauvages ! On est des incivilisés, nuance. »",                             film:"Les Visiteurs",                         year:1993, wrong:["Les Visiteurs 2","Gazon maudit","Le Bonheur est dans le pré"] },
-  { r:"« Jusqu'ici tout va bien… c'est pas la chute qui compte, c'est l'atterrissage. »",            film:"La Haine",                              year:1995, wrong:["Ma 6-T va crack-er","Douce France","Raï"] },
-  { r:"« Je ne suis pas coupable, je suis responsable. »",                                           film:"La Haine",                              year:1995, wrong:["L'Appartement","Dobermann","Le Péril jeune"] },
-  { r:"« Vous avez mis le doigt sur quelque chose d'essentiel : le con. »",                          film:"Le Dîner de cons",                      year:1998, wrong:["Cuisine et Dépendances","Pédale douce","La Vérité si je mens !"] },
-  { r:"« Vous êtes con, monsieur Pignon, mais c'est pas votre faute. »",                             film:"Le Dîner de cons",                      year:1998, wrong:["Les Randonneurs","Pédale douce","Gazon maudit"] },
-  { r:"« Envoie les violons ! »",                                                                     film:"Le Père Noël est une ordure",            year:1982, wrong:["Les Bronzés font du ski","Papy fait de la résistance","La Chèvre"] },
-  { r:"« C'est cela, oui. »",                                                                        film:"Le Père Noël est une ordure",            year:1982, wrong:["Les Bronzés","Papy fait de la résistance","Trois hommes et un couffin"] },
-  { r:"« Quand on aime quelqu'un, on lui donne la moitié de son sandwich. »",                        film:"Les Trois Frères",                      year:1995, wrong:["Les Visiteurs 2","Didier","Le Bonheur est dans le pré"] },
-  { r:"« T'as d'la chance d'avoir un frère. Moi j'ai une sœur mais c'est pareil. »",                 film:"Didier",                                year:1997, wrong:["Les Trois Frères","Le Bonheur est dans le pré","La Vérité si je mens !"] },
-  { r:"« Vous êtes venu sur un vélo et vous repartez sur un taxi… normal. »",                        film:"L'Aile ou la Cuisse",                   year:1976, wrong:["La Zizanie","Le Grand Restaurant","L'Avare"] },
-  { r:"« Un patron c'est comme un suppositoire : chaud devant, chaud derrière, et ça fait ch… tout le monde. »", film:"L'Héritier",              year:1973, wrong:["Le Magnifique","L'Emmerdeur","Tendre Poulet"] },
-  { r:"« T'as pas cent balles ? »",                                                                  film:"L'As des as",                           year:1982, wrong:["Joyeuses Pâques","Le Marginal","Edith et Marcel"] },
-  { r:"« On a tous des raisons d'être fous. C'est pour ça qu'on boit. »",                            film:"Les Valseuses",                         year:1974, wrong:["Buffet froid","Série noire","La Dérobade"] },
-  { r:"« La liberté, ça s'apprend. Ça s'apprend comme tout. »",                                      film:"Le Vieux Fusil",                        year:1975, wrong:["L'Horloger de Saint-Paul","Section spéciale","Le Juge et l'Assassin"] },
-  { r:"« Je veux qu'on m'aime ou qu'on me foute la paix ! »",                                        film:"La Gifle",                              year:1974, wrong:["Le Mouton enragé","La Chambre verte","Parlez-moi d'amour"] },
-  { r:"« Je préfère être malheureux en première classe que heureux en seconde. »",                   film:"Subway",                                year:1985, wrong:["Le Grand Bleu","Nikita","Diva"] },
-  { r:"« Au fond, je pense que c'est la mer qui m'a fait. »",                                        film:"Le Grand Bleu",                         year:1988, wrong:["Subway","La Gloire de mon père","Manon des Sources"] },
-  { r:"« Le monde est à nous… Pour l'instant il est à eux, mais bientôt il sera à nous. »",          film:"37°2 le matin",                         year:1986, wrong:["Tchao Pantin","L'Effrontée","Subway"] },
-  { r:"« Je savais pas qu'on pouvait autant regretter quelqu'un qu'on a jamais eu. »",               film:"La Boum",                               year:1980, wrong:["La Boum 2","L'Effrontée","Diabolo Menthe"] },
-  { r:"« Vous savez ce qu'il a dit le pape ? Il a dit qu'un type comme vous, ça n'existe pas. »",    film:"Les Compères",                          year:1983, wrong:["La Chèvre","Les Fugitifs","Le Jumeau"] },
-  { r:"« Préparez vos mouchoirs, hein… »",                                                           film:"La Chèvre",                             year:1981, wrong:["Les Compères","Les Fugitifs","L'Emmerdeur"] },
-  { r:"« Je suis pas une femme facile. Je suis une femme libre. »",                                  film:"Nikita",                                year:1990, wrong:["Diva","37°2 le matin","Subway"] },
-  { r:"« C'est quand même formidable, le cinéma — même les gens tristes ont l'air heureux. »",       film:"Diva",                                  year:1981, wrong:["Subway","Le Dernier Métro","La Lune dans le caniveau"] },
-  { r:"« La vérité, c'est qu'on n'est jamais prêt pour rien. »",                                     film:"Tenue de soirée",                       year:1986, wrong:["Tchao Pantin","Buffet froid","Trop belle pour toi"] },
-  { r:"« Je n'arrive pas à croire qu'on m'ait mis avec un pareil crétin. »",                         film:"Les Fugitifs",                          year:1986, wrong:["Les Compères","La Chèvre","Le Jumeau"] },
-  { r:"« Je me suis fait tout petit pour que tu sois grand. »",                                      film:"La Gloire de mon père",                 year:1990, wrong:["Le Château de ma mère","Manon des Sources","Jean de Florette"] },
-  { r:"« Les gens qui font attention à leur santé, ils meurent quand même. Mais en bonne santé. »",  film:"Les Visiteurs",                         year:1993, wrong:["Gazon maudit","Le Dîner de cons","Cuisine et Dépendances"] },
-  { r:"« Le foot, c'est simple : t'as le ballon, tu le gardes. T'as pas le ballon, tu le prends. »", film:"Les Randonneurs",                      year:1997, wrong:["Le Bonheur est dans le pré","Gazon maudit","Pédale douce"] },
-  { r:"« L'amour, c'est donner à quelqu'un le pouvoir de te détruire… et lui faire confiance pour qu'il ne le fasse pas. »", film:"L'Appartement", year:1996, wrong:["Le Hussard sur le toit","Ridicule","Ceux qui m'aiment prendront le train"] },
-  { r:"« On vit dans un monde de fous. Le problème, c'est qu'ils sont majoritaires. »",              film:"Ridicule",                              year:1996, wrong:["Le Hussard sur le toit","Beaumarchais","Ceux qui m'aiment prendront le train"] },
-  { r:"« C'est la France profonde, ici. Très profonde. »",                                           film:"Le Bonheur est dans le pré",            year:1995, wrong:["Les Randonneurs","Pédale douce","Gazon maudit"] },
-  { r:"« Je suis une bête de scène et une bête tout court. »",                                       film:"Gazon maudit",                          year:1995, wrong:["Pédale douce","La Vérité si je mens !","Les Randonneurs"] },
-  { r:"« Je suis pas raciste mais… »",                                                               film:"La Vérité si je mens !",                year:1997, wrong:["Métisse","Douce France","Le Bonheur est dans le pré"] },
-  { r:"« T'as vu comment il court le Bidochon ? »",                                                  film:"Les Sous-doués",                        year:1980, wrong:["Les Bronzés","La Boum","L'Année des méduses"] },
-  { r:"« La politique, c'est l'art de se servir des hommes en faisant semblant de les servir. »",    film:"Le Juge et l'Assassin",                 year:1976, wrong:["Section spéciale","La Question","Le Vieux Fusil"] },
-  { r:"« On a deux vies. La deuxième commence quand on réalise qu'on n'en a qu'une. »",              film:"Le Hussard sur le toit",                year:1995, wrong:["Germinal","Ridicule","L'Appartement"] },
-  { r:"« Moi, si je devais résumer ma vie aujourd'hui, je dirais que c'est d'abord des rencontres… »", film:"Les Visiteurs 2",                    year:1998, wrong:["Le Bonheur est dans le pré","Pédale douce","La Vérité si je mens !"] },
-  { r:"« Y'a pas de sot métier, y'a que de sottes gens. »",                                          film:"Papy fait de la résistance",            year:1983, wrong:["Le Père Noël est une ordure","Les Bronzés font du ski","Trois hommes et un couffin"] },
+const Q=[
+  {r:"« Vous avez dit bizarre ? Comme c'est bizarre. »",film:"Drôle de drame",year:1937,wrong:["Hôtel du Nord","La Bête humaine","Quai des brumes"]},
+  {r:"« La vengeance est un plat qui se mange froid. »",film:"Les Tontons flingueurs",year:1963,wrong:["Les Barbouzes","Ne nous fâchons pas","Mélodie en sous-sol"]},
+  {r:"« On n'est pas des sauvages ! On est des incivilisés, nuance. »",film:"Les Visiteurs",year:1993,wrong:["Les Visiteurs 2","Gazon maudit","Le Bonheur est dans le pré"]},
+  {r:"« Jusqu'ici tout va bien… c'est pas la chute qui compte, c'est l'atterrissage. »",film:"La Haine",year:1995,wrong:["Ma 6-T va crack-er","Douce France","Raï"]},
+  {r:"« Je ne suis pas coupable, je suis responsable. »",film:"La Haine",year:1995,wrong:["L'Appartement","Dobermann","Le Péril jeune"]},
+  {r:"« Vous avez mis le doigt sur quelque chose d'essentiel : le con. »",film:"Le Dîner de cons",year:1998,wrong:["Cuisine et Dépendances","Pédale douce","La Vérité si je mens !"]},
+  {r:"« Vous êtes con, monsieur Pignon, mais c'est pas votre faute. »",film:"Le Dîner de cons",year:1998,wrong:["Les Randonneurs","Pédale douce","Gazon maudit"]},
+  {r:"« Envoie les violons ! »",film:"Le Père Noël est une ordure",year:1982,wrong:["Les Bronzés font du ski","Papy fait de la résistance","La Chèvre"]},
+  {r:"« C'est cela, oui. »",film:"Le Père Noël est une ordure",year:1982,wrong:["Les Bronzés","Papy fait de la résistance","Trois hommes et un couffin"]},
+  {r:"« Quand on aime quelqu'un, on lui donne la moitié de son sandwich. »",film:"Les Trois Frères",year:1995,wrong:["Les Visiteurs 2","Didier","Le Bonheur est dans le pré"]},
+  {r:"« T'as d'la chance d'avoir un frère. Moi j'ai une sœur mais c'est pareil. »",film:"Didier",year:1997,wrong:["Les Trois Frères","Le Bonheur est dans le pré","La Vérité si je mens !"]},
+  {r:"« Vous êtes venu sur un vélo et vous repartez sur un taxi… normal. »",film:"L'Aile ou la Cuisse",year:1976,wrong:["La Zizanie","Le Grand Restaurant","L'Avare"]},
+  {r:"« Un patron c'est comme un suppositoire : chaud devant, chaud derrière, et ça fait ch… tout le monde. »",film:"L'Héritier",year:1973,wrong:["Le Magnifique","L'Emmerdeur","Tendre Poulet"]},
+  {r:"« T'as pas cent balles ? »",film:"L'As des as",year:1982,wrong:["Joyeuses Pâques","Le Marginal","Edith et Marcel"]},
+  {r:"« On a tous des raisons d'être fous. C'est pour ça qu'on boit. »",film:"Les Valseuses",year:1974,wrong:["Buffet froid","Série noire","La Dérobade"]},
+  {r:"« La liberté, ça s'apprend. Ça s'apprend comme tout. »",film:"Le Vieux Fusil",year:1975,wrong:["L'Horloger de Saint-Paul","Section spéciale","Le Juge et l'Assassin"]},
+  {r:"« Je veux qu'on m'aime ou qu'on me foute la paix ! »",film:"La Gifle",year:1974,wrong:["Le Mouton enragé","La Chambre verte","Parlez-moi d'amour"]},
+  {r:"« Je préfère être malheureux en première classe que heureux en seconde. »",film:"Subway",year:1985,wrong:["Le Grand Bleu","Nikita","Diva"]},
+  {r:"« Au fond, je pense que c'est la mer qui m'a fait. »",film:"Le Grand Bleu",year:1988,wrong:["Subway","La Gloire de mon père","Manon des Sources"]},
+  {r:"« Le monde est à nous… Pour l'instant il est à eux, mais bientôt il sera à nous. »",film:"37°2 le matin",year:1986,wrong:["Tchao Pantin","L'Effrontée","Subway"]},
+  {r:"« Je savais pas qu'on pouvait autant regretter quelqu'un qu'on a jamais eu. »",film:"La Boum",year:1980,wrong:["La Boum 2","L'Effrontée","Diabolo Menthe"]},
+  {r:"« Vous savez ce qu'il a dit le pape ? Il a dit qu'un type comme vous, ça n'existe pas. »",film:"Les Compères",year:1983,wrong:["La Chèvre","Les Fugitifs","Le Jumeau"]},
+  {r:"« Préparez vos mouchoirs, hein… »",film:"La Chèvre",year:1981,wrong:["Les Compères","Les Fugitifs","L'Emmerdeur"]},
+  {r:"« Je suis pas une femme facile. Je suis une femme libre. »",film:"Nikita",year:1990,wrong:["Diva","37°2 le matin","Subway"]},
+  {r:"« C'est quand même formidable, le cinéma — même les gens tristes ont l'air heureux. »",film:"Diva",year:1981,wrong:["Subway","Le Dernier Métro","La Lune dans le caniveau"]},
+  {r:"« La vérité, c'est qu'on n'est jamais prêt pour rien. »",film:"Tenue de soirée",year:1986,wrong:["Tchao Pantin","Buffet froid","Trop belle pour toi"]},
+  {r:"« Je n'arrive pas à croire qu'on m'ait mis avec un pareil crétin. »",film:"Les Fugitifs",year:1986,wrong:["Les Compères","La Chèvre","Le Jumeau"]},
+  {r:"« Je me suis fait tout petit pour que tu sois grand. »",film:"La Gloire de mon père",year:1990,wrong:["Le Château de ma mère","Manon des Sources","Jean de Florette"]},
+  {r:"« Les gens qui font attention à leur santé, ils meurent quand même. Mais en bonne santé. »",film:"Les Visiteurs",year:1993,wrong:["Gazon maudit","Le Dîner de cons","Cuisine et Dépendances"]},
+  {r:"« Le foot, c'est simple : t'as le ballon, tu le gardes. T'as pas le ballon, tu le prends. »",film:"Les Randonneurs",year:1997,wrong:["Le Bonheur est dans le pré","Gazon maudit","Pédale douce"]},
+  {r:"« L'amour, c'est donner à quelqu'un le pouvoir de te détruire… et lui faire confiance pour qu'il ne le fasse pas. »",film:"L'Appartement",year:1996,wrong:["Le Hussard sur le toit","Ridicule","Ceux qui m'aiment prendront le train"]},
+  {r:"« On vit dans un monde de fous. Le problème, c'est qu'ils sont majoritaires. »",film:"Ridicule",year:1996,wrong:["Le Hussard sur le toit","Beaumarchais","Ceux qui m'aiment prendront le train"]},
+  {r:"« C'est la France profonde, ici. Très profonde. »",film:"Le Bonheur est dans le pré",year:1995,wrong:["Les Randonneurs","Pédale douce","Gazon maudit"]},
+  {r:"« Je suis une bête de scène et une bête tout court. »",film:"Gazon maudit",year:1995,wrong:["Pédale douce","La Vérité si je mens !","Les Randonneurs"]},
+  {r:"« Je suis pas raciste mais… »",film:"La Vérité si je mens !",year:1997,wrong:["Métisse","Douce France","Le Bonheur est dans le pré"]},
+  {r:"« T'as vu comment il court le Bidochon ? »",film:"Les Sous-doués",year:1980,wrong:["Les Bronzés","La Boum","L'Année des méduses"]},
+  {r:"« La politique, c'est l'art de se servir des hommes en faisant semblant de les servir. »",film:"Le Juge et l'Assassin",year:1976,wrong:["Section spéciale","La Question","Le Vieux Fusil"]},
+  {r:"« On a deux vies. La deuxième commence quand on réalise qu'on n'en a qu'une. »",film:"Le Hussard sur le toit",year:1995,wrong:["Germinal","Ridicule","L'Appartement"]},
+  {r:"« Moi, si je devais résumer ma vie aujourd'hui, je dirais que c'est d'abord des rencontres… »",film:"Les Visiteurs 2",year:1998,wrong:["Le Bonheur est dans le pré","Pédale douce","La Vérité si je mens !"]},
+  {r:"« Y'a pas de sot métier, y'a que de sottes gens. »",film:"Papy fait de la résistance",year:1983,wrong:["Le Père Noël est une ordure","Les Bronzés font du ski","Trois hommes et un couffin"]},
 ];
 
-const TIMER = 15;
-const CIRC  = 2 * Math.PI * 33; // ~207.3
+const TIMER=15;
+const CIRC=2*Math.PI*30; // r=30 → ~188.5
+let nameA='Équipe A',nameB='Équipe B';
+let order=[],cur=0,scores=[0,0],answers=[];
+let tInt=null,tLeft=0,optOrder=[],answered=false;
 
-let nameA='Équipe A', nameB='Équipe B';
-let order=[], cur=0, scores=[0,0], answers=[];
-let tInterval=null, tLeft=0;
-let revealed=false, optOrder=[];
-
-function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a; }
-function team(){ return cur%2===0?0:1; }
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function team(){return cur%2===0?0:1;}
 
 function goHome(){
   stopTimer();
@@ -724,31 +482,26 @@ function goHome(){
 }
 
 function startGame(){
-  nameA = document.getElementById('nameA').value.trim()||'Équipe A';
-  nameB = document.getElementById('nameB').value.trim()||'Équipe B';
-  order = shuffle([...Array(Q.length).keys()]);
-  cur=0; scores=[0,0]; answers=[];
-
+  nameA=document.getElementById('nameA').value.trim()||'Équipe A';
+  nameB=document.getElementById('nameB').value.trim()||'Équipe B';
+  order=shuffle([...Array(Q.length).keys()]);
+  cur=0;scores=[0,0];answers=[];
   document.getElementById('screenHome').style.display='none';
   document.getElementById('screenResult').style.display='none';
-  const sg = document.getElementById('screenGame');
-  sg.style.display='flex';
-
-  // DJ name labels
-  ['djNameA','djRmA'].forEach(id=>document.getElementById(id).textContent=nameA);
-  ['djNameB','djRmB'].forEach(id=>document.getElementById(id).textContent=nameB);
-
+  document.getElementById('screenGame').style.display='flex';
+  ['djRmA'].forEach(id=>document.getElementById(id).textContent=nameA);
+  ['djRmB'].forEach(id=>document.getElementById(id).textContent=nameB);
   renderQ();
 }
 
 function renderQ(){
   stopTimer();
-  revealed=false;
+  answered=false;
   const q=Q[order[cur]];
   const total=Q.length;
   const t=team();
 
-  // Scores
+  // Scores & état actif
   document.getElementById('spA').textContent=scores[0];
   document.getElementById('spB').textContent=scores[1];
   document.getElementById('snA').textContent=nameA;
@@ -756,61 +509,54 @@ function renderQ(){
   document.getElementById('sbA').className='score-block'+(t===0?' active-a':'');
   document.getElementById('sbB').className='score-block'+(t===1?' active-b':'');
 
-  // Turn badge
   const tb=document.getElementById('turnBadge');
   tb.textContent=`Tour de ${t===0?nameA:nameB}`;
   tb.className='turn-badge '+(t===0?'a':'b');
 
-  // Progress
   document.getElementById('progFill').style.width=`${(cur/total)*100}%`;
-  document.getElementById('progLabel').textContent=`${cur+1} / ${total}`;
-
-  // Question
+  document.getElementById('progLbl').textContent=`${cur+1} / ${total}`;
   document.getElementById('qNum').textContent=`Question ${cur+1}`;
   document.getElementById('qYear').textContent=`Film de ${q.year}`;
   document.getElementById('qText').textContent=q.r;
 
-  // Animate card
-  const card=document.getElementById('replicaCard');
-  card.style.animation='none'; void card.offsetWidth; card.style.animation='';
+  // Animer carte
+  const card=document.getElementById('qCard');
+  card.style.animation='none';void card.offsetWidth;card.style.animation='';
 
-  // Options
-  optOrder = shuffle([q.film,...q.wrong]);
-  const grid=document.getElementById('optionsGrid');
+  // Construire options cliquables
+  optOrder=shuffle([q.film,...q.wrong]);
+  const grid=document.getElementById('optsGrid');
   grid.innerHTML='';
   ['A','B','C','D'].forEach((l,i)=>{
-    const div=document.createElement('div');
-    div.className='opt'; div.id=`opt${i}`;
-    div.innerHTML=`<span class="opt-letter">${l}</span><span>${optOrder[i]}</span>`;
-    grid.appendChild(div);
+    const d=document.createElement('div');
+    d.className='opt';
+    d.id='opt'+i;
+    d.innerHTML=`<span class="opt-l">${l}</span><span>${optOrder[i]}</span>`;
+    d.addEventListener('click',()=>chooseOpt(i,optOrder[i],q.film));
+    grid.appendChild(d);
   });
 
-  // DJ buttons state
-  document.getElementById('btnReveal').disabled=false;
-  document.getElementById('btnPA').disabled=true;
-  document.getElementById('btnPB').disabled=true;
-  document.getElementById('btnNextQ').disabled=true;
-  document.getElementById('btnNextQ').className=
-    cur===total-1?'btn-dj btn-next-q final':'btn-dj btn-next-q';
-  document.getElementById('btnNextQ').textContent=
-    cur===total-1?'Voir les résultats 🏆':'Suivant →';
+  document.getElementById('feedback').className='feedback';
+  document.getElementById('feedback').textContent='';
+  const bn=document.getElementById('btnNext');
+  bn.disabled=true;
+  bn.className=cur===total-1?'btn-dj btn-nextq final':'btn-dj btn-nextq';
+  bn.textContent=cur===total-1?'Résultats 🏆':'Suivant →';
 
   startTimer();
 }
 
 // ── CHRONO ──
 function startTimer(){
-  tLeft=TIMER; updateChrono(tLeft);
-  tInterval=setInterval(()=>{
+  tLeft=TIMER;updateChrono(tLeft);
+  tInt=setInterval(()=>{
     tLeft--;updateChrono(tLeft);
-    if(tLeft<=0){clearInterval(tInterval);handleTimeout();}
+    if(tLeft<=0){clearInterval(tInt);handleTimeout();}
   },1000);
 }
-function stopTimer(){ clearInterval(tInterval); tInterval=null; }
-
+function stopTimer(){clearInterval(tInt);tInt=null;}
 function updateChrono(t){
-  const arc=document.getElementById('cArc');
-  const num=document.getElementById('cNum');
+  const arc=document.getElementById('cArc'),num=document.getElementById('cNum');
   arc.style.strokeDashoffset=CIRC*(1-t/TIMER);
   num.textContent=t;
   const u=t<=4;
@@ -818,136 +564,123 @@ function updateChrono(t){
   arc.className='c-arc'+(u?' urgent':'');
 }
 
+// ── TEMPS ÉCOULÉ : pas de pénalité ──
 function handleTimeout(){
-  // Don't auto-reveal, just enable DJ controls
-  answers.push({team:team(),replique:Q[order[cur]].r,film:Q[order[cur]].film,year:Q[order[cur]].year,result:'timeout'});
-  document.getElementById('btnReveal').disabled=false;
-  document.getElementById('btnPA').disabled=false;
-  document.getElementById('btnPB').disabled=false;
-  document.getElementById('btnNextQ').disabled=false;
+  if(answered)return;
+  const q=Q[order[cur]];
+  const fb=document.getElementById('feedback');
+  fb.textContent='⏱ Temps écoulé ! Cliquez quand même sur la réponse donnée…';
+  fb.className='feedback show to';
+  document.getElementById('btnNext').disabled=false;
+  answers.push({team:team(),replique:q.r,film:q.film,year:q.year,result:'timeout'});
 }
 
-// ── RÉVÉLER ──
-function revealAnswer(){
+// ── CLIC SUR UNE OPTION ──
+function chooseOpt(idx,chosen,correct){
+  if(answered)return;
+  answered=true;
   stopTimer();
-  revealed=true;
-  const q=Q[order[cur]];
 
-  // Colorier les options
+  const t=team();
+  const isRight=chosen===correct;
+
+  // Colorier toutes les options
   optOrder.forEach((o,i)=>{
-    const el=document.getElementById(`opt${i}`);
+    const el=document.getElementById('opt'+i);
     if(!el)return;
-    el.classList.add(o===q.film?'correct':'timeout');
+    el.classList.add('disabled');
+    if(o===correct) el.classList.add('correct');
+    else if(i===idx && !isRight) el.classList.add('wrong');
+    else el.classList.add('timeout');
   });
 
-  // Overlay
-  document.getElementById('revFilm').textContent=q.film;
-  document.getElementById('revYear').textContent=q.year;
-  document.getElementById('revHint').textContent=q.hint||'';
-  document.getElementById('revealOverlay').classList.add('show');
-
-  document.getElementById('btnReveal').disabled=true;
-  document.getElementById('btnPA').disabled=false;
-  document.getElementById('btnPB').disabled=false;
-  document.getElementById('btnNextQ').disabled=false;
-
-  // Log si pas encore loggé (timeout l'a déjà fait)
-  if(tLeft>0){
-    answers.push({team:team(),replique:q.r,film:q.film,year:q.year,result:'revealed'});
+  // Point automatique si bonne réponse
+  if(isRight){
+    scores[t]++;
+    document.getElementById(t===0?'spA':'spB').textContent=scores[t];
+    // Flash score
+    const sb=document.getElementById(t===0?'sbA':'sbB');
+    sb.style.transform='scale(1.1)';setTimeout(()=>sb.style.transform='',220);
   }
-}
 
-function closeReveal(){
-  document.getElementById('revealOverlay').classList.remove('show');
-}
-
-// ── POINTS DJ ──
-function addPoint(t){
-  scores[t]++;
-  document.getElementById(t===0?'spA':'spB').textContent=scores[t];
-  // Feedback flash
-  const el=document.getElementById(t===0?'sbA':'sbB');
-  el.style.transform='scale(1.08)';
-  setTimeout(()=>el.style.transform='',250);
-  // Update récap si déjà loggé
-  if(answers.length && answers[answers.length-1].result==='revealed'){
-    answers[answers.length-1].result='ok';
-    answers[answers.length-1].team=t;
+  // Feedback
+  const fb=document.getElementById('feedback');
+  const tName=t===0?nameA:nameB;
+  if(isRight){
+    fb.textContent=`✓ Bonne réponse ! +1 point pour ${tName} 🎉`;
+    fb.className='feedback show ok';
+  } else {
+    fb.textContent=`✗ C'était « ${correct } » (${Q[order[cur]].year}).`;
+    fb.className='feedback show ko';
   }
+
+  // Overlay révélation
+  document.getElementById('revLbl').textContent=isRight?'✓ Bonne réponse !':'✗ La bonne réponse était…';
+  document.getElementById('revLbl').style.color=isRight?'var(--correct)':'var(--wrong)';
+  document.getElementById('revOverlay').style.borderColor=isRight?'var(--correct)':'var(--wrong)';
+  document.getElementById('revFilm').textContent=correct;
+  document.getElementById('revYear').textContent=Q[order[cur]].year;
+  document.getElementById('revOverlay').classList.add('show');
+
+  answers.push({team:t,replique:Q[order[cur]].r,film:correct,year:Q[order[cur]].year,result:isRight?'ok':'ko'});
+  document.getElementById('btnNext').disabled=false;
 }
+
+function closeReveal(){document.getElementById('revOverlay').classList.remove('show');}
 
 function removePoint(t){
-  if(scores[t]>0){
-    scores[t]--;
-    document.getElementById(t===0?'spA':'spB').textContent=scores[t];
-  }
+  if(scores[t]>0){scores[t]--;document.getElementById(t===0?'spA':'spB').textContent=scores[t];}
 }
 
-// ── SUIVANT ──
 function nextQuestion(){
-  closeReveal();
-  cur++;
-  if(cur>=Q.length){ showResult(); }
-  else { renderQ(); }
+  closeReveal();cur++;
+  if(cur>=Q.length) showResult();
+  else renderQ();
 }
 
-// ── RÉSULTAT ──
 function showResult(){
   stopTimer();
   document.getElementById('screenGame').style.display='none';
-  const sr=document.getElementById('screenResult');
-  sr.style.display='flex';
+  const sr=document.getElementById('screenResult');sr.style.display='flex';
 
   document.getElementById('rnA').textContent=nameA;
   document.getElementById('rnB').textContent=nameB;
   document.getElementById('rpA').textContent=scores[0];
   document.getElementById('rpB').textContent=scores[1];
 
-  const rA=document.getElementById('rtA');
-  const rB=document.getElementById('rtB');
-  rA.className='r-team a'; rB.className='r-team b';
-  document.getElementById('rpA').className='r-team-pts a';
-  document.getElementById('rpB').className='r-team-pts b';
+  const rA=document.getElementById('rtA'),rB=document.getElementById('rtB');
+  rA.className='r-team a';rB.className='r-team b';
+  document.getElementById('rpA').className='r-pts a';
+  document.getElementById('rpB').className='r-pts b';
 
   let crown,title,sub;
   if(scores[0]>scores[1]){
-    rA.classList.add('winner');
-    document.getElementById('rpA').className='r-team-pts winner-color';
-    crown='🏆'; title=`Victoire de ${nameA} !`;
+    rA.classList.add('winner');document.getElementById('rpA').className='r-pts winner-gold';
+    crown='🏆';title=`Victoire de ${nameA} !`;
     sub=`${nameA} remporte le quiz avec ${scores[0]} point${scores[0]>1?'s':''} contre ${scores[1]}. 🎬🥂`;
   } else if(scores[1]>scores[0]){
-    rB.classList.add('winner');
-    document.getElementById('rpB').className='r-team-pts winner-color';
-    crown='🏆'; title=`Victoire de ${nameB} !`;
+    rB.classList.add('winner');document.getElementById('rpB').className='r-pts winner-gold';
+    crown='🏆';title=`Victoire de ${nameB} !`;
     sub=`${nameB} remporte le quiz avec ${scores[1]} point${scores[1]>1?'s':''} contre ${scores[0]}. 🎬🥂`;
   } else {
-    crown='🤝'; title='Égalité parfaite !';
+    crown='🤝';title='Égalité parfaite !';
     sub=`${scores[0]} points chacun — match nul digne des Tontons flingueurs ! 🍾`;
   }
   document.getElementById('resCrown').textContent=crown;
   document.getElementById('resTitle').textContent=title;
   document.getElementById('resSub').textContent=sub;
 
-  const list=document.getElementById('recapList');
-  list.innerHTML='';
+  const list=document.getElementById('recapList');list.innerHTML='';
   answers.forEach(a=>{
-    const tn=a.team===0?nameA:nameB;
-    const tc=a.team===0?'a':'b';
+    const tn=a.team===0?nameA:nameB,tc=a.team===0?'a':'b';
     const dc=a.result==='ok'?'ok':a.result==='timeout'?'to':'ko';
-    const icon=a.result==='ok'?'✓':a.result==='timeout'?'⏱':'—';
-    const d=document.createElement('div');
-    d.className='ri';
-    d.innerHTML=`<span class="ri-dot ${dc}"></span>
-      <div>
-        <div class="ri-who ${tc}">${tn} — ${icon}</div>
-        <div>${a.replique}</div>
-        <div class="ri-film">${a.film} <span class="ri-yr">(${a.year})</span></div>
-      </div>`;
+    const icon=a.result==='ok'?'✓':a.result==='timeout'?'⏱':'✗';
+    const d=document.createElement('div');d.className='ri';
+    d.innerHTML=`<span class="ri-dot ${dc}"></span><div><div class="ri-who ${tc}">${tn} — ${icon}</div><div>${a.replique}</div><div class="ri-film">${a.film} <span class="ri-yr">(${a.year})</span></div></div>`;
     list.appendChild(d);
   });
 }
 
-// Init
 document.getElementById('screenHome').style.display='flex';
 </script>
 </body>
